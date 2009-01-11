@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+XMLIO
+</name>
+</assembly>
+<members>
+<member name="M:XMLIO.MapContentListsLoader.#ctor(System.String)">
+	<summary>
+ takes a map list file path
+ </summary>
+	<param name="theFile"></param>
+	<remarks></remarks>
+</member><member name="M:XMLIO.MapContentListsLoader.Populate">
+	<summary>
+ populates the mapContentsList object from the specified file
+ </summary>
+	<remarks></remarks>
+</member><member name="T:XMLIO.MapContentListsLoader">
+	<summary>
+ Creates a list of Maps with their relevant content files
+ for use on a level select screen and then to be passed into the game engine
+ </summary>
+	<remarks></remarks>
+</member><member name="M:XMLIO.TileLayersLoader.GetIntArray(System.String)">
+	<summary>
+ Takes a comma seperated string and returns an int array of values
+ </summary>
+	<param name="s"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:XMLIO.TileLayersLoader.GetNextValue(System.String@)">
+	<summary>
+ this takes a reference to a string, returns the next int value and
+ removes that value from the from of the string (along with " " and ,
+ </summary>
+	<param name="s"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:XMLIO.MapObjectsLoader.#ctor(System.String,System.Int32)">
+	<summary>
+ te path doesnt need .xml after it
+ this xml file contains a list of xml files used to buil dthe map
+ </summary>
+	<param name="MapPath"></param>
+	<remarks></remarks>
+</member><member name="M:XMLIO.MapObjectsLoader.Populate">
+	<summary>
+ Populates the MapObjectsObject with the map ofbjects int he file specified in the constructor
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>

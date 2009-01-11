@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tileLayers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tileLayer">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:integer" />
+              <xs:element name="rows" type="xs:integer" />
+              <xs:element name="columns" type="xs:integer" />
+              <xs:element name="tileDims" type="xs:integer" />
+              <xs:element name="layoutArray">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="row" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

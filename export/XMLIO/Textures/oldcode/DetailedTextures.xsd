@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="detailedTextures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="detailedtexture">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:unsignedByte" />
+              <xs:element name="name" type="xs:string" />
+              <xs:element name="alpha" type="xs:unsignedByte" />
+              <xs:element name="red" type="xs:unsignedByte" />
+              <xs:element name="green" type="xs:unsignedByte" />
+              <xs:element name="blue" type="xs:unsignedByte" />
+              <xs:element name="textureIndex" type="xs:unsignedByte" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

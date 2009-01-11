@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maps>
+  <map>
+    <id>0</id>
+    <name>bunny</name>
+    <terrainTypeList>TerrainTypes</terrainTypeList>
+    <generalTextureList>TextureGraphics</generalTextureList>
+    <detailedTextureList>DetailedTextures</detailedTextureList>
+    <generalTileList>GeneralTiles</generalTileList>
+    <detailedTileList>DetailedTiles</detailedTileList>
+    <tileLayers>TileLayers</tileLayers>
+  </map>
+</maps>

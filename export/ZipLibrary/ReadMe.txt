@@ -1,0 +1,1 @@
+This is the Developer's Kit download for DotNetZip v1.6.  Packed on Tue-11-18-2008-214756.65.  Don't forget: DotNetZip is donationware.  http://cheeso.members.winisp.net/DotNetZipDonate.aspx 

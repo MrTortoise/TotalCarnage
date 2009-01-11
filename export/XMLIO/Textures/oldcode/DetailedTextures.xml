@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<detailedTextures TextureGraphics="TextureGraphics">
+  <detailedtexture>
+    <id>0</id>
+    <name>Dirt</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>0</textureIndex>
+  </detailedtexture>
+  
+  <detailedtexture>
+    <id>1</id>
+    <name>Grass</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>1</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>2</id>
+    <name>Ground</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>2</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>3</id>
+    <name>Mud</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>3</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>4</id>
+    <name>Road</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>4</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>5</id>
+    <name>Rock</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>5</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>6</id>
+    <name>Wood</name>
+    <alpha>255</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>6</textureIndex>
+  </detailedtexture>
+
+  <detailedtexture>
+    <id>7</id>
+    <name>Trans</name>
+    <alpha>128</alpha>
+    <red>255</red>
+    <green>255</green>
+    <blue>255</blue>
+    <textureIndex>7</textureIndex>
+  </detailedtexture>
+  
+</detailedTextures>

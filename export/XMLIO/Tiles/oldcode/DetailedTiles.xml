@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<detailedTiles>
+  <detailedTile>
+    <id>0</id>
+    <name>Dirt</name>
+    <generalTile>0</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>1</id>
+    <name>Grass</name>
+    <generalTile>1</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>2</id>
+    <name>Ground</name>
+    <generalTile>2</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>3</id>
+    <name>Mud</name>
+    <generalTile>3</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>4</id>
+    <name>Road</name>
+    <generalTile>5</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>5</id>
+    <name>Rock</name>
+    <generalTile>5</generalTile>
+  </detailedTile>
+  <detailedTile>
+    <id>6</id>
+    <name>Wood</name>
+    <generalTile>6</generalTile>
+  </detailedTile>
+
+  <detailedTile>
+    <id>7</id>
+    <name>trans</name>
+    <generalTile>7</generalTile>
+  </detailedTile>
+</detailedTiles>
