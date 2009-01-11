@@ -12,8 +12,8 @@ Content\TileTextures\mud_texture.xnb
 Content\TileTextures\road_texture.xnb
 Content\TileTextures\rock_texture.xnb
 Content\TileTextures\wood_texture.xnb
+Content\StainlessSteel.xnb
 Content\gamefont.xnb
 Content\menufont.xnb
-Content\StainlessSteel.xnb
 Content\smallmenufont.xnb
 Content\freesans.xnb

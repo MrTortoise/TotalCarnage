@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Custom.Interfaces;
 
 namespace CommonObjects
 {
@@ -9,8 +10,9 @@ namespace CommonObjects
     /// This is a tile specificially used in maps
     /// Adds a terrain property to a Tile and is then used as part of a MapTileLayer
     /// </summary>
-    public class MapTile : Tile, IEquatable<MapTile>
+    public class MapTile : Tile, IEquatable<MapTile> , IAgroGarbageCollection 
     {
+		//Todo Figure out how switching logic would work for map tiles with several animations
 		//Todo Implement IAgroGarbageCollection
         #region Fields
         protected TerrainType  mTerrainType;
@@ -32,7 +34,9 @@ namespace CommonObjects
                 updatePeriod, theRotation,theAnimationType )
         {
             mTerrainType = theTerrainType;
-        }
+		}
+
+
 
         #endregion
 
@@ -98,11 +102,39 @@ namespace CommonObjects
         #endregion
         #endregion
 
+ 
+		#region	IAgroGarbageCollection Members
+
+		bool IAgroGarbageCollection.IsDisposed
+		{
+			get	{ throw	new	NotImplementedException(); }
+		}
+
+		int	IAgroGarbageCollection.NoReferences
+		{
+			get	{ throw	new	NotImplementedException(); }
+		}
+
+		void IAgroGarbageCollection.AddReference()
+		{
+			throw new NotImplementedException();
+		}
+
+		void IAgroGarbageCollection.RemoveReference()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion 
+		#region IDisposable Members
+
+		void IDisposable.Dispose()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
 
 
-
-
-
-        
-    }
+	}
 }

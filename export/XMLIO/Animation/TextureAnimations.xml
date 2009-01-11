@@ -1,47 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<textureAnimations>
-  <textureAnimation>
-    <id>0</id>
-    <name>spriteSheetTest</name>
-    <GeneralTextureID>10</GeneralTextureID>
-    <noFrames>5</noFrames>
-    <noLoops>0</noLoops>   
-    <animation>
-      <item><x>0</x><y>0</y></item>
-      <item><x>1</x><y>0</y></item>
-      <item><x>2</x><y>0</y></item>
-      <item><x>3</x><y>0</y></item>
-      <item><x>4</x><y>0</y></item>
-    </animation>
-  </textureAnimation>
-  
-  <textureAnimation>
-    <id>1</id>
-    <name>Wall</name>
-    <GeneralTextureID>8</GeneralTextureID>
-    <noFrames>1</noFrames>
-    <noLoops>0</noLoops>
-    <animation>
-      <item>
-        <x>0</x>
-        <y>0</y>
-      </item>
-    </animation>
-  </textureAnimation>
-
-  <textureAnimation>
-    <id>2</id>
-    <name>Corner</name>
-    <GeneralTextureID>9</GeneralTextureID>
-    <noFrames>1</noFrames>
-    <noLoops>0</noLoops>
-    <animation>
-      <item>
-        <x>0</x>
-        <y>0</y>
-      </item>
-    </animation>
-  </textureAnimation>
-      
-</textureAnimations>
+<animations>
+	<animation>
+		<name>test</name>
+		<id>0</id>
+		<texture>0</texture>
+		<noLoops>1</noLoops>
+		<updatePeriod>100</updatePeriod>
+		<sequence>
+			<frame>
+				<x>0</x>
+				<y>0</y>
+			</frame>
+			<frame>
+				<x>1</x>
+				<y>0</y>
+			</frame>
+			<frame>
+				<x>2</x>
+				<y>0</y>
+			</frame>
+		</sequence>		
+	</animation>
+	<animation>
+		<name>test2</name>
+		<id>1</id>
+		<texture>0</texture>
+		<noLoops>1</noLoops>
+		<updatePeriod>100</updatePeriod>
+		<sequence>
+			<frame>
+				<x>1</x>
+				<y>0</y>
+			</frame>
+			<frame>
+				<x>1</x>
+				<y>2</y>
+			</frame>
+		</sequence>
+	</animation>
+</animations>

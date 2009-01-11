@@ -23,3 +23,5 @@ D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TheGameEngine\bin\x86\Debug\
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TheGameEngine\bin\x86\Debug\XMLIO.dll
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TheGameEngine\bin\x86\Debug\XMLIO.pdb
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TheGameEngine\bin\x86\Debug\XMLIO.xml
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TheGameEngine\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TheGameEngine\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt

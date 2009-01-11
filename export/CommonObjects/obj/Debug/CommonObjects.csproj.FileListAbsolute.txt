@@ -12,3 +12,17 @@ D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\CommonObjects\bin\Debug\Cust
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\CommonObjects\bin\Debug\Ionic.Utils.Zip.dll
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\CommonObjects\bin\Debug\Ionic.Utils.Zip.pdb
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\CommonObjects\bin\Debug\Ionic.Utils.Zip.xml
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\CommonObjects.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\CommonObjects.pdb
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Custom.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Ionic.Utils.Zip.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Custom.pdb
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Ionic.Utils.Zip.pdb
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\bin\Debug\Ionic.Utils.Zip.xml
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\obj\Debug\CommonObjects.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\CommonObjects\obj\Debug\CommonObjects.pdb

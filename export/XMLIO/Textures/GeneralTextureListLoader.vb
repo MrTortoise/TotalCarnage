@@ -61,38 +61,38 @@ Public Class GeneralTextureListLoader
 	End Sub
 
 
-	Public ReadOnly Property Messagelog() As StringBuilder Implements ILoader.Messagelog
-		Get
-			Return mMessageLog
-		End Get
-	End Property
+	'Public ReadOnly Property Messagelog() As StringBuilder Implements ILoader.Messagelog
+	'	Get
+	'		Return mMessageLog
+	'	End Get
+	'End Property
 
-	Public ReadOnly Property IsValid() As Boolean Implements ILoader.IsValid
-		Get
-			Return mValid
-		End Get
-	End Property
+	'Public ReadOnly Property IsValid() As Boolean Implements ILoader.IsValid
+	'	Get
+	'		Return mValid
+	'	End Get
+	'End Property
 
-	Public Function ValidateAgainstSchema(ByVal filePath As String) As Boolean Implements ILoader.ValidateAgainstSchema
-		Dim schemaPath As String = CurDir() & "/textures/GeneralTextures.xsd"
-		Dim document As String
+	'Public Function ValidateAgainstSchema(ByVal filePath As String) As Boolean Implements ILoader.ValidateAgainstSchema
+	'	Dim schemaPath As String = CurDir() & "/textures/GeneralTextures.xsd"
+	'	Dim document As String
 
-		Dim settings As New XmlReaderSettings()
-		settings.Schemas.Add("http://www.totalcarnage.org/GeneralTextureList", schemaPath)
-		AddHandler settings.ValidationEventHandler, AddressOf ValidationCallback
+	'	Dim settings As New XmlReaderSettings()
+	'	settings.Schemas.Add("http://www.totalcarnage.org/GeneralTextureList", schemaPath)
+	'	AddHandler settings.ValidationEventHandler, AddressOf ValidationCallback
 
-		If filePath = "" Then
-			document=
-		Else
+	'	If filePath = "" Then
+	'		document=
+	'	Else
 
-		End If
-	End Function
+	'	End If
+	'End Function
 
-	Private Sub ValidationCallback(ByVal sender As Object, ByVal args As  _
-	   ValidationEventArgs)
+	'Private Sub ValidationCallback(ByVal sender As Object, ByVal args As  _
+	'   ValidationEventArgs)
 
-		mValid = False
-		Messagelog.AppendLine(args.Message)
+	'	mValid = False
+	'	Messagelog.AppendLine(args.Message)
 
-	End Sub
+	'End Sub
 End Class

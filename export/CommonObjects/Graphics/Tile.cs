@@ -22,8 +22,8 @@ namespace CommonObjects
 		IEnumerator<TextureAnimationInstance>, IAgroGarbageCollection, ICloneable
 	{
 		#region Fields
-		private string mName;
-		private int mID;
+		protected  string mName;
+		protected  int mID;
 
 		protected int mCurrentAnimationID;
 		protected int mNextAnimationID = -1;
@@ -91,6 +91,7 @@ namespace CommonObjects
 			RotationManager temp = new RotationManager();
 			mRotation = temp.GetAbsRotation(theRotation);
 		}
+
 
 		#endregion
 
@@ -459,7 +460,7 @@ namespace CommonObjects
 		#endregion
 		#region IDisposable Members
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 
 			if (mNoReferences == 0)
@@ -469,7 +470,7 @@ namespace CommonObjects
 			}
 		}
 
-		private void Dispose(bool disposing)
+		protected virtual void Dispose(bool disposing)
 		{
 			if (!mIsDisposed)
 			{
@@ -497,7 +498,7 @@ namespace CommonObjects
 		#endregion
 		#region	ICloneable Members
 
-		public object Clone()
+		public virtual object Clone()
 		{
 			Tile temp = new Tile(mName, mID);
 			foreach (TextureAnimationInstance ta in mTextureAnimations)
@@ -536,12 +537,12 @@ namespace CommonObjects
 
 
 
-		protected void Subscribe(TextureAnimationInstance textureAnimationInstance)
+		protected virtual void Subscribe(TextureAnimationInstance textureAnimationInstance)
 		{
 			textureAnimationInstance.OnAnimationfinished += new TextureAnimationInstance.AnimationFinishedhandler(textureAnimationInstance_OnAnimationfinished);
 		}
 
-		public void textureAnimationInstance_OnAnimationfinished(TextureAnimationInstance textureAnimationInstance)
+		public virtual void textureAnimationInstance_OnAnimationfinished(TextureAnimationInstance textureAnimationInstance)
 		{
 			//check that the animation is the ctive one - it is possible to share animations 
 			if (textureAnimationInstance.Equals(mTextureAnimations[mCurrentAnimationID]))

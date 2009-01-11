@@ -33,17 +33,21 @@ Public Class TextureAnimationLoader
     Public Sub Populate() Implements ILoader.Populate
         Dim theTextureAnimation As TextureAnimation
 
-        Dim mTextureAnimationsLINQ = From ta In docAnimations...<textureAnimation> _
-                                     Select mid = CInt(ta.<id>.Value), mName = ta.<name>.Value, _
-                                        mNoFrames = CInt(ta.<noFrames>.Value), mNoLoops = CInt(ta.<noLoops>.Value), _
-                                        mGenTexID = CInt(ta.<GeneralTextureID>.Value), _
-                                        tAnimation = ta.<animation>
+		Dim mTextureAnimationsLINQ = From ta In docAnimations...<textureAnimation> _
+		  Select mid = CInt(ta.<id>.Value), _
+		  mName = ta.<name>.Value, _
+		  mNoFrames = CInt(ta.<noFrames>.Value), _
+		  mNoLoops = CInt(ta.<noLoops>.Value), _
+		  mUpdatePeriod = CInt(ta.<noFrames>.Value), _
+		  mGenTexID = CInt(ta.<GeneralTextureID>.Value), _
+		  tAnimation = ta.<animation>
 
 
         Dim id As Integer
         Dim name As String
         Dim noFrames As Integer
-        Dim noLoops As Integer
+		Dim noLoops As Integer
+		Dim updatePeriod As Integer
 
         Dim GenTexID As Integer
 
@@ -53,14 +57,16 @@ Public Class TextureAnimationLoader
             id = ta.mid
             name = ta.mName
             noFrames = ta.mNoFrames
-            noLoops = ta.mNoLoops
+			noLoops = ta.mNoLoops
+			updatePeriod = ta.mUpdatePeriod
 
             GenTexID = ta.mGenTexID
 
             coords = New List(Of Vector2)()
 
-            Dim mAnimation = From an In ta.tAnimation...<item> _
-                             Select x = CInt(an.<x>.Value), y = CInt(an.<y>.Value)
+			Dim mAnimation = From an In ta.tAnimation...<item> _
+							 Select x = CInt(an.<x>.Value), y = CInt(an.<y>.Value)
+
 
             For Each an In mAnimation
                 coords.Add(New Vector2(an.x, an.y))
@@ -68,15 +74,12 @@ Public Class TextureAnimationLoader
             If (mGeneralTextures.Contains(GenTexID) = False) Then
                 Throw New Exception("tried to add texture animations that have no corresponding generalTexture")
             End If
-            theTextureAnimation = New TextureAnimation(name, id, mGeneralTextures.GetByID(GenTexID), noLoops, coords)
+			theTextureAnimation = New TextureAnimation(name, id, mGeneralTextures.GetByID(GenTexID), noLoops, New TimeSpan(0, 0, 0, 0, updatePeriod), coords)
 
             mTextureAnimations.AddAnimation(theTextureAnimation)
         Next
 
-    End Sub
-
-
-
+	End Sub
 
 
 End Class

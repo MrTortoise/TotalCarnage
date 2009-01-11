@@ -6,50 +6,59 @@ XMLIO
 </name>
 </assembly>
 <members>
-<member name="M:XMLIO.MapContentListsLoader.#ctor(System.String)">
+<member name="P:XMLIO.My.Resources.Resources.ResourceManager">
 	<summary>
- takes a map list file path
- </summary>
-	<param name="theFile"></param>
-	<remarks></remarks>
-</member><member name="M:XMLIO.MapContentListsLoader.Populate">
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.Culture">
 	<summary>
- populates the mapContentsList object from the specified file
- </summary>
-	<remarks></remarks>
-</member><member name="T:XMLIO.MapContentListsLoader">
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.GeneralTexturesXML">
 	<summary>
- Creates a list of Maps with their relevant content files
- for use on a level select screen and then to be passed into the game engine
- </summary>
-	<remarks></remarks>
-</member><member name="M:XMLIO.TileLayersLoader.GetIntArray(System.String)">
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;textures&gt;
+	&lt;texture&gt;
+		&lt;id&gt;0&lt;/id&gt;
+		&lt;name&gt;Dirt&lt;/name&gt;
+		&lt;path&gt;\Textures\dirt_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/texture&gt;
+	&lt;texture&gt;
+		&lt;id&gt;1&lt;/id&gt;
+		&lt;name&gt;Grass&lt;/name&gt;
+		&lt;path&gt;\Textures\grass_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/texture&gt;
+	&lt;texture&gt;
+		&lt;id&gt;2&lt;/id&gt;
+		&lt;name&gt;Ground&lt;/name&gt;
+		&lt;path&gt;\Textures\ground_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/text [rest of string was truncated]";.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.GeneralTexturesXSD">
 	<summary>
- Takes a comma seperated string and returns an int array of values
- </summary>
-	<param name="s"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:XMLIO.TileLayersLoader.GetNextValue(System.String@)">
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="textures"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element maxOccurs="unbounded" name="texture"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="id" type="xs:integer" /&gt;
+              &lt;xs:element name="name" type="xs:string" /&gt;
+              &lt;xs:element name="path" type= [rest of string was truncated]";.
+</summary>
+</member><member name="T:XMLIO.My.Resources.Resources">
 	<summary>
- this takes a reference to a string, returns the next int value and
- removes that value from the from of the string (along with " " and ,
- </summary>
-	<param name="s"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:XMLIO.MapObjectsLoader.#ctor(System.String,System.Int32)">
-	<summary>
- te path doesnt need .xml after it
- this xml file contains a list of xml files used to buil dthe map
- </summary>
-	<param name="MapPath"></param>
-	<remarks></remarks>
-</member><member name="M:XMLIO.MapObjectsLoader.Populate">
-	<summary>
- Populates the MapObjectsObject with the map ofbjects int he file specified in the constructor
- </summary>
-	<remarks></remarks>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
 </member>
 </members>
 </doc>

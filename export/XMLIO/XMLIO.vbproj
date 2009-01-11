@@ -70,15 +70,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tiles\MapTileLoader.vb" />
     <Compile Include="Animation\TextureAnimationLoader.vb" />
-    <Compile Include="Tiles\oldcode\DetailedTileListLoader.vb" />
     <Compile Include="Interfaces\ILoader.vb" />
-    <Compile Include="Maps\MapContentListsLoader.vb" />
-    <Compile Include="Maps\MapObjectsLoader.vb" />
-    <Compile Include="Tiles\oldcode\TileLayersLoader.vb" />
-    <Compile Include="Textures\oldcode\DetailedTextureLoader.vb" />
-    <Compile Include="Tiles\oldcode\generalTileListLoader.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -109,22 +102,7 @@
     <EmbeddedResource Include="Textures\GeneralTextures.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Maps\MapObjectList.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Animation\TextureAnimations.xsd" />
-    <None Include="TextureAnimations.xsd" />
-    <None Include="Tiles\MapTiles.xsd" />
-    <None Include="Tiles\oldcode\TileLayers.xsd" />
-    <None Include="Tiles\oldcode\DetailedTile.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Tiles\oldcode\GeneralTiles.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Textures\oldcode\DetailedTextures.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -143,14 +121,6 @@
     <Content Include="Textures\GeneralTextures.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Maps\MapDescriptions.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Maps\Map.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Animation\TextureAnimations.xml" />
-    <Content Include="Tiles\MapTiles.xml" />
     <Content Include="Textures\images\16tile03.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -172,25 +142,13 @@
     <Content Include="Textures\images\wood_texture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tiles\oldcode\TileLayers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Tiles\oldcode\DetailedTiles.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Tiles\oldcode\GeneralTiles.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Textures\oldcode\DetailedTextures.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="TerrainTypes\TerrainTypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\images\dirt_texture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TextureAnimations.xml" />
+    <Content Include="Animation\TextureAnimations.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonObjects\CommonObjects.csproj">
@@ -201,10 +159,6 @@
       <Project>{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}</Project>
       <Name>Custom</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Animations\" />
-    <Folder Include="Editor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

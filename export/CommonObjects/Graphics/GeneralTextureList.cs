@@ -143,6 +143,25 @@ namespace CommonObjects
             }
         }
 
+		/// <summary>
+		/// Gets the general texture in the list with the corresponding ID
+		/// <para>returns null if not found</para>
+		/// </summary>
+		/// <param name="ID"></param>
+		/// <returns>The GeneralTexture with the ID
+		/// <para>if none found then returns null</para></returns>
+		public GeneralTexture GetByID(int ID)
+		{
+			foreach (GeneralTexture gt in mTextures)
+			{
+				if (gt.ID == ID)
+				{
+					return gt;
+				}
+			}
+				return null;
+		}
+
         /// <summary>
         /// Adds a general texture to the list
         /// The texture id must = the added items index

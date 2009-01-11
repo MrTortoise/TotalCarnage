@@ -3,3 +3,8 @@ D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\NonGameObjects\bin\Debug\Non
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\NonGameObjects\bin\Debug\NonGameObjects.pdb
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\NonGameObjects\obj\Debug\NonGameObjects.dll
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\NonGameObjects\obj\Debug\NonGameObjects.pdb
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\NonGameObjects\bin\Debug\NonGameObjects.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\NonGameObjects\bin\Debug\NonGameObjects.pdb
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\NonGameObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\NonGameObjects\obj\Debug\NonGameObjects.dll
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\NonGameObjects\obj\Debug\NonGameObjects.pdb
