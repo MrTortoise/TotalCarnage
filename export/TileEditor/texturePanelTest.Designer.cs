@@ -33,7 +33,7 @@
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
-			this.texturesPanel1 = new Custom.Controls.TexturesPanel();
+			this.texturesPanel1 = new TexturesPanel();
 			this.SuspendLayout();
 			// 
 			// textBox1
@@ -110,6 +110,6 @@
 		private System.Windows.Forms.TextBox textBox3;
 		private System.Windows.Forms.TextBox textBox4;
 		private System.Windows.Forms.Button button1;
-		private Custom.Controls.TexturesPanel texturesPanel1;
+		private TexturesPanel texturesPanel1;
 	}
 }

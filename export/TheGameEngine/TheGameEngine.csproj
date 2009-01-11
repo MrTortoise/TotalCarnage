@@ -98,7 +98,6 @@
     <Compile Include="TextureItem.cs" />
     <Compile Include="TextureTranslator.cs" />
     <Compile Include="TheGame.cs" />
-    <Compile Include="Tile.cs" />
     <Compile Include="TileSet.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +147,7 @@
     <Folder Include="maps\TerrainTypes\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-              <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

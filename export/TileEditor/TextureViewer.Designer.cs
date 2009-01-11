@@ -34,7 +34,7 @@
 			this.textureFilesList = new System.Windows.Forms.ListView();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.listViewContainer = new System.Windows.Forms.Panel();
-			this.texturesPanel1 = new Custom.Controls.TexturesPanel();
+			this.texturesPanel1 = new TexturesPanel();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.listViewContainer.SuspendLayout();
 			this.SuspendLayout();
@@ -128,7 +128,7 @@
 		private System.Windows.Forms.ListView textureFilesList;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Panel listViewContainer;
-		private Custom.Controls.TexturesPanel texturesPanel1;
+		private TexturesPanel texturesPanel1;
 
 	}
 }
