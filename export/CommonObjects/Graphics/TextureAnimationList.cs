@@ -8,6 +8,10 @@ using System.Threading;
 
 namespace CommonObjects
 {
+	/// <summary>
+	/// This is a container for TextureAnimations. 
+	/// To be used for batch operations accross many TextureAnimations Eg Load
+	/// </summary>
     public class TextureAnimationList : IEquatable<TextureAnimationList>, IAgroGarbageCollection 
     {
         #region fields

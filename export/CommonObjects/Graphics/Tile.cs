@@ -12,10 +12,11 @@ using Custom.Maths;
 
 namespace CommonObjects
 {
-    /// <summary>
+    /// <summary>	/// 
     /// This object draws and updates an individual tile
     /// It also provides a base for derrived tile types 
     /// to provide their own animation Methods
+	/// Basically contains the data necessary for animation state management
     /// </summary>
 	public class Tile : ISpriteBatchDrawable, IEquatable<Tile>, IEnumerable<TextureAnimationInstance>,
 		IEnumerator<TextureAnimationInstance>, IAgroGarbageCollection, ICloneable

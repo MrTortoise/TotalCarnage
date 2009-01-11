@@ -13,6 +13,12 @@ using Custom.Exceptions;
 namespace CommonObjects
 {
     //ToDo: add an initial time offset to the animation to allow ripple effects
+	/// <summary>
+	/// This class is created by a TextureAnimation in order for each element in a Tile to be unique. 
+	/// <para>It is essentially a wrapper around the TextureAnimation to provide properties 
+	/// that enable its animation to be independant. 
+	/// This will be necessary as part of the ripple implementation</para>
+	/// </summary>
     public class TextureAnimationInstance : 
         IEquatable<TextureAnimationInstance>, 
         IAgroGarbageCollection, 
@@ -321,41 +327,44 @@ namespace CommonObjects
             return mAnimation.GetRectangleForFrame(CurrentFrame);
         }
 
-         #region overrided members
 
-        /// <summary>
-        /// returns the Animations Name, ID and NoFrames
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            StringBuilder retVal = new StringBuilder();
-            retVal.AppendLine("Texture Animation Instance No Frames : " + mNoFrames.ToString() + ", Current Frame: " +
-                mCurrentFrame.ToString() + ", NoLoops: " + mNoLoops.ToString() + ", current Loop: " +
-                mLoopCount.ToString()  + ", Current Frame: " + mCurrentFrame.ToString());            
-            retVal.AppendLine("texture Animation Name: " + mAnimation.Name.ToString() + ", ID: " + mAnimation.ID.ToString());            
-            return retVal.ToString();
-        }
 
-        public override int GetHashCode()
-        {
-            Int64 temp;
-            temp = mNoFrames.GetHashCode() + mNoLoops.GetHashCode() + mUpdatePeriod.GetHashCode() + mAnimation.GetHashCode();
-            return temp.GetHashCode();
-        }
+        #endregion 
+		#region overrided methods
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-            { return false; }
+		/// <summary>
+		/// returns the Animations Name, ID and NoFrames
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			StringBuilder retVal = new StringBuilder();
+			retVal.AppendLine("Texture Animation Instance No Frames : " + mNoFrames.ToString() + ", Current Frame: " +
+				mCurrentFrame.ToString() + ", NoLoops: " + mNoLoops.ToString() + ", current Loop: " +
+				mLoopCount.ToString() + ", Current Frame: " + mCurrentFrame.ToString());
+			retVal.AppendLine("texture Animation Name: " + mAnimation.Name.ToString() + ", ID: " + mAnimation.ID.ToString());
+			return retVal.ToString();
+		}
 
-            TextureAnimationInstance temp = obj as TextureAnimationInstance;
-            if (this.Equals(temp))
-            { return true; }
-            else { return false; }
-        }
+		public override int GetHashCode()
+		{
+			Int64 temp;
+			temp = mNoFrames.GetHashCode() + mNoLoops.GetHashCode() + mUpdatePeriod.GetHashCode() + mAnimation.GetHashCode();
+			return temp.GetHashCode();
+		}
 
-        #endregion
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{ return false; }
+
+			TextureAnimationInstance temp = obj as TextureAnimationInstance;
+			if (this.Equals(temp))
+			{ return true; }
+			else { return false; }
+		}
+
+		#endregion
 
 		#region IGameUpdateable Members
 
@@ -507,8 +516,6 @@ namespace CommonObjects
 
 
 		#endregion	  
-
-        #endregion 
 
         
 	}

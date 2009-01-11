@@ -28,3 +28,5 @@ D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TileEditor\bin\Debug\CustomC
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TileEditor\obj\Debug\TileEditor.texturePanelTest.resources
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TileEditor\obj\Debug\TileEditor.CreateNewGrpFile.resources
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TileEditor\obj\Debug\TileEditor.GroupFileManager.resources
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TileEditor\obj\Debug\TileEditor.exe
+D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TileEditor\obj\Debug\TileEditor.pdb

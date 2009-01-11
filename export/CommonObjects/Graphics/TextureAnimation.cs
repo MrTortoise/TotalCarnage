@@ -11,7 +11,11 @@ using Custom.Interfaces;
 namespace CommonObjects
 {
     /// <summary>
+	/// This class essentially describes a sequence of coordinates that point to a cell in a GeneralTexture
+	/// Also defines a number of loops it does in 1 complete cycle of animation.
     /// assumes that all items in the animation are the same size.
+	/// <para>Remember to call Add References on this object everytime an object references it - and also to remove references 
+	/// in order for the AgroGarbageCollection to work</para>
     /// </summary>
     public class TextureAnimation : IEquatable<TextureAnimation>, IAgroGarbageCollection  
     {
@@ -30,8 +34,6 @@ namespace CommonObjects
         protected bool mIsDisposed = false;
 
 		protected object referencesLock = new object();
-
-
 
         #region Constructors
 		/// <summary>
@@ -118,10 +120,12 @@ namespace CommonObjects
         /// </summary>
         public int ID
         { get { return mID; }
-            set
+        /*    
+			set
             {
                 mID = value;
             }
+		 */
         }
 
         /// <summary>
