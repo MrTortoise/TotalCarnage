@@ -297,7 +297,8 @@ namespace CommonObjects
         private void Dispose(bool disposing)
         {
             if (disposing)
-            {                
+            { 
+				//Todo make GC MultiThreaded
                 mTexture.Dispose();               
             }
             mDisposed = true;

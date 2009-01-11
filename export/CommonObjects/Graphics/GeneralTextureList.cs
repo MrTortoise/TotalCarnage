@@ -339,55 +339,7 @@ namespace CommonObjects
         #endregion
         #region IDisposable Members
 
-        /// <summary>
-        /// this will dispose of all the textures in the list also
-        /// </summary>
-        public void Dispose()
-        {
-			if (mNoReferences == 0)
-			{
-				Dispose(true);
-				GC.SuppressFinalize(this);
-			}
-			else
-			{
-				throw new GCObjectStillHasReferencesException("Tried to dispose of GeneralTextureList that stil lhas references", this);
-			}
-        }
 
-        /// <summary>
-        /// tries to dispose each generalTexture then clears the list
-        /// if called manually
-        /// </summary>
-        /// <param name="val"></param>
-        protected virtual void Dispose(bool val)
-        {
-			if (mIsDisposed == false)
-			{
-				foreach (GeneralTexture gt in mTextures)
-				{
-					gt.RemoveReference();
-					if (val == true)
-					{
-						try
-						{
-							gt.Dispose();
-						}
-						catch (GCObjectStillHasReferencesException e)
-						{
-							throw new GCObjectStillHasReferencesException("Disposal of General Texture in GeneralTexture list Through Still has references exception", this, e);
-						}
-
-					}
-				}
-				mIsDisposed = true;
-			}
-        }
-
-        ~GeneralTextureList()
-        {
-            Dispose(false);
-        }
 
         #endregion
         #region IEnumerator Members
@@ -458,12 +410,58 @@ namespace CommonObjects
 
         #endregion
 
+	 		#region IAgroGarbageCollection Members
 
+		/// <summary>
+		/// this will dispose of all the textures in the list also
+		/// </summary>
+		public void Dispose()
+		{
+			if (mNoReferences == 0)
+			{
+				Dispose(true);
+				GC.SuppressFinalize(this);
+			}
+			else
+			{
+				throw new GCObjectStillHasReferencesException("Tried to dispose of GeneralTextureList that stil lhas references", this);
+			}
+		}
 
+		/// <summary>
+		/// tries to dispose each generalTexture then clears the list
+		/// if called manually
+		/// <para>threadsafe</para>
+		/// </summary>
+		/// <param name="val"></param>
+		protected virtual void Dispose(bool val)
+		{
+			if (mIsDisposed == false)
+			{
+				foreach (GeneralTexture gt in mTextures)
+				{
+					gt.RemoveReference();
+					if (val == true)
+					{
+						try
+						{								
+							gt.Dispose();
+						}
+						catch (GCObjectStillHasReferencesException e)
+						{
+							throw new GCObjectStillHasReferencesException("Disposal of General Texture in GeneralTexture list Through Still has references exception", this, e);
+						}
 
+					}
+				}
+				mIsDisposed = true;
+			}
+		}
 
-
-		#region IAgroGarbageCollection Members
+		~GeneralTextureList()
+		{
+			Dispose(false);
+		}
 
 		public bool IsDisposed
 		{

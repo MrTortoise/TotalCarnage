@@ -361,6 +361,9 @@ namespace CommonObjects
 			get { return mNoReferences; }
 		}
 
+		/// <summary>
+		/// Disposes of itself and attempts to dispose anything attached
+		/// </summary>
         public void Dispose()
         {
 			if (mNoReferences == 0)
@@ -378,6 +381,7 @@ namespace CommonObjects
             {
                 if (disposed)
                 {
+					//ToDO: enforce checking of references before trying to GC
                     mAnimationSequence.Clear();
                     mGenTex.RemoveReference();
                     mGenTex.Dispose();
