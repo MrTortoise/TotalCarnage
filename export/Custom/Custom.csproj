@@ -59,24 +59,8 @@
     <Compile Include="ConfigFile\ConfigFileLoader.cs" />
     <Compile Include="ConfigFile\ConfigFileValidator.cs" />
     <Compile Include="ConfigFile\ConfigSection.cs" />
-    <Compile Include="Controls\ImageGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ImageGrid.Designer.cs">
-      <DependentUpon>ImageGrid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TextureCell.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TextureCell.Designer.cs">
-      <DependentUpon>TextureCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TexturesPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TexturesPanel.Designer.cs">
-      <DependentUpon>TexturesPanel.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\Icons\IconHelper.cs" />
+    <Compile Include="Controls\Icons\IconListManager.cs" />
     <Compile Include="Dialogue\DialogueSelectDirectory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,15 +81,6 @@
     <Compile Include="Zip\ZipFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ImageGrid.resx">
-      <DependentUpon>ImageGrid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TextureCell.resx">
-      <DependentUpon>TextureCell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TexturesPanel.resx">
-      <DependentUpon>TexturesPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogue\DialogueSelectDirectory.resx">
       <DependentUpon>DialogueSelectDirectory.cs</DependentUpon>
     </EmbeddedResource>

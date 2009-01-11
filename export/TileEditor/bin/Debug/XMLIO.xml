@@ -1,0 +1,64 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+XMLIO
+</name>
+</assembly>
+<members>
+<member name="P:XMLIO.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.GeneralTexturesXML">
+	<summary>
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;textures&gt;
+	&lt;texture&gt;
+		&lt;id&gt;0&lt;/id&gt;
+		&lt;name&gt;Dirt&lt;/name&gt;
+		&lt;path&gt;\Textures\dirt_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/texture&gt;
+	&lt;texture&gt;
+		&lt;id&gt;1&lt;/id&gt;
+		&lt;name&gt;Grass&lt;/name&gt;
+		&lt;path&gt;\Textures\grass_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/texture&gt;
+	&lt;texture&gt;
+		&lt;id&gt;2&lt;/id&gt;
+		&lt;name&gt;Ground&lt;/name&gt;
+		&lt;path&gt;\Textures\ground_texture.jpg&lt;/path&gt;
+		&lt;noColumns&gt;1&lt;/noColumns&gt;
+		&lt;noRows&gt;1&lt;/noRows&gt;
+	&lt;/text [rest of string was truncated]";.
+</summary>
+</member><member name="P:XMLIO.My.Resources.Resources.GeneralTexturesXSD">
+	<summary>
+  Looks up a localized string similar to &lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="textures"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element maxOccurs="unbounded" name="texture"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="id" type="xs:integer" /&gt;
+              &lt;xs:element name="name" type="xs:string" /&gt;
+              &lt;xs:element name="path" type= [rest of string was truncated]";.
+</summary>
+</member><member name="T:XMLIO.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
