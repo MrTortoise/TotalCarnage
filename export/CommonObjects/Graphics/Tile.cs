@@ -21,6 +21,7 @@ namespace CommonObjects
 	public class Tile : ISpriteBatchDrawable, IEquatable<Tile>, IEnumerable<TextureAnimationInstance>,
 		IEnumerator<TextureAnimationInstance>, IAgroGarbageCollection, ICloneable
 	{
+		//ToDo Multithread references. Are you really sure this needs to be multi threaded? - small loss, big gain?
 		#region Fields
 		protected  string mName;
 		protected  int mID;

@@ -94,54 +94,7 @@ namespace CommonObjects
 
         #region public methods
 
-        /// <summary>
-        /// whenever an object adds a reference to this object this method should be called
-        /// This is to facilitate Aggressive Garbage Collection
-		/// <para>threadSafe</para>
-        /// </summary>
-        public void AddReference()
-        {
-			try
-			{
-				Monitor.Enter(referenceLock);
-				mNoReferences++;
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-			finally
-			{
-				Monitor.Pulse(referenceLock);
-				Monitor.Exit(referenceLock);
-			}
-        }
-
-        /// <summary>
-        /// whenever an object is finished with its reference to this object this method should be called
-        /// This is to facilitate Aggressive Garbage Collection
-		/// <para>threadSafe</para>
-        /// </summary>
-        public void RemoveReference()
-        {
-            if (mNoReferences > 0)
-            {
-				try
-				{
-					Monitor.Enter(referenceLock);
-					mNoReferences--;
-				}
-				catch (Exception e)
-				{
-					throw e;
-				}
-				finally
-				{
-					Monitor.Pulse(referenceLock);
-					Monitor.Exit(referenceLock);
-				}
-            }
-        }
+       
 
 		/// <summary>
 		/// Gets the general texture in the list with the corresponding ID
@@ -411,6 +364,55 @@ namespace CommonObjects
         #endregion
 
 	 		#region IAgroGarbageCollection Members
+
+		/// <summary>
+		/// whenever an object adds a reference to this object this method should be called
+		/// This is to facilitate Aggressive Garbage Collection
+		/// <para>threadSafe</para>
+		/// </summary>
+		public void AddReference()
+		{
+			try
+			{
+				Monitor.Enter(referenceLock);
+				mNoReferences++;
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+			finally
+			{
+				Monitor.Pulse(referenceLock);
+				Monitor.Exit(referenceLock);
+			}
+		}
+
+		/// <summary>
+		/// whenever an object is finished with its reference to this object this method should be called
+		/// This is to facilitate Aggressive Garbage Collection
+		/// <para>threadSafe</para>
+		/// </summary>
+		public void RemoveReference()
+		{
+			if (mNoReferences > 0)
+			{
+				try
+				{
+					Monitor.Enter(referenceLock);
+					mNoReferences--;
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
+				finally
+				{
+					Monitor.Pulse(referenceLock);
+					Monitor.Exit(referenceLock);
+				}
+			}
+		}
 
 		/// <summary>
 		/// this will dispose of all the textures in the list also

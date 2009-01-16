@@ -134,55 +134,7 @@ namespace CommonObjects
 
         #region Public Methods
 
-        /// <summary>
-        /// Everytime the generalTexture is added to a class this should be called
-        /// </summary>
-        public void AddReference()
-		{
-			try
-			{
-				Monitor.Enter(referencesLock);
-				mNoReferences++;
-			}
-			catch (Exception e)
-			{ throw e; }
-			finally
-			{
-				Monitor.Pulse(referencesLock);
-				Monitor.Exit(referencesLock);
-			}
-        }
 
-        /// <summary>
-        /// Everytime the generalTexture no longer needed this should be called
-		/// <para>Throws exception if no references remaining in counter</para>
-        /// </summary>
-		/// <exception cref="Custom.Interfaces.GCNoReferencesToRemoveException">Thrown when attempt to remove a reference and the counter is 0</exception>
-        public void RemoveReference()
-        {
-
-			if (mNoReferences > 0)
-			{
-				try
-				{
-					Monitor.Enter(referencesLock);
-					mNoReferences--;
-				}
-				catch (Exception e)
-				{
-					throw e;
-				}
-				finally
-				{
-					Monitor.Pulse(referencesLock);
-					Monitor.Exit(referencesLock);
-				}
-			}
-			else
-			{
-				throw new GCNoReferencesToRemoveException("Tried to remove refernce to general Texture but count is 0", this);			 
-			}
-		}
         
 
         /// <summary>
@@ -273,6 +225,56 @@ namespace CommonObjects
         #endregion
 
         #region #region IAgroGarbageCollection Members 
+
+		/// <summary>
+		/// Everytime the generalTexture is added to a class this should be called
+		/// </summary>
+		public void AddReference()
+		{
+			try
+			{
+				Monitor.Enter(referencesLock);
+				mNoReferences++;
+			}
+			catch (Exception e)
+			{ throw e; }
+			finally
+			{
+				Monitor.Pulse(referencesLock);
+				Monitor.Exit(referencesLock);
+			}
+		}
+
+		/// <summary>
+		/// Everytime the generalTexture no longer needed this should be called
+		/// <para>Throws exception if no references remaining in counter</para>
+		/// </summary>
+		/// <exception cref="Custom.Interfaces.GCNoReferencesToRemoveException">Thrown when attempt to remove a reference and the counter is 0</exception>
+		public void RemoveReference()
+		{
+
+			if (mNoReferences > 0)
+			{
+				try
+				{
+					Monitor.Enter(referencesLock);
+					mNoReferences--;
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
+				finally
+				{
+					Monitor.Pulse(referencesLock);
+					Monitor.Exit(referencesLock);
+				}
+			}
+			else
+			{
+				throw new GCNoReferencesToRemoveException("Tried to remove refernce to general Texture but count is 0", this);
+			}
+		}
 
         /// <summary>
         /// Only disposes if the manual reference count = 0

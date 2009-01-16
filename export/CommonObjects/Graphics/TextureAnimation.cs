@@ -181,42 +181,7 @@ namespace CommonObjects
 
 #region Methods
 
-        public void AddReference()
-        {
-			try
-			{
-				Monitor.Enter(referencesLock);
-				mNoReferences++;
-			}
-			catch (Exception e)
-			{ throw e; }
-			finally
-			{
-				Monitor.Pulse(referencesLock);
-				Monitor.Exit(referencesLock);
-			}
-        }
-
-        public void RemoveReference()
-        {
-			if (mNoReferences > 0)
-			{
-				try
-				{
-					Monitor.Enter(referencesLock);
-					mNoReferences--;
-				}
-				catch (Exception e)
-				{
-					throw e;
-				}
-				finally
-				{
-					Monitor.Pulse(referencesLock);
-					Monitor.Exit(referencesLock);
-				}
-			}
-        }
+      
 
 
         /// <summary>
@@ -350,6 +315,47 @@ namespace CommonObjects
 #endregion  
 
 		#region IAgroGarbageCollection Members
+
+		public void AddReference()
+		{
+			try
+			{
+				Monitor.Enter(referencesLock);
+				mNoReferences++;
+			}
+			catch (Exception e)
+			{ throw e; }
+			finally
+			{
+				Monitor.Pulse(referencesLock);
+				Monitor.Exit(referencesLock);
+			}
+		}
+
+		public void RemoveReference()
+		{
+			if (mNoReferences > 0)
+			{
+				try
+				{
+					Monitor.Enter(referencesLock);
+					mNoReferences--;
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
+				finally
+				{
+					Monitor.Pulse(referencesLock);
+					Monitor.Exit(referencesLock);
+				}
+			}
+			else
+			{
+				throw new GCNoReferencesToRemoveException("Tried to remove reference to TextureAnimation that had no references", this);
+			}
+		}
 
 		public bool IsDisposed
 		{
