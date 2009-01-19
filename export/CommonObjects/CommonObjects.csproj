@@ -98,7 +98,7 @@
     <Compile Include="Graphics\textureAnimationInstance.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Custom\Custom.csproj">
+    <ProjectReference Include="..\..\..\..\Custom\Custom.csproj">
       <Project>{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}</Project>
       <Name>Custom</Name>
     </ProjectReference>

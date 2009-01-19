@@ -151,13 +151,13 @@
     <Content Include="Animation\TextureAnimations.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Custom\Custom.csproj">
+      <Project>{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}</Project>
+      <Name>Custom</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonObjects\CommonObjects.csproj">
       <Project>{D26CDD72-14D6-472C-B817-CE5961058A03}</Project>
       <Name>CommonObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Custom\Custom.csproj">
-      <Project>{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}</Project>
-      <Name>Custom</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
