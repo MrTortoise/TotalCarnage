@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Custom.Zip;
 using Custom.Maths;
 using Custom.Components;
+using Custom.Exceptions;
 
 namespace TileEditor
 {
@@ -15,7 +16,7 @@ namespace TileEditor
 	{
 
 		protected ZipFile mZip;
- 
+
 		public GroupFileManager()
 		{
 			InitializeComponent();
@@ -23,14 +24,14 @@ namespace TileEditor
 
 		private void btnLoadZipFile_Click(object sender, EventArgs e)
 		{
-		
+
 		}
 
 
 
 		private void selectFileToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-	
+
 		}
 
 		private void createFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,10 +76,8 @@ namespace TileEditor
 				else
 				{
 					directoryListView1.AddItem(st, DirectoryListView.ItemType.file);
-				}				
-			}	
-		}
-
-
+				}
+			}
+		}	 
 	}
 }
