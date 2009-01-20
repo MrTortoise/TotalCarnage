@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TotalCarnage.GameScreen">
+    <Position X="17.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAwAEACAAARAAgAEEAIAAAAADAAAAA4AAgAGAEYIBAQ=</HashCode>
+      <FileName>MenuSystem\ScreenManager\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.ScreenManager" Collapsed="true">
+    <Position X="35.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAVEAgAAAgAwAAAAAAAAAAAAAAiBAERAAAgAACCEQ=</HashCode>
+      <FileName>MenuSystem\ScreenManager\ScreenManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.PauseMenuScreen">
+    <Position X="9" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAgAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>MenuSystem\Screens\PauseMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.BackgroundScreen">
+    <Position X="20.5" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCEAAAAAAAAgAAAAAAAAAAAAAAABAAAAAAAAAAAAQ=</HashCode>
+      <FileName>MenuSystem\Screens\BackgroundScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.GameplayScreen">
+    <Position X="30.5" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQCEACAAAAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>MenuSystem\Screens\GameplayScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.LoadingScreen">
+    <Position X="5.75" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAgAAAAAAAAgAAAAAQAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MenuSystem\Screens\LoadingScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.MainMenuScreen">
+    <Position X="13" Y="11.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAiAAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAAAA=</HashCode>
+      <FileName>MenuSystem\Screens\MainMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.MenuEntry" Collapsed="true">
+    <Position X="33.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAABABAAAAAAAAIAAAACAQAAAI=</HashCode>
+      <FileName>MenuSystem\Screens\MenuEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.MenuScreen">
+    <Position X="13" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAACGAAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>MenuSystem\Screens\MenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.MessageBoxScreen">
+    <Position X="23.75" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAQQCAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAACQ=</HashCode>
+      <FileName>MenuSystem\Screens\MessageBoxScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.OptionsMenuScreen">
+    <Position X="16.75" Y="11.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="TotalCarnage.OptionsMenuScreen.Ungulate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MenuSystem\Screens\OptionsMenuScreen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BBABAAAgAAAQAggAAAgAQAAAAAAABAAAAAAAABIACAA=</HashCode>
+      <FileName>MenuSystem\Screens\OptionsMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TotalCarnage.ConsoleScreen">
+    <Position X="27.25" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAADAAAAIAgCEAAAAAAAAAAAAAAAAAAAAAABAQAQ=</HashCode>
+      <FileName>ConsoleScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TotalCarnage.ScreenState" Collapsed="true">
+    <Position X="33.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAAAEAAA=</HashCode>
+      <FileName>MenuSystem\ScreenManager\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
