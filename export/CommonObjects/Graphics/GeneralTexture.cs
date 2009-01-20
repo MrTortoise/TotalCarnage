@@ -173,9 +173,18 @@ namespace CommonObjects
         /// <returns></returns>
         public override string ToString()
         {
-                return "General Texture Name : " + mName + ", ID : " + mID.ToString() +
-                    ", Texture : " + mTexture.Name + ", Columns : " + mColumns.ToString()
-                    + ", Rows : " + mRows.ToString();
+			if (mTexture != null)
+			{
+				return "General Texture Name : " + mName + ", ID : " + mID.ToString() +
+					", Texture : " + mTexture.Name + ", Columns : " + mColumns.ToString()
+					+ ", Rows : " + mRows.ToString();
+			}
+			else
+			{
+				return "General Texture Name : " + mName + ", ID : " + mID.ToString() +
+					 ", Columns : " + mColumns.ToString()
+					 + ", Rows : " + mRows.ToString();
+			}
         }
 
         public override int GetHashCode()

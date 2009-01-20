@@ -4,8 +4,8 @@
 		<id>0</id>
 		<name>Dirt</name>
 		<path>\Textures\dirt_texture.jpg</path>
-		<noColumns>1</noColumns>
-		<noRows>1</noRows>
+		<noColumns>3</noColumns>
+		<noRows>3</noRows>
 	</texture>
 	<texture>
 		<id>1</id>

@@ -13,13 +13,19 @@ Public Class GeneralTextureListLoader
 	Implements ILoader
 
 
-	Public docTextures As XDocument
-	Public mGeneralTextureList As GeneralTextureList
-	Public mGraphicsDevice As GraphicsDevice
+	Protected docTextures As XDocument
+	Protected mGeneralTextureList As GeneralTextureList
+	Protected mGraphicsDevice As GraphicsDevice
 
 	Protected mMessageLog As StringBuilder
 	Protected mValid As Boolean
 
+
+	Public ReadOnly Property GeneralTextureList() As GeneralTextureList
+		Get
+			Return mGeneralTextureList
+		End Get
+	End Property
 
 
 	Public Sub New(Optional ByVal theFile As String = "")
@@ -31,7 +37,7 @@ Public Class GeneralTextureListLoader
 		Populate()
 	End Sub
 
-	Public Sub Load(ByVal theFile As String) Implements ILoader.Load
+	Protected Sub Load(ByVal theFile As String) Implements ILoader.Load
 		If theFile = "" Then
 			docTextures = XDocument.Parse(My.Resources.GeneralTexturesXML)
 		Else
@@ -44,7 +50,7 @@ Public Class GeneralTextureListLoader
 	End Sub
 
 
-	Public Sub Populate() Implements ILoader.Populate
+	Protected Sub Populate() Implements ILoader.Populate
 		Dim theTexture As GeneralTexture
 
 		Dim mTextures = From tt In docTextures...<texture> Select _

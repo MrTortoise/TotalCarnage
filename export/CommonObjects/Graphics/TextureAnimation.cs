@@ -99,6 +99,7 @@ namespace CommonObjects
             mNoLoops=NoLoops;
             mUpdatePeriod = updatePeriod;
 
+			mAnimationSequence = new List<Vector2>();
             foreach (Vector2 v in theAnimationSequence)
             {
                 AddFrame(v);
@@ -263,7 +264,11 @@ namespace CommonObjects
             StringBuilder  retVal = new StringBuilder();
             retVal.Append("Texture Animation Name : " + mName + ", ID : " + mID.ToString() + " No Frames : " + NoFrames.ToString());
             retVal.AppendLine();
-            retVal.Append("  -> " + mGenTex.ToString());
+			foreach (Vector2 c in mAnimationSequence)
+			{
+				retVal.AppendLine("->Coords x,y: " + c.X.ToString() + ", " + c.Y.ToString());
+			}
+            retVal.AppendLine("  -> " + mGenTex.ToString());
 
             return retVal.ToString();
         }

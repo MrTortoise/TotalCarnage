@@ -61,7 +61,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt; 
         '''&lt;textures&gt;
         '''	&lt;texture&gt;
         '''		&lt;id&gt;0&lt;/id&gt;
@@ -82,8 +82,7 @@ Namespace My.Resources
         '''		&lt;name&gt;Ground&lt;/name&gt;
         '''		&lt;path&gt;\Textures\ground_texture.jpg&lt;/path&gt;
         '''		&lt;noColumns&gt;1&lt;/noColumns&gt;
-        '''		&lt;noRows&gt;1&lt;/noRows&gt;
-        '''	&lt;/text [rest of string was truncated]&quot;;.
+        '''		&lt;noRows&gt;1 [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property GeneralTexturesXML() As String
             Get
