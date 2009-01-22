@@ -33,7 +33,7 @@
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
-			this.texturesPanel1 = new TexturesPanel();
+			this.texturesPanel1 = new TileEditor.TexturesPanel();
 			this.SuspendLayout();
 			// 
 			// textBox1
