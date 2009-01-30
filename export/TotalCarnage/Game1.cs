@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Storage;
 using System.Threading;
 using CommonObjects.Components;
 
+//using forms = System.Windows.Forms;
+
 
 
 namespace TotalCarnage
@@ -56,6 +58,11 @@ namespace TotalCarnage
             screenManager.AddScreen(new BackgroundScreen());
             screenManager.AddScreen(new MainMenuScreen());
 			//screenManager.AddScreen(new ConsoleScreen());
+
+			//forms.Form f = new forms.Form();
+			//f.Show();
+
+
         }
 
         /// <summary>

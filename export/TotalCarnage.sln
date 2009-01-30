@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NonGameObjects", "NonGameOb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom", "..\..\..\Custom\Custom.csproj", "{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEditorObjectsTest", "GameEditorObjectsTest\GameEditorObjectsTest.csproj", "{194C91BA-838C-4122-8A27-1EE792DFC238}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
 		SccNumberOfProjects = 8
@@ -152,6 +154,22 @@ Global
 		{AB86B9B9-19F0-446D-B775-7E308D5D0F8C}.Release|Any CPU.ActiveCfg = Release|x86
 		{AB86B9B9-19F0-446D-B775-7E308D5D0F8C}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{AB86B9B9-19F0-446D-B775-7E308D5D0F8C}.Release|x86.ActiveCfg = Release|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Debug|x86.ActiveCfg = Debug|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Debug|x86.Build.0 = Debug|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Release|Any CPU.ActiveCfg = Release|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Release|Mixed Platforms.Build.0 = Release|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Release|x86.ActiveCfg = Release|x86
+		{194C91BA-838C-4122-8A27-1EE792DFC238}.Release|x86.Build.0 = Release|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Debug|x86.ActiveCfg = Debug|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Release|Any CPU.ActiveCfg = Release|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A9F81345-C5DD-4D5B-B33F-0810B4AC796D}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

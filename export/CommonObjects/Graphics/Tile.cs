@@ -363,14 +363,14 @@ namespace CommonObjects
 		public virtual void Draw(spriteBatchArgs theSpriteBatchArgs)
 		{
 			float theRotation;
-			if (theSpriteBatchArgs.RotationSet == true)
+			if (theSpriteBatchArgs.IsRotationSet == true)
 			{
 				theRotation = theSpriteBatchArgs.Rotation;
 			}
 			else { theRotation = mRotation; }
 
 			//theBatch.Draw(theTexture, position, null,theColor  ,0, Vector2.Zero,theScale  , SpriteEffects.None, mLayerDepth );
-			theSpriteBatchArgs.propSpriteBatch.Draw(
+			theSpriteBatchArgs.SpriteBatch.Draw(
 				mTextureAnimations[mCurrentAnimationID].Texture2D,
 				theSpriteBatchArgs.Position,
 				mTextureAnimations[mCurrentAnimationID].GetRectangleForCurrentFrame(),

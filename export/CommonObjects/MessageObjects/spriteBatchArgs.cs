@@ -5,6 +5,7 @@ using Custom.Maths;
 
 namespace CommonObjects
 {
+	//ToDo: figure how this and DrawingArgs can be combined or at least given more descriptive names of usage
     public class spriteBatchArgs
     {
         private SpriteBatch mSpriteBatch;
@@ -16,11 +17,16 @@ namespace CommonObjects
 
         public spriteBatchArgs(SpriteBatch theSpriteBatch)
         {
-            propSpriteBatch = theSpriteBatch;
+            SpriteBatch = theSpriteBatch;
            // Position = thePosition;
         }
 
-        public SpriteBatch propSpriteBatch
+
+		/// <summary>
+		/// Gets or sets the spriteBatch object
+		/// </summary>
+		/// <exception cref="System.NullReferenceException">Cant set to be a null reference</exception>
+        public SpriteBatch SpriteBatch
         {get{return mSpriteBatch;}
             set
             {
@@ -30,6 +36,10 @@ namespace CommonObjects
             }
         }
 
+		/// <summary>
+		/// Gets or sets the root position of the control
+		/// </summary>
+		/// <exception cref="System.NullReferenceException">Can't set null vales</exception>
         public Vector2 Position
         {
             get { return mPosition; }
@@ -42,6 +52,9 @@ namespace CommonObjects
             }
         }
 
+		/// <summary>
+		/// Gets or sets the rotation 
+		/// </summary>
         public float Rotation
         {
             get { return mRotation; }
@@ -53,6 +66,10 @@ namespace CommonObjects
             }
         }
 
+		/// <summary>
+		/// gets or sets the malyerdepth to draw the sprite at. 
+		/// Must be greater or equal to 0 and less than or equal to 1
+		/// </summary>
         public float LayerDepth
         {
             get { return mLayerDepth; }
@@ -68,7 +85,7 @@ namespace CommonObjects
             }
         }
 
-        public bool RotationSet
+        public bool IsRotationSet
         { get { return mRotationSet; } }
                 
 

@@ -19,6 +19,7 @@ namespace TileEditor
         Camera mCamera = new Camera(new Vector2(0,0));
         Map theMap;
         string mFile;
+		
 
         public MapEditor(string theFile)
         {

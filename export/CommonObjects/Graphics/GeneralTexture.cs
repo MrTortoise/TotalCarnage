@@ -31,8 +31,7 @@ namespace CommonObjects
         protected object textureLock = new object();
 		protected object referencesLock = new object();
 
-        private int mNoReferences;
-        private static int mNextID;
+        private int mNoReferences;       
              
 
         #region Constructor
@@ -132,10 +131,7 @@ namespace CommonObjects
 
         #endregion
 
-        #region Public Methods
-
-
-        
+        #region Public Methods	        
 
         /// <summary>
         /// loads the texture given a graphics device to load into

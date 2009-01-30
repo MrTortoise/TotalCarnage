@@ -58,9 +58,12 @@
   <ItemGroup>
     <Compile Include="Components\FPS.cs" />
     <Compile Include="Components\ConsoleMenu.cs" />
+    <Compile Include="Controls\Control.cs" />
+    <Compile Include="Controls\GameControl.cs" />
     <Compile Include="Enums\AnimationType.cs" />
     <Compile Include="entity.cs" />
     <Compile Include="Components\ConsoleVisibilityEventArgs.cs" />
+    <Compile Include="Graphics\GeneralTextureCell.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Interfaces\IGameLoadable.cs" />
     <Compile Include="Interfaces\IGameUpdateable.cs" />
@@ -96,12 +99,16 @@
     <Compile Include="TestGame.cs" />
     <Compile Include="Graphics\TextureAnimationList.cs" />
     <Compile Include="Graphics\textureAnimationInstance.cs" />
+    <Compile Include="VectorDrawing\VectorDraw.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Custom\Custom.csproj">
       <Project>{8E5EEA51-B1A7-4132-BD79-8A4B826FDF38}</Project>
       <Name>Custom</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\pixel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

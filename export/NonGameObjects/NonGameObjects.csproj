@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneralTextureCell.cs" />
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
