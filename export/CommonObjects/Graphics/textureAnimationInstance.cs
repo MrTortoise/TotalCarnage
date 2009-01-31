@@ -459,7 +459,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCNoReferencesToRemoveException("Tried to remove non existant reference in TextureAnimationInstance", this);
+				throw new GCNoReferencesToRemoveException("Tried to remove non existant reference in TextureAnimationInstance");
 			}
 
 		}
@@ -483,7 +483,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCObjectStillHasReferencesException("tried to GC textureAnimationInstance when it still has references", this);
+				throw new GCObjectStillHasReferencesException("tried to GC textureAnimationInstance when it still has references");
 			}
 		}
 

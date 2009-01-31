@@ -277,7 +277,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCNoReferencesToRemoveException("Tried to remove refernce to general Texture but count is 0", this);
+				throw new GCNoReferencesToRemoveException("Tried to remove refernce to general Texture but count is 0");
 			}
 		}
 
@@ -293,7 +293,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCObjectStillHasReferencesException("Tried to dispose General Texture that still had references", this);
+				throw new GCObjectStillHasReferencesException("Tried to dispose General Texture that still had references");
 			}
         }
         

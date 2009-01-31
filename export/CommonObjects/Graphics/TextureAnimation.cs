@@ -358,7 +358,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCNoReferencesToRemoveException("Tried to remove reference to TextureAnimation that had no references", this);
+				throw new GCNoReferencesToRemoveException("Tried to remove reference to TextureAnimation that had no references");
 			}
 		}
 
@@ -383,7 +383,7 @@ namespace CommonObjects
 				GC.SuppressFinalize(this);
 			}
 			else
-			{ throw new GCObjectStillHasReferencesException("Tried to dispose of Texture Animation, but it still has references", this); }
+			{ throw new GCObjectStillHasReferencesException("Tried to dispose of Texture Animation, but it still has references"); }
         }
 
         private void Dispose(bool disposed)

@@ -125,7 +125,7 @@ namespace CommonObjects
 				GC.SuppressFinalize(this);
 			}
 			else
-			{ throw new GCObjectStillHasReferencesException("tried to dispose of TextureAnimation List but it still has refernces", this); }
+			{ throw new GCObjectStillHasReferencesException("tried to dispose of TextureAnimation List but it still has refernces"); }
         }
 
         protected virtual void Dispose(bool val)
@@ -196,7 +196,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCNoReferencesToRemoveException("Tried to remove a reference to TextureAnimation List when none to remove", this);
+				throw new GCNoReferencesToRemoveException("Tried to remove a reference to TextureAnimation List when none to remove");
 			}
         }
 

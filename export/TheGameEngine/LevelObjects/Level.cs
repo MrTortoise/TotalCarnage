@@ -12,7 +12,7 @@ namespace TheGameEngine
     {
         #region Fields
         public   TextureList mTextures;
-        public  TileSet mTiles;        
+       // public  TileSet mTiles;        
         protected int[,] mLevel;
         public int width;
         protected int mTotalWidth;

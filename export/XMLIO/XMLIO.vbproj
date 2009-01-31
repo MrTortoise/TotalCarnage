@@ -16,10 +16,14 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
@@ -164,7 +168,7 @@
       <Name>Custom</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonObjects\CommonObjects.csproj">
-      <Project>{D26CDD72-14D6-472C-B817-CE5961058A03}</Project>
+      <Project>{90BAD343-531A-4EE4-9B01-22BA704AB6B0}</Project>
       <Name>CommonObjects</Name>
     </ProjectReference>
   </ItemGroup>

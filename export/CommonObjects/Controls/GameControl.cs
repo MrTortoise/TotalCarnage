@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using CommonObjects.VectorDrawing;
 
 using Custom.Exceptions;
 
@@ -20,10 +21,12 @@ namespace CommonObjects.Controls
 		protected int mID;
 		protected string mName;
 
-		protected Vector2 mPosition = new Vector2(0, 0);
+		protected VectorDraw mVectordraw;
+
+		protected Vector2 mPosition = Vector2.Zero ;
 		protected Vector2 mSize = new Vector2(100, 100);
 
-		protected Color mBackColor = Color.White;
+		protected Color mBackColor = Color.AliceBlue;
 		protected Color mBorderColor = Color.Black;
 
 		protected bool mHasFocus = false;
@@ -38,10 +41,11 @@ namespace CommonObjects.Controls
 		/// </summary>
 		/// <param name="theID"></param>
 		/// <param name="theName"></param>
-		public  GameControl(int theID, string theName)
+		public  GameControl(int theID, string theName,VectorDraw theVectorDrawer)
 		{
 			ID = theID;
 			Name = theName;
+			mVectordraw = theVectorDrawer;
 		}
 
 		/// <summary>
@@ -50,11 +54,12 @@ namespace CommonObjects.Controls
 		/// <param name="theID"></param>
 		/// <param name="theName"></param>
 		/// <param name="theParent"></param>
-		public GameControl(int theID, string theName,GameControl theParent)
+		public GameControl(int theID, string theName, VectorDraw theVectorDrawer, GameControl theParent)
 		{				
 			ID = theID;
 			Name = theName;
 			mParent = theParent;
+			mVectordraw = theVectorDrawer;
 		}
 		
 
@@ -119,7 +124,7 @@ namespace CommonObjects.Controls
 		{
 			get
 			{
-				return mPosition;
+				return mSize ;
 			}
 			set
 			{
@@ -135,7 +140,7 @@ namespace CommonObjects.Controls
 					}
 
 
-					mPosition = value;
+					mSize = value;
 				}
 			}
 		}
@@ -164,7 +169,7 @@ namespace CommonObjects.Controls
 		/// <summary>
 		/// Gets or Sets the color of the border of the control
 		/// </summary>
-		public Color BorderSolor
+		public Color BorderColor
 		{
 			get { return mBorderColor; }
 			set { mBorderColor = value; }
@@ -189,14 +194,36 @@ namespace CommonObjects.Controls
 
 		#region IGameDrawable Members
 
+		public void Draw(spriteBatchArgs thespriteBatchArgs)
+		{
+			//Draw Background
+			mVectordraw.DrawRectangleFilled(mPosition, mSize, mBackColor, thespriteBatchArgs);
+			//Draw Border
+			mVectordraw.DrawRectangleEdge(mPosition, mSize, mBorderColor, 1, thespriteBatchArgs);
+
+			
+
+
+
+			InnerDraw(thespriteBatchArgs);
+
+			// ToDo: should Draw itself and then any other child controls
+			
+			
+			
+		}
+
+		protected virtual void InnerDraw(spriteBatchArgs thespriteBatchArgs)
+		{
+
+		}
+		#endregion
+
+		#region IGameDrawable Members
+
 		public void Draw(DrawingArgs theDrawingArgs)
 		{
-			// ToDo: should Draw itself and then any other child controls
 			throw new NotImplementedException();
-
-			SpriteBatch sb = theDrawingArgs.SpriteBatch;
-			
-			
 		}
 
 		#endregion

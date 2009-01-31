@@ -426,7 +426,7 @@ namespace CommonObjects
 			}
 			else
 			{
-				throw new GCObjectStillHasReferencesException("Tried to dispose of GeneralTextureList that stil lhas references", this);
+				throw new GCObjectStillHasReferencesException("Tried to dispose of GeneralTextureList that stil lhas references");
 			}
 		}
 
@@ -451,7 +451,7 @@ namespace CommonObjects
 						}
 						catch (GCObjectStillHasReferencesException e)
 						{
-							throw new GCObjectStillHasReferencesException("Disposal of General Texture in GeneralTexture list Through Still has references exception", this, e);
+							throw new GCObjectStillHasReferencesException("Disposal of General Texture in GeneralTexture list Through Still has references exception",  e);
 						}
 
 					}
