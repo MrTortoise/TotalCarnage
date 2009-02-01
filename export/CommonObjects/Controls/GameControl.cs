@@ -13,7 +13,7 @@ namespace CommonObjects.Controls
 {
 	/// <summary>
 	/// this class will form the backbone of all other controls that will exist on screen.
-	/// The individual controls will end up being rendered by a control manager class which will interface with the 
+	/// The individual controls will end up being rendered by a control manager class which will interface with the .. haha i fell asleep drunk whilst writing that, I remmeber it beign a good idea tho 
 	/// </summary>
 	public class GameControl : IGameDrawable
 	{
@@ -30,6 +30,7 @@ namespace CommonObjects.Controls
 		protected Color mBorderColor = Color.Black;
 
 		protected bool mHasFocus = false;
+		protected bool mIsVisible = true;
 
 		protected GameControl mParent;
 		protected List<GameControl> mChilidren;
@@ -103,6 +104,15 @@ namespace CommonObjects.Controls
 		}
 
 		/// <summary>
+		/// Gets or sets wether the control sohuld be drawn or not
+		/// </summary>
+		public bool IsVisible
+		{
+			get { return mIsVisible; }
+			set { mIsVisible = value; }
+		}
+
+		/// <summary>
 		/// Gets or Sets the Position of the control relative to its parent
 		/// <para>does not throw an exception wit hnegative values to allow partially on screen controls</para>
 		/// </summary>
@@ -142,6 +152,21 @@ namespace CommonObjects.Controls
 
 					mSize = value;
 				}
+			}
+		}
+
+		/// <summary>
+		/// Gets the controls absolute position relateive to the control managers 0,0
+		/// </summary>
+		public Vector2 AbsolutePosition
+		{
+			get
+			{
+				if (mParent == null)
+				{
+					return mPosition;
+				}
+				else { return mParent.AbsolutePosition + mPosition; }
 			}
 		}
 
@@ -196,20 +221,27 @@ namespace CommonObjects.Controls
 
 		public void Draw(spriteBatchArgs thespriteBatchArgs)
 		{
-			//Draw Background
-			mVectordraw.DrawRectangleFilled(mPosition, mSize, mBackColor, thespriteBatchArgs);
-			//Draw Border
-			mVectordraw.DrawRectangleEdge(mPosition, mSize, mBorderColor, 1, thespriteBatchArgs);
+			if (mIsVisible == true)
+			{
+				//Draw Background
+				mVectordraw.DrawRectangleFilled(mPosition, mSize, mBackColor, thespriteBatchArgs);
+				//Draw Border
+				mVectordraw.DrawRectangleEdge(mPosition, mSize, mBorderColor, 1, thespriteBatchArgs);
 
-			
 
 
 
-			InnerDraw(thespriteBatchArgs);
 
-			// ToDo: should Draw itself and then any other child controls
-			
-			
+				InnerDraw(thespriteBatchArgs);
+
+				// ToDo: should Draw itself and then any other child controls
+
+				foreach (GameControl gc in mChilidren)
+				{
+					gc.Draw(thespriteBatchArgs);
+				}
+
+			}
 			
 		}
 

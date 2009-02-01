@@ -481,10 +481,6 @@ namespace CommonObjects
 				Dispose(true);
 				GC.SuppressFinalize(this);
 			}
-			else
-			{
-				throw new GCObjectStillHasReferencesException("tried to GC textureAnimationInstance when it still has references");
-			}
 		}
 
 		private void Dispose(bool disposing)

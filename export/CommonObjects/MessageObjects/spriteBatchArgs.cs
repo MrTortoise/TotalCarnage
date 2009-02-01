@@ -5,9 +5,15 @@ using Custom.Maths;
 
 namespace CommonObjects
 {
-	//ToDo: figure how this and DrawingArgs can be combined or at least given more descriptive names of usage
+	
+
+	/// <summary>
+	/// This class contains the values required to be able to draw a srpite in a spritebatch given that it has already begun
+	/// The class that begins the sprite batch knows the camera and so it should determine visibility
+	/// </summary>
     public class spriteBatchArgs
     {
+		
         private SpriteBatch mSpriteBatch;
         private Vector2 mPosition;
         private float mRotation;
@@ -18,6 +24,7 @@ namespace CommonObjects
         public spriteBatchArgs(SpriteBatch theSpriteBatch)
         {
             SpriteBatch = theSpriteBatch;
+	
            // Position = thePosition;
         }
 
@@ -35,6 +42,17 @@ namespace CommonObjects
                 mSpriteBatch = value;
             }
         }
+
+	/*	public Camera Camera
+        {
+            get { return mCamera; }
+            set
+            {
+                if ((object)Camera == null)
+                { throw new NullReferenceException("Tried to set Camera to null in DrawingArgs"); }
+            }
+        }
+	 * */
 
 		/// <summary>
 		/// Gets or sets the root position of the control

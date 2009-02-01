@@ -34,15 +34,12 @@ namespace CommonObjects.Components
         }
 
 
-        protected override void LoadGraphicsContent(bool loadAllContent)
+        protected override void LoadContent()
         {
-            if (loadAllContent)
-            {
                 batch = new SpriteBatch(GraphicsDevice);
                 font  = content.Load<SpriteFont>("Fonts/FPS");
-            }
 
-            base.LoadGraphicsContent(loadAllContent);
+            base.LoadContent();
         }
 
 

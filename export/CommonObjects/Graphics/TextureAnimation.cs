@@ -392,12 +392,21 @@ namespace CommonObjects
             {
                 if (disposed)
                 {
-					//ToDO: enforce checking of references before trying to GC
+					mIsDisposed = true;
                     mAnimationSequence.Clear();
-                    mGenTex.RemoveReference();
-                    mGenTex.Dispose();
-                }
-                mIsDisposed = true;
+					try
+					{
+						mGenTex.RemoveReference();
+					}
+					catch (GCNoReferencesToRemoveException e)
+					{
+						throw new GCNoReferencesToRemoveException("Tried to dispose a TextureAnimationInstance that already had zero references",e);
+					}
+					finally
+					{
+						mGenTex.Dispose();
+					}
+				}	                  
             }
         }
 

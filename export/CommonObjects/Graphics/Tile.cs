@@ -324,9 +324,9 @@ namespace CommonObjects
 			s.Append(retVal);
 
 			foreach (TextureAnimationInstance t in mTextureAnimations)
-			{
-				//ToDo: implement this properly				
-				s.AppendLine("Animation ID: has none" + ", Name: ");// + t.Name);
+			{	 
+				// this could be broke			
+				s.AppendLine(t.ToString());// + t.Name);
 			}
 			s.AppendLine();
 			s.Append("End of Tile");
@@ -362,6 +362,10 @@ namespace CommonObjects
 
 		public virtual void Draw(spriteBatchArgs theSpriteBatchArgs)
 		{
+			// test to see if the tile is visible
+			Rectangle currentFrameRectange = mTextureAnimations[mCurrentAnimationID].GetRectangleForCurrentFrame();
+
+			
 			float theRotation;
 			if (theSpriteBatchArgs.IsRotationSet == true)
 			{
@@ -369,11 +373,15 @@ namespace CommonObjects
 			}
 			else { theRotation = mRotation; }
 
+			
+
+			
+
 			//theBatch.Draw(theTexture, position, null,theColor  ,0, Vector2.Zero,theScale  , SpriteEffects.None, mLayerDepth );
 			theSpriteBatchArgs.SpriteBatch.Draw(
 				mTextureAnimations[mCurrentAnimationID].Texture2D,
 				theSpriteBatchArgs.Position,
-				mTextureAnimations[mCurrentAnimationID].GetRectangleForCurrentFrame(),
+				currentFrameRectange,
 				Color.White,
 				theRotation,
 				new Vector2(0, 0), //ToDo: [rpvide option of origin of the tile as its center point 
@@ -494,7 +502,6 @@ namespace CommonObjects
 			Dispose(false);
 		}
 
-		//ToDo: remove all destructors
 
 		#endregion
 		#region	ICloneable Members

@@ -40,7 +40,7 @@ namespace CommonObjects.Components
         // Menu related fields
         private bool         active;
         private int          width, height;
-        private string       command = "", prefix = ">", line = "------------\n", logPrefix = "--> ", message = "Type HELP to begin";
+        private string       command = "", prefix = ">", logPrefix = "--> ", message = "Type HELP to begin";
         private List<string> log = new List<string>();
 
         // Input related fields

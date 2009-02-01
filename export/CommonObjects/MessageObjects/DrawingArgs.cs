@@ -7,6 +7,10 @@ using System.Text;
 
 namespace CommonObjects
 {
+	/// <summary>
+	/// This class is used when the spritebatch hasnt already been started.
+	/// It should require all the information necessary to start one and draw the objects.
+	/// </summary>
     public class DrawingArgs
     {
         private GraphicsDevice mGraphicsDevice;
