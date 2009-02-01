@@ -232,9 +232,7 @@ namespace CommonObjects.Controls
 
 
 
-				InnerDraw(thespriteBatchArgs);
-
-				// ToDo: should Draw itself and then any other child controls
+				InnerDraw(thespriteBatchArgs);				
 
 				foreach (GameControl gc in mChilidren)
 				{

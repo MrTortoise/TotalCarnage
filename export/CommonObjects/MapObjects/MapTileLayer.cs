@@ -141,15 +141,11 @@ namespace CommonObjects
         #region IGameDrawable Members
 
         public void Draw(DrawingArgs theDrawingArgs)
-        {
-			// ToDo: Make this use SpriteBatchArgs - the calling method begins the spritebatch then.
-			// This means that the maptile layer can be drawn in a variety of ways - and more flexible uses
+        {			
             Vector2 position;
 
             SpriteBatch theBatch = new SpriteBatch(theDrawingArgs.GraphicsDevice);
-            theBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Texture, SaveStateMode.None, theDrawingArgs.Camera.Transform);
-
-			//ToDo: Figure out limits to only draw the visible tiles
+            theBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Texture, SaveStateMode.None, theDrawingArgs.Camera.Transform);		
 
 			Vector2 boundary = mTileDims;
 
@@ -160,8 +156,7 @@ namespace CommonObjects
 					position.X = x * mTileDims.X;
 					position.Y = y * mTileDims.Y;
 					if (theDrawingArgs.Camera.IsVisible(position, boundary))
-					{
-						
+					{	 						
 						spriteBatchArgs sb = new spriteBatchArgs(theBatch);
 						sb.Position = position;
 						sb.LayerDepth = mLayerDepth;
@@ -178,7 +173,7 @@ namespace CommonObjects
 
         public void Dispose()			
         {
-			//ToDo: Implement agro garbage collection
+			
             mMapTiles = null;			
 			
         }

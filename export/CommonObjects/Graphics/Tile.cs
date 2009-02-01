@@ -371,12 +371,7 @@ namespace CommonObjects
 			{
 				theRotation = theSpriteBatchArgs.Rotation;
 			}
-			else { theRotation = mRotation; }
-
-			
-
-			
-
+			else { theRotation = mRotation; }  
 			//theBatch.Draw(theTexture, position, null,theColor  ,0, Vector2.Zero,theScale  , SpriteEffects.None, mLayerDepth );
 			theSpriteBatchArgs.SpriteBatch.Draw(
 				mTextureAnimations[mCurrentAnimationID].Texture2D,

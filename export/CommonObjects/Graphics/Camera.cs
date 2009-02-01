@@ -1,21 +1,21 @@
-﻿using System;
+﻿#region Using Statements
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+#endregion
 
 namespace CommonObjects
-{
-
-
+{	   
+	/// <summary>
+	/// This is the camera class. It manages the location of the viewport relative to some 0,0 point.
+	/// <para>Also manages the scale/zoom of the camera to calculate 'effective viewport dimensions' to use for visibility testing</para>
+	/// </summary>
     public class Camera
-    {
-		//toDo: Implement static method to test wether something is visible by the camera
-
-		//ToDo: this camera focusses its top left on a given position 
-		// - Shouldn't it CENTER on a given position? - this requires a graphics device
-		//ToDo: in the middle of figuring out the center / viewport issue
+    {			
+		
         #region Fields
         private  float mZoom = 1;
         private float mRotation = 0;                
@@ -109,6 +109,8 @@ namespace CommonObjects
 
         #endregion
 
+		#region Methods
+
 		/// <summary>
 		/// Sets the coordinates that the camera is looking at
 		/// </summary>
@@ -126,7 +128,7 @@ namespace CommonObjects
 
 			Matrix theScaler = Matrix.CreateScale(mZoom);
 			Vector3 theTranslation = Vector3.Transform(new Vector3(thePosition.X, thePosition.Y, 0), theScaler);
-			//ToDo: fix from here
+			
 			mTransform = Matrix.CreateTranslation(theTranslation);          
             
 
@@ -171,5 +173,7 @@ namespace CommonObjects
 
 			return retVal;
 		}
-    }
+
+		#endregion
+	}
 }
