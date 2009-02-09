@@ -26,6 +26,7 @@ namespace CommonObjects.Controls
 		protected Vector2 mPosition = Vector2.Zero ;
 		protected Vector2 mSize = new Vector2(100, 100);
 
+		protected te
 		protected Color mBackColor = Color.AliceBlue;
 		protected Color mBorderColor = Color.Black;
 
@@ -232,11 +233,13 @@ namespace CommonObjects.Controls
 
 
 
-				InnerDraw(thespriteBatchArgs);				
-
-				foreach (GameControl gc in mChilidren)
+				InnerDraw(thespriteBatchArgs);
+				if (mChilidren != null)
 				{
-					gc.Draw(thespriteBatchArgs);
+					foreach (GameControl gc in mChilidren)
+					{
+						gc.Draw(thespriteBatchArgs);
+					}
 				}
 
 			}
