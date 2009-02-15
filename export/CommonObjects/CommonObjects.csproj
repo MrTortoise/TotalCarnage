@@ -86,6 +86,7 @@
     <Compile Include="Components\ConsoleMenu.cs" />
     <Compile Include="Components\ConsoleVisibilityEventArgs.cs" />
     <Compile Include="Components\FPS.cs" />
+    <Compile Include="ControlManager.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\GameControl.cs" />
     <Compile Include="Controls\GameLabel.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Graphics\TextureAnimationList.cs" />
     <Compile Include="Graphics\Tile.cs" />
     <Compile Include="Graphics\TileLayer.cs" />
-    <Compile Include="InputEventArgs.cs" />
+    <Compile Include="MessageObjects\InputEventArgs.cs" />
     <Compile Include="Interfaces\IGameDrawable.cs" />
     <Compile Include="Interfaces\IGameLoadable.cs" />
     <Compile Include="Interfaces\IGameUpdateable.cs" />

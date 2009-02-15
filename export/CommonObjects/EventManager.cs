@@ -33,11 +33,12 @@ namespace CommonObjects
 
 		private int mNewScrolledDistance;
 
-		private int mPrevMouseScrollWheel;
+		private int mOldMouseScrollWheel;
 		private int mCurrentMouseScrollWheel;
 
+		private Vector2 mCurrentMousePosition;
 		private Vector2 mOldMousePosition;
-		private Vector2 mNewMousePosition;
+		
 		#endregion
 
 		#region Constructor
@@ -48,7 +49,7 @@ namespace CommonObjects
 
 		#region Methods
 
-		protected void ProcessKeys()
+		protected void ProcessInput()
 		{
 			mOldKeyboardState = mCurrentKeyboardState;
 			mOldMouseState = mCurrentMouseState;
@@ -56,12 +57,116 @@ namespace CommonObjects
 			mCurrentKeyboardState = Keyboard.GetState();
 			mCurrentMouseState = Mouse.GetState();
 
-			FindNewKeyPresses();
+			FindKeyActions();
+			FindMouseActions();
+			RaiseInputEvents();
 
 		}
-
-		protected void FindNewKeyPresses()
+		protected void RaiseInputEvents()
 		{
+		
+
+			if (mPressedKeys.Count != 0)
+				RaiseEvent(KeyPressed);
+
+			if (mDepressedKeys.Count !=	0)
+				RaiseEvent(KeyReleased);
+
+			if ((mMiddleMouseButton	== MouseButtonState.Pressed) ||
+				(mLeftMouseButton == MouseButtonState.Pressed) ||
+				(mRightNouseButton == MouseButtonState.Pressed))
+			{
+				RaiseEvent(MouseButtonPressed);
+			}
+
+			if ((mMiddleMouseButton	== MouseButtonState.Depressed) ||
+				(mLeftMouseButton == MouseButtonState.Depressed) ||
+				(mRightNouseButton == MouseButtonState.Depressed))
+			{
+				RaiseEvent(MouseButtonReleased);
+			}
+
+			if (mCurrentMousePosition != mOldMousePosition)
+				RaiseEvent(MousePositionChanged);
+
+			if (mOldMouseScrollWheel !=	mCurrentMouseScrollWheel)
+				RaiseEvent(MouseWheelScrolled);
+		
+		}  
+		protected void FindMouseActions()
+		{
+			#region	mouse
+			//parse	the	mouse
+			// have	to do each contorl seperatley
+
+			if (mCurrentMouseState.LeftButton == ButtonState.Pressed)
+			{
+				if (mLeftMouseButton ==	MouseButtonState.Depressed)
+				{
+					mLeftMouseButton = MouseButtonState.Pressed;
+				}
+				else
+				{
+					mLeftMouseButton = MouseButtonState.Held;
+				}
+			}
+			else
+			{
+				if ((mLeftMouseButton == MouseButtonState.Held)	|| (mLeftMouseButton ==	MouseButtonState.Pressed))
+				{
+					mLeftMouseButton = MouseButtonState.Depressed;
+				}
+			}
+
+			if (mCurrentMouseState.MiddleButton	== ButtonState.Pressed)
+			{
+				if (mMiddleMouseButton == MouseButtonState.Depressed)
+				{
+					mMiddleMouseButton = MouseButtonState.Pressed;
+				}
+				else
+				{
+					mMiddleMouseButton = MouseButtonState.Held;
+				}
+			}
+			else
+			{
+				if ((mMiddleMouseButton	== MouseButtonState.Held) || (mMiddleMouseButton ==	MouseButtonState.Pressed))
+				{
+					mMiddleMouseButton = MouseButtonState.Depressed;
+				}
+			}
+
+			if (mCurrentMouseState.RightButton == ButtonState.Pressed)
+			{
+				if (mRightNouseButton == MouseButtonState.Depressed)
+				{
+					mRightNouseButton =	MouseButtonState.Pressed;
+				}
+				else
+				{
+					mRightNouseButton =	MouseButtonState.Held;
+				}
+			}
+			else
+			{
+				if ((mRightNouseButton == MouseButtonState.Held) ||	(mRightNouseButton == MouseButtonState.Pressed))
+				{
+					mRightNouseButton =	MouseButtonState.Depressed;
+				}
+			}
+
+			mOldMousePosition = mCurrentMousePosition;
+			mCurrentMousePosition = new Vector2(mCurrentMouseState.X, mCurrentMouseState.Y);  		
+
+			mOldMouseScrollWheel = mCurrentMouseScrollWheel;
+			mCurrentMouseScrollWheel = mCurrentMouseState.ScrollWheelValue;
+
+			#endregion
+		} 
+		protected void FindKeyActions()
+		{
+			#region Keys
 			// new key press is one that is not in held or new key presses
 			List<Keys> heldKeys = new List<Keys>();
 			List<Keys> newPressedKeys = new List<Keys>();
@@ -118,77 +223,12 @@ namespace CommonObjects
 				} 
 			}
 
-			//parse the mouse
-			// have to do each contorl seperatley
-
-			if (mCurrentMouseState.LeftButton == ButtonState.Pressed)
-			{
-				if (mLeftMouseButton == MouseButtonState.Depressed)
-				{
-					mLeftMouseButton = MouseButtonState.Pressed;
-				}
-				else
-				{
-					mLeftMouseButton = MouseButtonState.Held;
-				}
-			}
-			else
-			{
-				if ((mLeftMouseButton == MouseButtonState.Held) || (mLeftMouseButton == MouseButtonState.Pressed))
-				{
-					mLeftMouseButton = MouseButtonState.Depressed;
-				}												  
-			}
-
-			if (mCurrentMouseState.MiddleButton == ButtonState.Pressed)
-			{
-				if (mMiddleMouseButton == MouseButtonState.Depressed)
-				{
-					mMiddleMouseButton = MouseButtonState.Pressed;
-				}
-				else
-				{
-					mMiddleMouseButton = MouseButtonState.Held;
-				}
-			}
-			else
-			{
-				if ((mMiddleMouseButton == MouseButtonState.Held) || (mMiddleMouseButton == MouseButtonState.Pressed))
-				{
-					mMiddleMouseButton = MouseButtonState.Depressed;
-				}
-			}
-
-			if (mCurrentMouseState.RightButton == ButtonState.Pressed)
-			{
-				if (mRightNouseButton == MouseButtonState.Depressed)
-				{
-					mRightNouseButton = MouseButtonState.Pressed;
-				}
-				else
-				{
-					mRightNouseButton = MouseButtonState.Held;
-				}
-			}
-			else
-			{
-				if ((mRightNouseButton == MouseButtonState.Held) || (mRightNouseButton == MouseButtonState.Pressed))
-				{
-					mRightNouseButton = MouseButtonState.Depressed;
-				}
-			}
-
-			//ToDo: Mouse wheel and cursor position
-
-
-
-			//todo: raise the events for the input
-
 			mPressedKeys = newPressedKeys;
 			mHeldKeys = heldKeys;
 			mDepressedKeys = depressedKeys;
-		}
-			
+			#endregion		
+
+		}		
 			
 
 		
@@ -197,16 +237,35 @@ namespace CommonObjects
 
 		#region Events
 
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
 		public EventHandler<InputEventArgs> MouseButtonPressed;
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
 		public EventHandler<InputEventArgs> MouseButtonReleased;
 
 		public EventHandler<InputEventArgs> MouseWheelScrolled;
+		public EventHandler<InputEventArgs> MousePositionChanged;
 
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
 		public EventHandler<InputEventArgs> KeyPressed;
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
 		public EventHandler<InputEventArgs> KeyReleased;
+
+		
 
 		#region events Methods
 
+		/// <summary>
+		/// generic threadsafe way to raise an event
+		/// </summary>
+		/// <param name="theEvent"></param>
 		protected void RaiseEvent(EventHandler<InputEventArgs> theEvent)
 		{
 			//Copy to be threadsafe
@@ -219,7 +278,11 @@ namespace CommonObjects
 		{
 			InputEventArgs retVal = new InputEventArgs();
 
+			retVal.CurrentMousePosition = mCurrentMousePosition;
+			retVal.OldMousePosition = mOldMousePosition;
+
 			retVal.CurrentMouseScrollWheel = mCurrentMouseScrollWheel;
+			retVal.OldMouseScrollWheel = mOldMouseScrollWheel;
 
 			retVal.LeftMouseButton = mLeftMouseButton;
 			retVal.MiddleMouseButton = mMiddleMouseButton;
@@ -227,10 +290,7 @@ namespace CommonObjects
 
 			retVal.HeldKeys = mHeldKeys;
 			retVal.NewPressedKeys = mPressedKeys;
-			retVal.NewDepressedKeys = mDepressedKeys;
-
-			retVal.NewMousePosition = mNewMousePosition;
-			retVal.OldMousePosition = mOldMousePosition;
+			retVal.NewDepressedKeys = mDepressedKeys;  			
 
 			return retVal;
 		}
