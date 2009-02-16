@@ -82,11 +82,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildControlEventArgs.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Components\ConsoleMenu.cs" />
     <Compile Include="Components\ConsoleVisibilityEventArgs.cs" />
     <Compile Include="Components\FPS.cs" />
-    <Compile Include="ControlManager.cs" />
+    <Compile Include="Controls\ControlManager.cs" />
+    <Compile Include="Controls\Events\ControlPositionDimsArgs.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\GameControl.cs" />
     <Compile Include="Controls\GameLabel.cs" />
@@ -102,7 +104,7 @@
     <Compile Include="EventArgs\FireEventArgs.cs" />
     <Compile Include="EventArgs\MovementEventArgs.cs" />
     <Compile Include="EventArgs\UpdataOrderEventArgs.cs" />
-    <Compile Include="EventArgs\VisibilityEventArgs.cs" />
+    <Compile Include="Controls\Events\VisibilityEventArgs.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\GeneralTexture.cs" />
@@ -113,7 +115,7 @@
     <Compile Include="Graphics\TextureAnimationList.cs" />
     <Compile Include="Graphics\Tile.cs" />
     <Compile Include="Graphics\TileLayer.cs" />
-    <Compile Include="MessageObjects\InputEventArgs.cs" />
+    <Compile Include="Controls\Events\InputEventArgs.cs" />
     <Compile Include="Interfaces\IGameDrawable.cs" />
     <Compile Include="Interfaces\IGameLoadable.cs" />
     <Compile Include="Interfaces\IGameUpdateable.cs" />

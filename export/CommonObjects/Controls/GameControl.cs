@@ -15,8 +15,10 @@ namespace CommonObjects.Controls
 	/// this class will form the backbone of all other controls that will exist on screen.
 	/// The individual controls will end up being rendered by a control manager class which will interface with the .. haha i fell asleep drunk whilst writing that, I remmeber it beign a good idea tho 
 	/// </summary>
-	public class GameControl : IGameDrawable
+	public class GameControl : IGameDrawable , IEquatable<GameControl>
 	{
+		// inherit and override memebers to enable textured controls
+		// ToDo implement overriden public members
 		#region Fields	
 		protected int mID;
 		protected string mName;	
@@ -36,116 +38,180 @@ namespace CommonObjects.Controls
 		#endregion
 
 		#region Events
+#region Declerations
+		public EventHandler<EventArgs> NameChanged;
+		public EventHandler<EventArgs> IdChanged;
+		public EventHandler<EventArgs> BorderColorChanged;
+		public EventHandler<EventArgs> BackrColorChanged;
 
-		public EventHandler<InputEventArgs> GotFocus;
-		public EventHandler<InputEventArgs> LostFocus;
-
-		public EventHandler<InputEventArgs> KeyPressed;
-		public EventHandler<InputEventArgs> KeyDepressed;
-
-		public EventHandler<InputEventArgs> MouseButtonPressed;
-		public EventHandler<InputEventArgs> MouseButtonDepressed;
-		public EventHandler<InputEventArgs> MouseWheelScrolled;
-
-		public EventHandler<InputEventArgs> MousePositionChanged;
+		public EventHandler<GameControlEventArgs> GotFocus;		
+		public EventHandler<GameControlEventArgs> LostFocus;
 		public EventHandler<VisibilityEventArgs> VisibilityChanged;
+		public EventHandler<ControlPositionDimsArgs> PositionSizeChanged;
+#endregion
+#region Handlers
+		protected virtual void HandleGotFocusEvent(object sender, GameControlEventArgs theArgs)
+		{
+			//test to see if the event came from a child - if so then no other child controls to be effected
 
-		public EventHandler<ControlPositionDimsArgs> PositionSizeChanged;		
+			//if it doesnt then need to tell other controls that they ahvve lost focus
+		}
+		protected virtual void HandleChildLostFocusEvent(object sender, GameControlEventArgs theArgs)
+		{
 
+		}
+		
+#endregion
 
+	
 
+		#region Event Raising helper Methods
+
+		protected void RaiseEvent(EventHandler<InputEventArgs> theEvent, InputEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<InputEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<GameControlEventArgs> theEvent, GameControlEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<GameControlEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<VisibilityEventArgs> theEvent, VisibilityEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<VisibilityEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<ControlPositionDimsArgs> theEvent, ControlPositionDimsArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<ControlPositionDimsArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<EventArgs> theEvent, EventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<EventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
 
 		#endregion
-
-		#region Constructors
+		#endregion
+		#region	Constructors
 
 		public GameControl(int theID, string theName, ControlManager thecontrolManager)
 		{
-			ID = theID;
-			Name =theName;
-			mControlManager = thecontrolManager;			
+			mID	= theID;
+			mName =theName;
+			mControlManager	= thecontrolManager;			
 		}
 
-		/// <summary>
-		/// Creates a game control and sets its parent
-		/// </summary>
-		/// <param name="theID"></param>
-		/// <param name="theName"></param>
-		/// <param name="theParent"></param>
+		///	<summary>
+		///	Creates	a game control and sets	its	parent
+		///	</summary>
+		///	<param name="theID"></param>
+		///	<param name="theName"></param>
+		///	<param name="theParent"></param>
 		public GameControl(int theID, string theName, GameControl theParent)
 		{				
-			ID = theID;
-			Name = theName;
-			mParent = theParent;  			
+			mID	= theID;
+			mName =	theName;
+			mParent	= theParent;  			
 		}
 		
 
 
-		#endregion
-
-		#region Properties
-		/// <summary>
-		/// Sets the Id of the control - has no checking for overlapping control ID's in the controls themselves
-		/// </summary>
-		/// <exception cref="System.ArgumentOutOfRangeException">Thrown when ID less than 0</exception>
+		#endregion 
+		#region	Properties
+		///	<summary>
+		///	Sets the Id	of the control - has no	checking for overlapping control ID's in the controls themselves
+		///	</summary>
+		///	<exception cref="System.ArgumentOutOfRangeException">Thrown	when ID	less than 0</exception>
 		public int ID
 		{
-			get { return mID; }
+			get	{ return mID; }
 			set
 			{
-				if (value > -1)
-				{ mID = value; }
+				if (value >	-1)
+				{
+					mID	= value;
+					RaiseEvent(IdChanged , new EventArgs());
+				}
 				else
-					throw new ArgumentOutOfRangeException("Tried to set ID to negative value");
+					throw new ArgumentOutOfRangeException("Tried to	set	ID to negative value");
 			}
 		}
 
-		/// <summary>
-		/// Serts the name of the control
-		/// </summary>
-		/// <exception cref="Custom.ArgumentEmptyStringException">thrown on setting value to an empty string</exception>
+		///	<summary>
+		///	Serts the name of the control
+		///	</summary>
+		///	<exception cref="Custom.ArgumentEmptyStringException">thrown on	setting	value to an	empty string</exception>
 		public string Name
 		{
-			get { return mName; }
+			get	{ return mName;	}
 			set
 			{
 				if (value != "")
 				{
 					if (mName != value)
-						mName = value;
+					{
+						mName =	value;
+						RaiseEvent(NameChanged,	new	EventArgs());
+					}
 				}
 				else
-					throw new ArgumentEmptyStringException("Tried to set a game control's name to an empty string");
+					throw new ArgumentEmptyStringException("Tried to set a game	control's name to an empty string");
 			}
 		}
 
-		/// <summary>
-		/// Gets or sets wether the control sohuld be drawn or not
-		/// </summary>
-		public bool IsVisible
+		///	<summary>
+		///	Gets or	sets wether	the	control	sohuld be drawn	or not
+		///	</summary>
+		public bool	IsVisible
 		{
-			get { return mIsVisible; }
-			set { mIsVisible = value; }
-		}
-
-		/// <summary>
-		/// Gets or Sets the Position of the control relative to its parent
-		/// <para>does not throw an exception wit hnegative values to allow partially on screen controls</para>
-		/// </summary>
-		public Vector2 Position
-		{
-			get { return mPosition; }
+			get	{ return mIsVisible; }
 			set
 			{
-				if (value != null)
-					mPosition = value;
+				if (mIsVisible != value)
+				{
+					mIsVisible = value;
+					RaiseEvent(VisibilityChanged, new VisibilityEventArgs(value));
+				}
 			}
 		}
 
-		/// <summary>
-		/// Gets or sets the size of the control
-		/// </summary>
-		/// <exception cref="System.ArgumentOutOfRangeException">thrown with negative values in the vector2</exception>
+		///	<summary>
+		///	Gets or	Sets the Position of the control relative to its parent
+		///	<para>does not throw an	exception wit hnegative	values to allow	partially on screen	controls</para>
+		///	</summary>
+		public Vector2 Position
+		{
+			get	{ return mPosition;	}
+			set
+			{
+				if (value != mPosition)
+				{
+					if (value != null)
+					{
+						mPosition =	value;
+						RaiseEvent(PositionSizeChanged,	new	ControlPositionDimsArgs(mPosition, mSize));
+					}
+				}
+			}
+		}
+
+		///	<summary>
+		///	Gets or	sets the size of the control
+		///	</summary>
+		///	<exception cref="System.ArgumentOutOfRangeException">thrown	with negative values in	the	vector2</exception>
 		public Vector2 Size
 		{
 			get
@@ -156,85 +222,143 @@ namespace CommonObjects.Controls
 			{
 				if (value != null)
 				{
-					if (value.X < 0)
+					if (value.X	< 0)
 					{
-						throw new ArgumentOutOfRangeException("tried to set negative width for control");
+						throw new ArgumentOutOfRangeException("tried to	set	negative width for control");
 					}
-					if (value.Y < 0)
+					if (value.Y	< 0)
 					{
-						throw new ArgumentOutOfRangeException("Tried to set a negative height for a control");
+						throw new ArgumentOutOfRangeException("Tried to	set	a negative height for a	control");
 					}
 
-
-					mSize = value;
+					if (value != mSize)
+					{
+						mSize =	value;
+						RaiseEvent(PositionSizeChanged,	new	ControlPositionDimsArgs(mPosition, mSize));
+					}
 				}
 			}
 		}
 
-		/// <summary>
-		/// Recursivley gets the controls absolute position relative to  0,0
-		/// </summary>
-		public Vector2 AbsolutePosition
+		///	<summary>
+		///	Recursivley	gets the controls absolute position	relative to	 0,0
+		///	</summary>
+		public Vector2 GetAbsolutePosition
 		{
 			get
 			{
-				if (mParent == null)
+				if (mParent	== null)
 				{
 					return mPosition;
 				}
-				else { return mParent.AbsolutePosition + mPosition; }
+				else { return mParent.GetAbsolutePosition +	mPosition; }
 			}
 		}
 
-		/// <summary>
-		/// Gets wether or not the control has the Focus
-		/// </summary>
-		public bool HasFocus
-		{ get { return mGotFocus; } }
+		///	<summary>
+		///	Gets wether	or not the control has the Focus
+		///	</summary>
+		public bool	HasFocus
+		{ get {	return mGotFocus; }	}
 
-		/// <summary>
-		/// Gets the parent control for this control
-		/// </summary>
+		///	<summary>
+		///	Gets the parent	control	for	this control
+		///	</summary>
 		public GameControl Parent
-		{ get { return mParent; } }
+		{ get {	return mParent;	} }
 
-		/// <summary>
-		/// Gets ot Sets the BackGround of the Control
-		/// </summary>
+		///	<summary>
+		///	Gets ot	Sets the BackGround	of the Control
+		///	</summary>
 		public Color BackColor
 		{
-			get { return mBackColor; }
-			set { mBackColor = value; }
+			get	{ return mBackColor; }
+			set
+			{
+				if (mBackColor != value)
+				{
+					mBackColor = value;
+					RaiseEvent(BackrColorChanged, new EventArgs());
+				}
+			}
 		}
 
-		/// <summary>
-		/// Gets or Sets the color of the border of the control
-		/// </summary>
+		///	<summary>
+		///	Gets or	Sets the color of the border of	the	control
+		///	</summary>
 		public Color BorderColor
 		{
-			get { return mBorderColor; }
-			set { mBorderColor = value; }
+			get	{ return mBorderColor; }
+			set
+			{
+				if (mBorderColor !=	value)
+				{
+					mBorderColor = value;
+					RaiseEvent(BorderColorChanged, new EventArgs());
+
+				}
+			}
 		}
 
 
-		#endregion
-
+		#endregion 
 		#region	Methods
-		#region Public Methods
-		/// <summary>
-		/// This function takes the Input event args, updates itself as necessary
-		/// and then passes the InputEventArgs to whatever other child controls need them
-		/// <para>Override InternalInputProcessing for custom behaviour and event raising</para>
-		/// </summary>
-		/// <param name="theArgs"></param>
-		public  void ProcessInput(InputEventArgs theArgs)
-		{
-			InternalInputProcessing(theArgs);
-			// establish controls to send input to
-			// convert the coordinates so that they are relative to this control
+		#region	Public Methods
 
-			InputEventArgs newArgs = theArgs.Clone();
+		public void	RemoveFocus()
+		{
+			if (mChildren != null)
+			{
+				foreach	(GameControl gt	in mChildren)
+				{
+					gt.RemoveFocus();
+				}					 
+			}
+			else
+			{
+				if (mGotFocus == true)
+				{
+					mGotFocus =	false;		// only	set	it here	for	the	sake of	the	input args
+					RaiseEvent(LostFocus, new GameControlEventArgs(this));
+				}
+			}
+			mGotFocus =	false;		
+
+		}
+
+		///	<summary>
+		///	This function takes	the	Input event	args, updates itself as	necessary
+		///	and	then passes	the	InputEventArgs to whatever other child controls	need them 		///	
+		///	</summary>
+		///	<param name="theArgs"></param>
+		public virtual	void ProcessInput(InputEventArgs theArgs)
+		{
+			// RaiseGotFocusEvent(new GameControlEventArgs(this));	
 			
+			
+			// establish control to	send input to					
+
+			bool childHasFocus = false;
+			if (mChildren != null)
+			{
+				int	counter	= 0;
+				do
+				{
+					if (mChildren[counter].IsAbsolutePositionInsideControl(theArgs.CurrentMousePosition))
+					{
+						childHasFocus =	true;
+						mChildren[counter].ProcessInput(theArgs);
+						MoveControlToFront(counter);
+						counter	= mChildren.Count;
+					}							  
+					counter++;
+				}
+				while (counter < mChildren.Count);
+			}
+			if (childHasFocus == false)
+			{
+				ProcessInternalInput(theArgs);
+			}								  	
 
 
 		}
@@ -244,13 +368,53 @@ namespace CommonObjects.Controls
 			{
 				if (!mChildren.Contains(Child))
 				{
+					//ToDo:Sign	up to the controls events
+					
 					mChildren.Add(Child);
 				}
 			}
 		}
+		///	<summary>
+		///	This tests wether a	set	of coordinates relative	to 0,0 are inside this control
+		///	</summary>
+		///	<param name="thePosition"></param>
+		///	<returns></returns>
+		public bool	IsAbsolutePositionInsideControl(Vector2	thePosition)
+		{
+			bool retVal	= false;
+			Vector2	absPosOfControl	= GetAbsolutePosition;
+			//if below top
+			if (thePosition.Y >	absPosOfControl.Y)
+			{
+				//if above bottom
+				if (thePosition.Y <	(absPosOfControl.Y + mSize.Y))
+				{
+					//if right of the left side
+					if (thePosition.X >	absPosOfControl.X)
+					{
+						//if left of the right side
+						if (thePosition.X <	(absPosOfControl.X + mSize.X))
+						{
+							//its inside thePosition control
+							retVal = true;
+						}
+					}
+				}
+			}	
+			
+			return retVal;
+
+		}
+		///	<summary>
+		///	This tests wether a	set	of coordinates relative	to its parent are inside this control
+		///	</summary>
+		///	<param name="thePosition"></param>
+		///	<returns></returns>
 		public bool	IsPositionInsideControl(Vector2	thePosition)
 		{
 			bool retVal	= false;
+
+
 			//if below top
 			if (thePosition.Y >	mPosition.Y)
 			{
@@ -273,56 +437,26 @@ namespace CommonObjects.Controls
 		}
 		#endregion
 
-		#region Event Methods
+		
 
-		protected void RaiseEvent(EventHandler<InputEventArgs> theEvent, InputEventArgs theEventArgs)
+		#region	Protected Methods
+
+		protected virtual void ProcessInternalInput(InputEventArgs theArgs)
 		{
-			//Copy to be threadsafe
-			EventHandler<InputEventArgs> temp = theEvent;
-			if (temp != null)
-				temp(this, theEventArgs);
-		}
-		protected void RaiseEvent(EventHandler<VisibilityEventArgs> theEvent, VisibilityEventArgs theEventArgs)
-		{
-			//Copy to be threadsafe
-			EventHandler<VisibilityEventArgs> temp = theEvent;
-			if (temp != null)
-				temp(this, theEventArgs);
-		}
-		protected void RaiseEvent(EventHandler<ControlPositionDimsArgs> theEvent, ControlPositionDimsArgs theEventArgs)
-		{
-			//Copy to be threadsafe
-			EventHandler<ControlPositionDimsArgs> temp = theEvent;
-			if (temp != null)
-				temp(this, theEventArgs);
+			RaiseGotFocusEvent(new GameControlEventArgs(this));
 		}
 
-		#endregion
-
-		#region Protected Methods
-
-		/// <summary>
-		/// Only want to raise got focus if not already got focus .. not when a different child control gets it.
-		/// </summary>
-		/// <param name="theArgs"></param>
-		protected void RaiseGotFocusEvent(InputEventArgs theArgs)
+		///	<summary>
+		///	Will Only raise	got	focus if not already got focus .. not when a different child control gets it.
+		///	</summary>
+		///	<param name="theArgs"></param>
+		protected virtual void RaiseGotFocusEvent(GameControlEventArgs theArgs)
 		{
-			if (mGotFocus != true)
-			{
-				mGotFocus = true;
-				RaiseEvent(GotFocus, theArgs);
-			}
+			mGotFocus =	true;
+			RaiseEvent(GotFocus, new GameControlEventArgs(theArgs.Control));
 		}
+		
 
-
-
-		protected virtual void InternalInputProcessing(InputEventArgs theArgs)
-		{
-			// check the event is inside the control
-
-
-
-		}
 		protected Vector2 GetRelativePosition(Vector2 thePosition)
 		{
 			Vector2	retVal = new Vector2();
@@ -359,9 +493,10 @@ namespace CommonObjects.Controls
 			retVal.Add(mChildren[index]);
 			mChildren =	retVal;
 		}
-		#endregion
-		#endregion
 
+
+		#endregion
+		#endregion 
 		#region IGameDrawable Members
 
 		public void Draw(spriteBatchArgs thespriteBatchArgs)
@@ -394,6 +529,71 @@ namespace CommonObjects.Controls
 		#endregion
 
 
+
+		#region IEquatable<GameControl> Members
+
+		public bool Equals(GameControl other)
+		{
+			if (other==null)
+				return false;
+
+			bool retVal = true;
+
+			if (
+				 (other.mID == mID) &&
+				(other.mName == mName) &&
+				(other.mPosition.Equals(mPosition)) &&
+				(other.mSize.Equals(mSize)) &&
+				(other.mBackColor == mBackColor) &&
+				(other.BorderColor == mBorderColor) &&
+				(other.mGotFocus == mGotFocus) &&
+				(other.mIsVisible == mIsVisible)
+				
+				)
+			{
+				if (other.mControlManager == null)
+				{
+					if (mControlManager != null)
+						retVal = false;
+				}
+				else
+				{
+					if (other.mControlManager != mControlManager)
+					{
+						retVal = false;
+					}
+				}
+
+				if (other.mChildren == null)
+				{
+					if (mChildren != null)
+						retVal = false;
+				}
+				else
+				{
+					if (other.mChildren != mChildren)
+						retVal = false;
+				}
+
+				if (other.mParent == null)
+				{
+					if (mParent != null)
+						retVal = false;
+				}
+				else
+				{
+					if (other.mParent != mParent)
+						retVal = false;
+				}
+			}
+			else
+			{
+				retVal = false;
+			}
+			return retVal;
+		}
+
+		#endregion
 	}
 
 
