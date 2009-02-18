@@ -23,9 +23,9 @@ namespace CommonObjects.Controls
 		private KeyboardState mOldKeyboardState;
 		private KeyboardState mCurrentKeyboardState;
 
-		private List<Keys> mPressedKeys;
-		private List<Keys> mHeldKeys;
-		private List<Keys> mDepressedKeys;
+		private List<Keys> mPressedKeys = new List<Keys>();
+		private List<Keys> mHeldKeys = new List<Keys>();
+		private List<Keys> mDepressedKeys = new List<Keys>();
 
 		private MouseButtonState mLeftMouseButton;
 		private MouseButtonState mMiddleMouseButton;
@@ -49,7 +49,7 @@ namespace CommonObjects.Controls
 
 		#region Methods
 
-		protected void ProcessInput()
+		public void ProcessInput()
 		{
 			mOldKeyboardState = mCurrentKeyboardState;
 			mOldMouseState = mCurrentMouseState;
@@ -64,7 +64,24 @@ namespace CommonObjects.Controls
 		}
 		protected void RaiseInputEvents()
 		{
+			// Need to raise the  mouse click event first as that controls control focus events
+			if ((mMiddleMouseButton == MouseButtonState.Pressed) ||
+				(mLeftMouseButton == MouseButtonState.Pressed) ||
+				(mRightNouseButton == MouseButtonState.Pressed))
+			{
+				RaiseEvent(AttemptedFocusEvent);
+				RaiseEvent(MouseButtonPressed);
+			}
 		
+
+			//  mouse button depress  - controls exit for mouse button held events
+
+			if ((mMiddleMouseButton == MouseButtonState.Depressed) ||
+				(mLeftMouseButton == MouseButtonState.Depressed) ||
+				(mRightNouseButton == MouseButtonState.Depressed))
+			{
+				RaiseEvent(MouseButtonReleased);
+			}	
 
 			if (mPressedKeys.Count != 0)
 				RaiseEvent(KeyPressed);
@@ -72,19 +89,7 @@ namespace CommonObjects.Controls
 			if (mDepressedKeys.Count !=	0)
 				RaiseEvent(KeyReleased);
 
-			if ((mMiddleMouseButton	== MouseButtonState.Pressed) ||
-				(mLeftMouseButton == MouseButtonState.Pressed) ||
-				(mRightNouseButton == MouseButtonState.Pressed))
-			{
-				RaiseEvent(MouseButtonPressed);
-			}
 
-			if ((mMiddleMouseButton	== MouseButtonState.Depressed) ||
-				(mLeftMouseButton == MouseButtonState.Depressed) ||
-				(mRightNouseButton == MouseButtonState.Depressed))
-			{
-				RaiseEvent(MouseButtonReleased);
-			}
 
 			if (mCurrentMousePosition != mOldMousePosition)
 				RaiseEvent(MousePositionChanged);
@@ -241,6 +246,7 @@ namespace CommonObjects.Controls
 		/// It is up to the reciever of this event to manage held buttons
 		/// </summary>
 		public EventHandler<InputEventArgs> MouseButtonPressed;
+		public EventHandler<FocusMessageArgs> AttemptedFocusEvent;
 		/// <summary>
 		/// It is up to the reciever of this event to manage held buttons
 		/// </summary>
@@ -272,6 +278,17 @@ namespace CommonObjects.Controls
 			EventHandler<InputEventArgs> temp = theEvent;
 			if (temp != null)
 				temp(this, CreateInputEventArgs());
+		}
+
+		protected void RaiseEvent(EventHandler<FocusMessageArgs> theEvent)
+		{
+			//Copy to be threadsafe
+			EventHandler<FocusMessageArgs> temp = theEvent;
+			if (temp != null)
+			{
+				FocusMessageArgs args = new FocusMessageArgs(this, mCurrentMousePosition);
+				temp(this, args);
+			}
 		}
 
 		protected virtual InputEventArgs CreateInputEventArgs()

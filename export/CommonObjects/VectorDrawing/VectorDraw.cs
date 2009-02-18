@@ -43,7 +43,7 @@ namespace CommonObjects.VectorDrawing
 
 
 		#region Methods
-		public static void DrawRectangleEdge(Vector2 thePosition, Vector2 theDimensions, Color theColor, uint theThickness, spriteBatchArgs theArgs)
+		public static void DrawRectangleEdge(Vector2 thePosition, Vector2 theDimensions, Color theColor, uint theThickness, SpriteBatch  theSpriteBatch, float LayerDepth)
 		{
 			Vector2 theVector = new Vector2();
 			float length = theDimensions.X;					 
@@ -54,35 +54,35 @@ namespace CommonObjects.VectorDrawing
 			
 			//need to draw all 4 sides
 			// start with 2 vertical
-			DrawLine(pos, theVector, theColor, theArgs);			
+			DrawLine(pos, theVector, theColor, theSpriteBatch,LayerDepth );			
 			pos.X = pos.X + length;
-			DrawLine(pos, theVector, theColor, theArgs);
+			DrawLine(pos, theVector, theColor, theSpriteBatch,LayerDepth );
 			// then the horixontal
 			pos = thePosition;
 			theVector.X = length;
 			theVector.Y = 0;
-			DrawLine(pos, theVector, theColor, theArgs);
+			DrawLine(pos, theVector, theColor, theSpriteBatch,LayerDepth );
 			pos.Y = pos.Y + height;
-			DrawLine(pos, theVector, theColor, theArgs);
+			DrawLine(pos, theVector, theColor, theSpriteBatch,LayerDepth );
 
 		}
 
-		public static void DrawRectangleFilled(Vector2 thePosition, Vector2 theDimensions, Color theColor, spriteBatchArgs theArgs)
+		public static void DrawRectangleFilled(Vector2 thePosition, Vector2 theDimensions, Color theColor, SpriteBatch  theSpriteBatch, float LayerDepth)
 		{
-			theArgs.SpriteBatch.Draw(Pixel, thePosition, null, theColor, 0, Vector2.Zero, theDimensions, SpriteEffects.None, theArgs.LayerDepth);
+			theSpriteBatch.Draw(Pixel, thePosition, null, theColor, 0, Vector2.Zero, theDimensions, SpriteEffects.None, LayerDepth);
 
 		}
 
-		public static void DrawLine(Vector2 thePosition, Vector2 theVector, Color theColor, spriteBatchArgs theArgs)
+		public static void DrawLine(Vector2 thePosition, Vector2 theVector, Color theColor, SpriteBatch theSpriteBatch, float LayerDepth)
 		{
 			Vector2 scale = new Vector2();
-			SpriteBatch sb = theArgs.SpriteBatch;
+			
 
 			float length = theVector.Length();
 			scale.X=length;
 			scale.Y=1;
 			float rotation = (float)Math.Atan2(theVector.Y,theVector.X);
-			sb.Draw(Pixel, thePosition, null, theColor, rotation, Vector2.Zero, scale, SpriteEffects.None, theArgs.LayerDepth);
+			theSpriteBatch.Draw(Pixel, thePosition, null, theColor, rotation, Vector2.Zero, scale, SpriteEffects.None, LayerDepth);
 
 
 		}

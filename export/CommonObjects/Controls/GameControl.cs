@@ -15,7 +15,7 @@ namespace CommonObjects.Controls
 	/// this class will form the backbone of all other controls that will exist on screen.
 	/// The individual controls will end up being rendered by a control manager class which will interface with the .. haha i fell asleep drunk whilst writing that, I remmeber it beign a good idea tho 
 	/// </summary>
-	public class GameControl : IGameDrawable , IEquatable<GameControl>
+	public class GameControl : IEquatable<GameControl>
 	{
 		// inherit and override memebers to enable textured controls
 		// ToDo implement overriden public members
@@ -30,15 +30,16 @@ namespace CommonObjects.Controls
 		protected Color mBorderColor = Color.Black;
 
 		protected bool mGotFocus = false;
+		protected bool mChildHasFocus = false;
 		protected bool mIsVisible = true;
 
-		protected ControlManager mControlManager;
+		//protected ControlManager mControlManager;
 		protected GameControl mParent;
 		protected List<GameControl> mChildren;
 		#endregion
 
 		#region Events
-#region Declerations
+			#region Declerations
 		public EventHandler<EventArgs> NameChanged;
 		public EventHandler<EventArgs> IdChanged;
 		public EventHandler<EventArgs> BorderColorChanged;
@@ -49,23 +50,26 @@ namespace CommonObjects.Controls
 		public EventHandler<VisibilityEventArgs> VisibilityChanged;
 		public EventHandler<ControlPositionDimsArgs> PositionSizeChanged;
 #endregion
-#region Handlers
+			#region	Handlers
 		protected virtual void HandleGotFocusEvent(object sender, GameControlEventArgs theArgs)
 		{
-			//test to see if the event came from a child - if so then no other child controls to be effected
+			//test to see if the event came	from a child - if so then no other child controls to be	effected
 
-			//if it doesnt then need to tell other controls that they ahvve lost focus
+			//if it	doesnt then	need to	tell other controls	that they ahvve	lost focus
 		}
-		protected virtual void HandleChildLostFocusEvent(object sender, GameControlEventArgs theArgs)
+		protected virtual void HandleChildLostFocusEvent(object	sender,	GameControlEventArgs theArgs)
 		{
 
 		}
-		
-#endregion
 
-	
-
-		#region Event Raising helper Methods
+		protected virtual void HandleMouseButtonPressed(object sender, InputEventArgs theArgs) { }
+		protected virtual void HandleMouseButtonReleased(object	sender,	InputEventArgs theArgs)	{ }
+		protected virtual void HandleMouseWheelScrolled(object sender, InputEventArgs theArgs) { }
+		protected virtual void HandleMousePositionChanged(object sender, InputEventArgs	theArgs) { }
+		protected virtual void HandleKeyPressed(object sender, InputEventArgs theArgs) { }
+		protected virtual void HandleKeyRelseased(object sender, InputEventArgs	theArgs) { }
+#endregion 
+ 			#region Event Raising helper Methods
 
 		protected void RaiseEvent(EventHandler<InputEventArgs> theEvent, InputEventArgs theEventArgs)
 		{
@@ -107,11 +111,11 @@ namespace CommonObjects.Controls
 		#endregion
 		#region	Constructors
 
-		public GameControl(int theID, string theName, ControlManager thecontrolManager)
+		public GameControl(int theID, string theName/*, ControlManager thecontrolManager*/)
 		{
 			mID	= theID;
 			mName =theName;
-			mControlManager	= thecontrolManager;			
+			//mControlManager	= thecontrolManager;			
 		}
 
 		///	<summary>
@@ -303,65 +307,99 @@ namespace CommonObjects.Controls
 
 		#endregion 
 		#region	Methods
-		#region	Public Methods
+			#region	Public Methods
 
-		public void	RemoveFocus()
+		///	<summary>
+		///	this causes	event cascades up from the deepest control if anything has the focus
+		///	</summary>
+		public void	RemoveFocus(FocusMessageArgs theArgs)
 		{
+			bool childHasFocus = false;
 			if (mChildren != null)
 			{
 				foreach	(GameControl gt	in mChildren)
 				{
-					gt.RemoveFocus();
-				}					 
+					if (gt.HasFocus)
+					{
+						childHasFocus =	true;
+						gt.RemoveFocus(theArgs);
+					}
+				}
 			}
-			else
+
+			if (childHasFocus == false)
 			{
 				if (mGotFocus == true)
 				{
 					mGotFocus =	false;		// only	set	it here	for	the	sake of	the	input args
+					ProcessSelfLostFocus(theArgs);
 					RaiseEvent(LostFocus, new GameControlEventArgs(this));
-				}
+				}	   
 			}
-			mGotFocus =	false;		
-
 		}
 
-		///	<summary>
-		///	This function takes	the	Input event	args, updates itself as	necessary
-		///	and	then passes	the	InputEventArgs to whatever other child controls	need them 		///	
-		///	</summary>
-		///	<param name="theArgs"></param>
-		public virtual	void ProcessInput(InputEventArgs theArgs)
+		
+
+		public void	 EstablishFocus(FocusMessageArgs  theArgs)
 		{
-			// RaiseGotFocusEvent(new GameControlEventArgs(this));	
-			
-			
-			// establish control to	send input to					
+			// Only	the	control	that has focus has its mHasFocus = true	
+			// establish control with focus					
 
 			bool childHasFocus = false;
 			if (mChildren != null)
-			{
+			{  
 				int	counter	= 0;
 				do
 				{
-					if (mChildren[counter].IsAbsolutePositionInsideControl(theArgs.CurrentMousePosition))
+					if (mChildren[counter].DetermineIfControlGetsFocus(theArgs))						
 					{
 						childHasFocus =	true;
-						mChildren[counter].ProcessInput(theArgs);
+						ProcessChildGotFocus(theArgs);	// must	come first because got focus events	need chance	to fire
+														// if they fire	after then final gotfocus event	fired wont have	focus
+						mChildren[counter].EstablishFocus(theArgs);
+						
 						MoveControlToFront(counter);
 						counter	= mChildren.Count;
 					}							  
 					counter++;
 				}
 				while (counter < mChildren.Count);
+
 			}
 			if (childHasFocus == false)
 			{
-				ProcessInternalInput(theArgs);
-			}								  	
-
-
+				//make sure	none of	them have focus
+				//and process the input	as it is for this control
+				if (mChildren != null)
+				{
+					foreach	(GameControl gc	in mChildren)
+					{
+						if (gc.HasFocus)
+							gc.RemoveFocus(theArgs);
+					}
+				}	 
+				// we now know this	control	must have the focus
+				// if it doesnt	already	have focus then	process	it as new
+				if (mGotFocus == false)
+				{
+					ProcessSelfGainedFocus(theArgs);
+				}
+			}  		
+			else
+			{
+				// we know child[0]	has	focus
+				//make sure	all	but	the	one	with focus dont	have focus
+				int	counter	= 1;
+				while (counter < mChildren.Count)
+				{
+					if (mChildren[counter].HasFocus)
+						mChildren[counter].RemoveFocus(theArgs);
+					counter++;
+				}
+			}	 
 		}
+
+
 		public void	AddChildControl(GameControl	Child)
 		{
 			if (Child != null)
@@ -435,25 +473,63 @@ namespace CommonObjects.Controls
 			}							  
 			return retVal;
 		}
-		#endregion
-
-		
-
-		#region	Protected Methods
-
-		protected virtual void ProcessInternalInput(InputEventArgs theArgs)
+		public virtual bool DetermineIfControlGetsFocus(FocusMessageArgs theArgs)
 		{
-			RaiseGotFocusEvent(new GameControlEventArgs(this));
+			bool retVal = false;
+			//ToDo: write in enabled / disabled states
+			if (IsVisible)
+				retVal = IsAbsolutePositionInsideControl(theArgs.mousePosition);
+			return retVal;
+		}
+		#endregion 		
+			#region	Protected Methods
+
+
+
+		/// <summary>
+		/// Allows a control to listen for cetain commands aimed at a container
+		/// </summary>
+		/// <param name="theArge"></param>
+		protected virtual void ProcessChildGotFocus(FocusMessageArgs theArge)
+		{
+
 		}
 
-		///	<summary>
-		///	Will Only raise	got	focus if not already got focus .. not when a different child control gets it.
-		///	</summary>
-		///	<param name="theArgs"></param>
-		protected virtual void RaiseGotFocusEvent(GameControlEventArgs theArgs)
+		/// <summary>
+		/// This only fires when the control directly gains the focus
+		/// </summary>
+		/// <param name="theArgs"></param>
+		protected virtual void ProcessSelfGainedFocus(FocusMessageArgs theArgs)
 		{
-			mGotFocus =	true;
-			RaiseEvent(GotFocus, new GameControlEventArgs(theArgs.Control));
+			mBackColor = Color.Pink;
+			mGotFocus = true;
+			theArgs.eventManager.KeyPressed += HandleKeyPressed;
+			theArgs.eventManager.KeyReleased += HandleKeyRelseased;
+			theArgs.eventManager.MouseButtonPressed += HandleMouseButtonPressed;
+			theArgs.eventManager.MouseButtonReleased += HandleMouseButtonReleased;
+			theArgs.eventManager.MousePositionChanged += HandleMousePositionChanged;
+			theArgs.eventManager.MouseWheelScrolled += HandleMouseWheelScrolled;
+
+			RaiseEvent(GotFocus, new GameControlEventArgs(this));	
+
+		}
+
+		/// <summary>
+		/// this fires when the control loses the focus
+		/// </summary>
+		/// <param name="theArgs"></param>
+		protected virtual void ProcessSelfLostFocus(FocusMessageArgs theArgs)
+		{
+			mGotFocus = false;
+			mBackColor = Color.SeaGreen;
+			theArgs.eventManager.KeyPressed += HandleKeyPressed;
+			theArgs.eventManager.KeyReleased += HandleKeyRelseased;
+			theArgs.eventManager.MouseButtonPressed += HandleMouseButtonPressed;
+			theArgs.eventManager.MouseButtonReleased += HandleMouseButtonReleased;
+			theArgs.eventManager.MousePositionChanged += HandleMousePositionChanged;
+			theArgs.eventManager.MouseWheelScrolled += HandleMouseWheelScrolled;
+			RaiseEvent(LostFocus, new GameControlEventArgs(this));
+
 		}
 		
 
@@ -497,23 +573,34 @@ namespace CommonObjects.Controls
 
 		#endregion
 		#endregion 
-		#region IGameDrawable Members
+		#region	IGameDrawable Members
 
-		public void Draw(spriteBatchArgs thespriteBatchArgs)
+		protected float CalculateLayerDepth(int NoDrawn)
+		{
+			float inverse = 1 / (float)NoDrawn;
+			float retVal =(float)0.1-(float)( inverse / 10); //ensures that layerdepth always between 0 and 0.1 - ie at the front
+				return retVal;
+
+		}
+
+		public void	Draw(ControlSpriteBatchArgs theArgs)
 		{
 			if (mIsVisible == true)
 			{
-				//Draw Background
-				VectorDraw.DrawRectangleFilled(mPosition, mSize, mBackColor, thespriteBatchArgs);
+				
 				//Draw Border
-				VectorDraw.DrawRectangleEdge(mPosition, mSize, mBorderColor, 1, thespriteBatchArgs); 
+				VectorDraw.DrawRectangleEdge(mPosition,	mSize, mBorderColor, 1,	theArgs.theSpriteBatch,CalculateLayerDepth(theArgs.NocontrolsDrawn));
+				theArgs.NocontrolsDrawn++;
+				//Draw Background
+				VectorDraw.DrawRectangleFilled(mPosition, mSize, mBackColor, theArgs.theSpriteBatch, CalculateLayerDepth(theArgs.NocontrolsDrawn));
+				theArgs.NocontrolsDrawn++;
 
-				InnerDraw(thespriteBatchArgs);
+				InnerDraw(theArgs);
 				if (mChildren != null)
 				{
-					foreach (GameControl gc in mChildren)
+					foreach	(GameControl gc	in mChildren)
 					{
-						gc.Draw(thespriteBatchArgs);
+						gc.Draw(theArgs);
 					}
 				}
 
@@ -521,15 +608,12 @@ namespace CommonObjects.Controls
 			
 		}
 
-		protected virtual void InnerDraw(spriteBatchArgs thespriteBatchArgs)
+		protected virtual void InnerDraw(ControlSpriteBatchArgs  theArgs)
 		{
 
 		}
 
-		#endregion
-
-
-
+		#endregion 
 		#region IEquatable<GameControl> Members
 
 		public bool Equals(GameControl other)
@@ -551,7 +635,7 @@ namespace CommonObjects.Controls
 				
 				)
 			{
-				if (other.mControlManager == null)
+				/*if (other.mControlManager == null)
 				{
 					if (mControlManager != null)
 						retVal = false;
@@ -563,6 +647,7 @@ namespace CommonObjects.Controls
 						retVal = false;
 					}
 				}
+				 * */
 
 				if (other.mChildren == null)
 				{
@@ -592,6 +677,12 @@ namespace CommonObjects.Controls
 			}
 			return retVal;
 		}
+
+		#endregion
+
+		#region IGameDrawable Members
+
+
 
 		#endregion
 	}
