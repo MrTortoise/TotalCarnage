@@ -70,8 +70,14 @@ namespace GameEditorObjectsTest
 
 			mControl.BackColor = Color.Wheat;
 			mControl.BorderColor = Color.Black;
-			mControl.Position = new Vector2(500, 100);
-			mControl.Size = new Vector2(300, 75);
+			mControl.Position = new Vector2(450, 100);
+			mControl.Size = new Vector2(300, 200);
+
+			GameControl g3 = new GameControl(2, "inner");
+			g3.BackColor = Color.AliceBlue;
+			g3.Position = new Vector2(500, 150);
+			g3.Size=new Vector2(50,50);
+			mControl.AddChildControl(g3);
 
 			mControlManager.AddControl(mControl);
 

@@ -145,10 +145,13 @@ namespace CommonObjects
 				try
 				{
 					Monitor.Enter(textureLock);
-					mTexture = Texture2D.FromFile(theGraphicsDevice, mPath);
-					mIsLoaded = true;
-					mColumnWidth = mTexture.Width / mColumns;
-					mRowHeight = mTexture.Height / mRows;
+					if (mIsLoaded == false)		  // could get loaded whilst getting lock
+					{
+						mTexture = Texture2D.FromFile(theGraphicsDevice, mPath);
+						mIsLoaded = true;
+						mColumnWidth = mTexture.Width / mColumns;
+						mRowHeight = mTexture.Height / mRows;
+					}
 				}
 				catch (Exception e)
 				{

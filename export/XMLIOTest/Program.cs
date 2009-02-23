@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CommonObjects.Controls
+namespace XMLIOTest
 {
-	class Control
+	class Program
 	{
+		static void Main(string[] args)
+		{
+		}
 	}
 }

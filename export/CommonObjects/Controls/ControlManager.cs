@@ -28,7 +28,11 @@ namespace CommonObjects.Controls
 		 * */
 		#region Fields
 		//protected EventManager mEventManager;
-		protected List<GameControl> mAllControls;
+		protected List<GameControl> mAllControls = new List<GameControl>();
+		protected GeneralTextureCellList mTextureCells = new GeneralTextureCellList();
+		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList();
+
+		
 		
 		#endregion
 
@@ -56,31 +60,17 @@ namespace CommonObjects.Controls
 		#region	Protected
 		protected void MoveControlToFront(int index)
 		{
-			List<GameControl> retVal = new List<GameControl>();
 
-			retVal.Add(mAllControls[index]);
-			for	(int i = 0;	i <	index; i++)
-			{
-				retVal.Add(mAllControls[i]);
-			}
-			for	(int i = index + 1;	i <	mAllControls.Count;	i++)
-			{
-				retVal.Add(mAllControls[i]);
-			}
+			GameControl temp = mAllControls[index];
+			mAllControls.RemoveAt(index);
+			mAllControls.Insert(0, temp);
+
 		}
 		protected void MoveControlToBack(int index)
 		{
-			List<GameControl> retVal = new List<GameControl>();
-			for	(int i = 0;	i <	index; i++)
-			{
-				retVal.Add(mAllControls[i]);
-			}
-			for	(int i = index + 1;	i <	mAllControls.Count;	i++)
-			{
-				retVal.Add(mAllControls[i]);
-			}
-			retVal.Add(mAllControls[index]);
-
+			GameControl temp = mAllControls[index];
+			mAllControls.RemoveAt(index);
+			mAllControls.Add(temp);
 		}
 
 		#endregion			   
@@ -120,10 +110,9 @@ namespace CommonObjects.Controls
 					{
 						if (mAllControls[i].HasFocus)
 							mAllControls[i].RemoveFocus(args);
-					}
-
-
+					} 
 				}
+				MoveControlToFront(theControl);
 			}
 			else
 			{

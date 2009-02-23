@@ -7,11 +7,24 @@ namespace CommonObjects
 {
     public class VisibilityEventArgs : EventArgs
     {
-        public bool visibility;
+		protected bool mOldVisibility;
+		protected bool mNewVisibility;
 
-        public VisibilityEventArgs(bool theVisibility)
+        public VisibilityEventArgs(bool theOldVisibility,bool theNewVisibility)
         {
-            visibility = theVisibility;
+			mOldVisibility = theOldVisibility;
+			mNewVisibility = theNewVisibility;
         }
+
+		public bool OldVisibility
+		{
+			get { return mOldVisibility; }
+			set { mOldVisibility = value; }
+		}
+		public bool NewVisibility
+		{
+			get { return mNewVisibility; }
+			set { mNewVisibility = value; }
+		}
     }
 }

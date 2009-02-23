@@ -10,11 +10,15 @@ namespace CommonObjects.Controls
 	{
 		public EventManager eventManager;
 		public Vector2 mousePosition;
+		public Vector2 screenPosition = Vector2.Zero;
+		public Vector2 screenDimensions;
 
-		public FocusMessageArgs(EventManager theEventManager, Vector2 theMousePosition)
+		public FocusMessageArgs(EventManager theEventManager, Vector2 theMousePosition, Vector2 theScreenPosition, Vector2 theScreenDimensions)
 		{
 			eventManager = theEventManager;
-			mousePosition = theMousePosition; 
+			mousePosition = theMousePosition;
+			screenPosition = theScreenPosition;
+			screenDimensions = theScreenDimensions;
 		}
 	}
 }
