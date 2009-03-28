@@ -12,8 +12,22 @@ namespace CommonObjects
 		protected Dictionary<int, GeneralTextureCell> mTextureCells = new Dictionary<int, GeneralTextureCell>();
 
 		public void Add(GeneralTextureCell theCell)
+		{											   
+			if (!mTextureCells.ContainsKey(theCell.ID))
+				mTextureCells.Add(theCell.ID, theCell);				
+		}
+
+		public List<GeneralTextureCell> Values()
 		{
-			mTextureCells.Add(theCell.ID, theCell);
+			List<GeneralTextureCell> retVal = new List<GeneralTextureCell>();
+
+			foreach (int k in mTextureCells.Keys)
+			{
+				retVal.Add(mTextureCells[k]);
+			}
+
+			return retVal;
+
 		}
 
 		public void Remove(int id)
@@ -26,6 +40,11 @@ namespace CommonObjects
 			{
 				mTextureCells[index] = value;
 			}
+		}
+
+		public bool ContainsKey(int key)
+		{
+			return mTextureCells.ContainsKey(key);
 		}
 
 	}

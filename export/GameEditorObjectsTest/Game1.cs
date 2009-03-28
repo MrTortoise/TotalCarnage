@@ -59,7 +59,7 @@ namespace GameEditorObjectsTest
 		protected override void LoadContent()
 		{
 			mEventManager = new EventManager();
-			mControlManager = new ControlManager(mEventManager);
+			mControlManager = new ControlManager();
 
 			// Create a new SpriteBatch, which can be used to draw textures.
 			mSpriteBatch = new SpriteBatch(GraphicsDevice);

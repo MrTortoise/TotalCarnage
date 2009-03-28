@@ -14,7 +14,8 @@ namespace CommonObjects
 	/// <para>Also manages the scale/zoom of the camera to calculate 'effective viewport dimensions' to use for visibility testing</para>
 	/// </summary>
     public class Camera
-    {			
+    {	
+		//ToDo: implement zoom functionalty properly
 		
         #region Fields
         private  float mZoom = 1;
@@ -45,6 +46,9 @@ namespace CommonObjects
         #endregion
 
         #region Properties
+
+		public Vector2 topLeft
+		{get{return m
 
 		/// <summary>
 		/// Gets a float repreenting the left most coordinate

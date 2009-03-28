@@ -17,6 +17,8 @@ namespace CommonObjects.Controls
 	public class EventManager
 	{
 		#region Fields
+		private static  EventManager mInstance;
+
 		private MouseState mOldMouseState;
 		private MouseState mCurrentMouseState;
 
@@ -38,13 +40,37 @@ namespace CommonObjects.Controls
 
 		private Vector2 mCurrentMousePosition;
 		private Vector2 mOldMousePosition;
+
+		private Camera mCamera = null;
 		
 		#endregion
 
 		#region Constructor
 
+		protected void EventManager()
+		{
 
 
+		}
+
+		public static EventManager GetInstance()
+		{
+			if (mInstance == null)
+			{ mInstance = new EventManager(); }
+
+			return mInstance;
+		}
+
+
+		#endregion
+
+		#region Properties
+
+		public Camera camera
+		{
+			get { return mCamera; }
+			set { mCamera = value; }
+		}
 		#endregion
 
 		#region Methods
@@ -286,7 +312,7 @@ namespace CommonObjects.Controls
 			EventHandler<FocusMessageArgs> temp = theEvent;
 			if (temp != null)
 			{
-				FocusMessageArgs args = new FocusMessageArgs(this, mCurrentMousePosition);
+				FocusMessageArgs args = new FocusMessageArgs(mCurrentMousePosition,);
 				temp(this, args);
 			}
 		}

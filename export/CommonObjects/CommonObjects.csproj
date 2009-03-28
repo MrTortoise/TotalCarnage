@@ -40,6 +40,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
+    <DocumentationFile>bin\x86\Debug\CommonObjects.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -82,10 +83,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentLoader\ContentLoader.cs" />
+    <Compile Include="Controls\Enums\eControlTexture.cs" />
+    <Compile Include="Controls\Events\ControlAddedEventArgs.cs" />
     <Compile Include="MessageObjects\ETextureMode.cs" />
     <Compile Include="EventArgs\TextureModeEventArgs.cs" />
     <Compile Include="EventArgs\BoolEventArgs.cs" />
-    <Compile Include="ChildControlEventArgs.cs" />
+    <Compile Include="Controls\Events\GameControlEventArgs.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Components\ConsoleMenu.cs" />
     <Compile Include="Components\ConsoleVisibilityEventArgs.cs" />
@@ -193,6 +197,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\control plan.txt" />
     <Content Include="images\pixel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

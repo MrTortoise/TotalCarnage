@@ -15,7 +15,7 @@ namespace CommonObjects.Controls
 	/// this class will form the backbone of all other controls that will exist on screen.
 	/// The individual controls will end up being rendered by a control manager class which will interface with the .. haha i fell asleep drunk whilst writing that, I remmeber it beign a good idea tho 
 	/// </summary>
-	public class GameControl :  IEquatable<GameControl>
+	public class GameControl :  IEquatable<GameControl>, IDisposable 
 	{
 		// inherit and override memebers to enable textured controls
 		// ToDo implement overriden public members
@@ -38,6 +38,8 @@ namespace CommonObjects.Controls
 		protected GeneralTextureCell mTextureCell;
 		protected ETextureMode mTextureMode = ETextureMode.AsIs;
 
+		protected int mTextureID;
+
 		//protected	ControlManager mControlManager;
 		protected GameControl mParent;
 		protected List<GameControl>	mChildren =	new	List<GameControl>();
@@ -54,8 +56,11 @@ namespace CommonObjects.Controls
 		public EventHandler<BoolEventArgs> ChildHasFocusChanged;
 		public EventHandler<Vector2EventArgs> PositionChanged;
 		public EventHandler<Vector2EventArgs> SizeChanged;
-		public EventHandler<BoolEventArgs> IsTexturtedChanged;
+		public EventHandler<BoolEventArgs> IsTexturedChanged;
 		public EventHandler<TextureModeEventArgs> TextureModeChanged;
+		public EventHandler<GameControlEventArgs> ChildControlAdded;
+		public EventHandler<GameControlEventArgs> ChildControlRemoved;
+		public EventHandler<IntEventArgs> TextureCellIDChanged;	
 
 #endregion
 			#region	Handlers 
@@ -115,6 +120,21 @@ namespace CommonObjects.Controls
 			if (temp != null)
 				temp(this, theEventArgs);
 		}
+		protected void RaiseEvent(EventHandler<GameControlEventArgs> theEvent, GameControlEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<GameControlEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<IntEventArgs> theEvent, IntEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<IntEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+
 	
 
 		#endregion
@@ -125,6 +145,13 @@ namespace CommonObjects.Controls
 		{
 			mID	= theID;
 			mName =theName;
+			//mControlManager	= thecontrolManager;			
+		}
+
+		public GameControl(int theID, string theName/*, ControlManager thecontrolManager*/,int textureID)
+		{
+			mID = theID;
+			mName = theName;
 			//mControlManager	= thecontrolManager;			
 		}
 
@@ -145,6 +172,7 @@ namespace CommonObjects.Controls
 
 		#endregion 
 		#region	Properties
+
 		///	<summary>
 		///	Sets the Id	of the control - has no	checking for overlapping control ID's in the controls themselves
 		///	</summary>
@@ -239,6 +267,9 @@ namespace CommonObjects.Controls
 				else { return mParent.GetAbsolutePosition +	mPosition; }
 			}
 		}
+		/// <summary>
+		/// Gets a rectangle representing the controls position relative to absolute 0,0
+		/// </summary>
 		public Rectangle GetAbsoluteRectangle
 		{
 			get
@@ -253,6 +284,9 @@ namespace CommonObjects.Controls
 		///	</summary>
 		public bool	HasFocus
 		{ get {	return mGotFocus; }	}
+		/// <summary>
+		/// Boolean value representing wether a control can get the focus or not when it is clicked on
+		/// </summary>
 		public bool	CanGetFocus
 		{
 			get	{ return mCanGetFocus; }
@@ -265,6 +299,9 @@ namespace CommonObjects.Controls
 				}
 			}
 		}
+		/// <summary>
+		/// Gets wether or not a child of this control has the focus
+		/// </summary>
 		public bool	ChildHasFocus
 		{ get {	return mChildHasFocus; } }	
 		///	<summary>
@@ -303,6 +340,9 @@ namespace CommonObjects.Controls
 				}
 			}
 		}
+		/// <summary>
+		/// Bool determines wether to render using textures or vectors
+		/// </summary>
 		public bool	IsTextured
 		{
 			get	{ return mIsTextured; }
@@ -310,16 +350,22 @@ namespace CommonObjects.Controls
 			{
 				if (mIsTextured	!= value)
 				{
-					RaiseEvent(IsTexturtedChanged, new BoolEventArgs(mIsTextured, value));
+					RaiseEvent(IsTexturedChanged, new BoolEventArgs(mIsTextured, value));
 					mIsTextured	= value;
 				}
 			}
 		}
+		/// <summary>
+		/// Gets or sets the genreal texture of the control
+		/// </summary>
 		public GeneralTextureCell TextureCell
 		{
 			get	{ return mTextureCell; }
 			set	{ mTextureCell = value;	}
 		}
+		/// <summary>
+		/// Gets or sets the display mode of the texture in the control
+		/// </summary>
 		public ETextureMode	TextureMode
 		{
 			get	{ return mTextureMode; }
@@ -331,6 +377,28 @@ namespace CommonObjects.Controls
 					mTextureMode = value;
 				}
 			}
+		}
+		/// <summary>
+		/// Gets / sets the TextureId of the control
+		/// </summary>
+		public int TextureID
+		{
+			get { return mTextureID; }
+			set
+			{
+				if (mTextureID > -1)
+				{
+					if (mTextureID != value)
+					{
+						RaiseEvent(TextureCellIDChanged, new IntEventArgs(mTextureID, value));
+						mTextureID = value;
+					}
+				}
+			}
+		}
+		public List<GameControl> ChildControls
+		{
+			get { return mChildren; }
 		}
 		#endregion	 
 		#region	Methods
@@ -355,14 +423,13 @@ namespace CommonObjects.Controls
 					InnerDrawNotTextured(theArgs);
 				}
 
-				if (mChildren != null)
+				if (mChildren.Count>0)
 				{
-					foreach	(GameControl gc	in mChildren)
+					for (int i = mChildren.Count - 1; i > 0; i--)
 					{
-						gc.Draw(theArgs);
-					}
-				}
-
+						mChildren[i].Draw(theArgs);	
+					}								
+				}									
 			}
 
 		}  
@@ -474,12 +541,21 @@ namespace CommonObjects.Controls
 					mChildren =	new	List<GameControl>();
 				}
 				if (!mChildren.Contains(Child))
-				{
-					//ToDo:Sign	up to the controls events
-					
+				{						
+					SubscribeToChildsEvents(Child);
 					mChildren.Add(Child);
+					RaiseEvent(ChildControlAdded,new GameControlEventArgs(Child));
 				}
 			}
+		}
+		public void RemoveChildControl(GameControl child)
+		{
+		 if (mChildren.Contains(child))
+		 {
+			 UnsubscribeFromChildEvents(child);
+			 mChildren.Remove(child);
+			 RaiseEvent(ChildControlRemoved,new GameControlEventArgs(child));
+		 }		 
 		}
 		///	<summary>
 		///	This tests wether a	set	of coordinates relative	to 0,0 are inside this control
@@ -542,6 +618,18 @@ namespace CommonObjects.Controls
 			}							  
 			return retVal;
 		}
+		public List<GameControl> GetChildControlsRecursive()
+		{
+			List<GameControl> retVal = new List<GameControl>();
+
+			foreach (GameControl gc in mChildren)
+			{	
+				retVal.Add(gc);
+				retVal.AddRange(gc.GetChildControlsRecursive());
+			}
+
+			return retVal;	   
+		}
 
 				#endregion	
 				#region	Virtual
@@ -549,7 +637,7 @@ namespace CommonObjects.Controls
 		{
 			bool retVal	= false;
 			//ToDo:	write in enabled / disabled	states
-			if (IsVisible(theArgs.screenPosition,theArgs.screenDimensions))
+			if (IsVisible(theArgs.CameratheArgs.screenDimensions))
 				retVal = IsAbsolutePositionInsideControl(theArgs.mousePosition);
 			return retVal;
 		}
@@ -636,6 +724,8 @@ namespace CommonObjects.Controls
 				#endregion
 
 				#region	Virtual
+		protected virtual void SubscribeToChildsEvents(GameControl child) {/*ToDo: implement SignUpToChildEvents */}
+		protected virtual void UnsubscribeFromChildEvents(GameControl child) { /*ToDo: Implement unsubscribe from Child Events */}
 		///	<summary>
 		///	Provides custom	drawing	for	vector drawing
 		///	</summary>
@@ -676,20 +766,19 @@ namespace CommonObjects.Controls
 				case ETextureMode.Zoom:
 
 					break;
-			}
-
-
-
-			
+			}			
 
 		} 
 		///	<summary>
 		///	Allows a control to	listen for cetain commands aimed at	a container
 		///	</summary>
 		///	<param name="theArge"></param>
-		protected virtual void ProcessChildGotFocus(FocusMessageArgs theArge)
+		protected virtual void ProcessChildGotFocus(FocusMessageArgs theArgs)
 		{
-
+			//when a child control has the focus this control still needs to recieve input
+			//some commands may trigger responsdes ... eg altf4 is managed by the container control
+			mChildHasFocus = true;
+			SubscribeToEventManager();
 		}  
 		///	<summary>
 		///	This only fires	when the control directly gains	the	focus
@@ -699,12 +788,7 @@ namespace CommonObjects.Controls
 		{
 			mBackColor = Color.Pink;
 			mGotFocus =	true;
-			theArgs.eventManager.KeyPressed	+= HandleKeyPressed;
-			theArgs.eventManager.KeyReleased +=	HandleKeyRelseased;
-			theArgs.eventManager.MouseButtonPressed	+= HandleMouseButtonPressed;
-			theArgs.eventManager.MouseButtonReleased +=	HandleMouseButtonReleased;
-			theArgs.eventManager.MousePositionChanged += HandleMousePositionChanged;
-			theArgs.eventManager.MouseWheelScrolled	+= HandleMouseWheelScrolled;
+			SubscribeToEventManager();
 
 			RaiseEvent(GotFocus, new GameControlEventArgs(this));
 
@@ -717,13 +801,31 @@ namespace CommonObjects.Controls
 		{
 			mGotFocus =	false;
 			mBackColor = Color.SeaGreen;
-			theArgs.eventManager.KeyPressed	+= HandleKeyPressed;
-			theArgs.eventManager.KeyReleased +=	HandleKeyRelseased;
-			theArgs.eventManager.MouseButtonPressed	+= HandleMouseButtonPressed;
-			theArgs.eventManager.MouseButtonReleased +=	HandleMouseButtonReleased;
-			theArgs.eventManager.MousePositionChanged += HandleMousePositionChanged;
-			theArgs.eventManager.MouseWheelScrolled	+= HandleMouseWheelScrolled;
+			UnsubscribeFromEventManager();
 			RaiseEvent(LostFocus, new GameControlEventArgs(this));
+
+		}
+
+		protected virtual void SubscribeToEventManager()
+		{
+			EventManager em	= EventManager.GetInstance();
+			em.KeyPressed += HandleKeyPressed;
+			em.KeyReleased += HandleKeyRelseased;
+			em.MouseButtonPressed += HandleMouseButtonPressed;
+			em.MouseButtonReleased += HandleMouseButtonReleased;
+			em.MousePositionChanged	+= HandleMousePositionChanged;
+			em.MouseWheelScrolled += HandleMouseWheelScrolled;
+
+		}  
+		protected virtual void UnsubscribeFromEventManager()
+		{
+			EventManager em = EventManager.GetInstance();
+			em.KeyPressed -= HandleKeyPressed;
+			em.KeyReleased -= HandleKeyRelseased;
+			em.MouseButtonPressed -= HandleMouseButtonPressed;
+			em.MouseButtonReleased -= HandleMouseButtonReleased;
+			em.MousePositionChanged -= HandleMousePositionChanged;
+			em.MouseWheelScrolled -= HandleMouseWheelScrolled;
 
 		}
 				#endregion	 
@@ -792,6 +894,45 @@ namespace CommonObjects.Controls
 				retVal = false;
 			}
 			return retVal;
+		}
+
+		#endregion
+
+		#region IDisposable Members
+
+		private bool mIsDisposed = false;
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!mIsDisposed)
+			{
+				if (disposing)
+				{
+					//dispose all child controls
+
+					foreach (GameControl gc in mChildren)
+					{
+						UnsubscribeFromChildEvents(gc);
+						gc.Dispose();
+					}
+					//unregister from any events
+
+					mChildren = null;
+					mTextureCell = null;
+					mParent = null;
+
+					if (mGotFocus || mChildHasFocus)
+					{
+						UnsubscribeFromEventManager();
+					}
+				}								  
+			}
+
+		}
+
+		public void Dispose()
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion

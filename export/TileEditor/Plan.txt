@@ -1,0 +1,23 @@
+﻿
+The service container contains a dictionary of 
+services that allows adding and getting of services by type
+
+The graphics deviceService contains a singleton instance of the 
+graphics device service which mnages the graphics device
+
+The graphics device control then holds a reference to 
+the graphics device service which it uses to perform its graphics
+
+
+
+This setup allows one window at a time.
+
+threfor write a control that enables resizing of window
+passing an origin set of coordinates to the windows
+
+then write several 'game classes' to provide the tile rendering functionality.
+
+
+Multiple could be possible ... is capable of rendering over the screen and refreshing with movement.
+
+The problem will be update flicker ... rendering form elements in the buffer after xna might help ?

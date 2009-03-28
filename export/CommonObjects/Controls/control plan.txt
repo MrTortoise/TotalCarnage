@@ -1,0 +1,22 @@
+﻿
+
+1) Controls textures in a list each with an ID and info required for the basic object.
+2) This list will have the id's each of these will be hard coded into controls
+3) this allows the reskinning of controls by changing the xml files
+4) as we are using xml files they can vevalidated by a schema.
+5) this list will be used by the control manager to prelod the textures
+6) each control will on creation look to the list to reference its texture.
+7) each control therefor requires a reference to the control manager on creation, 
+8) the reference does not need to be stored.
+9) this list is seperate to any game similar game lists.
+10) this process could be repeated for spritefonts
+
+
+This will give us a control that can be loaded with a custom texture at run time.
+
+Then we have to do sub controls.
+1) the positioning of controls within controls.
+2) dealing with clipping issues (if an inner control passes beyond window border).
+3) the sizing of controls within controls.
+4) managing sizing on resizing of parent.
+5) managing the position of sub controls on the repositioning of a parent.

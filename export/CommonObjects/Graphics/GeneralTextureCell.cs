@@ -50,14 +50,14 @@ namespace CommonObjects
 		}
 		public void DrawTiled(SpriteBatch theSpriteBatch, Rectangle target,float theLayerDepth)
 		{
-			float NoAccross = target.Width/mTextureSize.X;
-			float NoDown = target.Height/mTextureSize.Y;
+			int NoAccross = (int)(target.Width/mTextureSize.X);
+			int NoDown = (int)(target.Height/mTextureSize.Y);
 			int absMaxWidth = (int)target.X+((int)NoAccross*(int)mTextureSize.X);
 			int absMaxHeight = (int)target.Y+((int)NoDown*(int)mTextureSize.Y);
 			Vector2 position = new Vector2();
-			Vector2 remainder = new Vector2();
-			remainder.X = NoAccross - (int)NoAccross;
-			remainder.Y = NoDown - (int)NoDown;
+			
+			int remX = (int)((NoAccross - (int)NoAccross)*mTextureSize.X);
+			int remY = (int)((NoDown - (int)NoDown)*mTextureSize.Y );
 			Rectangle sourceRectangle = new Rectangle();
 
 			if (NoAccross>0)
@@ -81,12 +81,12 @@ namespace CommonObjects
 					//loop through the right side tiles
 					position.X=absMaxWidth;
 					position.Y=target.Y;
-					DrawRightSide(position, (int)NoDown, (int)remainder.X, theSpriteBatch);			
+					DrawRightSide(position, NoDown, remX, theSpriteBatch);			
 
 					//loop through the bottom tiles
 					position.X = target.X;
 					position.Y = absMaxHeight;
-					DrawBottom(position, (int)NoAccross, (int)remainder.Y, theSpriteBatch);
+					DrawBottom(position, NoAccross, remY, theSpriteBatch);
 					//ToDo: does remainder have to be multiplied out for true value?
 
 
@@ -95,7 +95,7 @@ namespace CommonObjects
 					position.X = absMaxWidth;
 					position.Y = absMaxHeight;
 
-					DrawBottomRight(position, (int)remainder.X, (int)remainder.Y, theSpriteBatch);		
+					DrawBottomRight(position, remX, remY, theSpriteBatch);		
 
 
 				}
@@ -105,13 +105,13 @@ namespace CommonObjects
 					// find rectangle that fits and loop horizontally
 					position.X = target.X;
 					position.Y = target.Y;
-					DrawBottom(position, (int)NoAccross, (int)remainder.Y, theSpriteBatch);
+					DrawBottom(position, NoAccross, remY, theSpriteBatch);
 					if (NoAccross > 1)
 					{
 						// Draw Bottom Right
 						position.X = absMaxWidth;
 						position.Y = target.Y;
-						DrawBottomRight(position, (int)remainder.X, (int)remainder.Y, theSpriteBatch);
+						DrawBottomRight(position, remX, remY, theSpriteBatch);
 					} 
 				}										
 			}
@@ -122,13 +122,13 @@ namespace CommonObjects
 					// draw a vertical column < 1 cel wide
 					position.X = target.X;
 					position.Y = target.Y;
-					DrawRightSide(position, (int)NoDown, (int)remainder.X, theSpriteBatch);
+					DrawRightSide(position, NoDown, remX, theSpriteBatch);
 					if (NoDown > 1)
 					{
 						//draw bottom right
 						position.X = target.X;
 						position.Y = absMaxHeight;
-						DrawBottomRight(position, (int)remainder.X, (int)remainder.Y, theSpriteBatch);
+						DrawBottomRight(position, remX, remY, theSpriteBatch);
 					}															  				
 
 				}
@@ -137,7 +137,7 @@ namespace CommonObjects
 					// a bottom right situation
 					position.X = target.X;
 					position.Y = target.Y;
-					DrawBottomRight(position, (int)remainder.X, (int)remainder.Y, theSpriteBatch);
+					DrawBottomRight(position, remX, remY, theSpriteBatch);
 				}
 			}
 
@@ -147,7 +147,6 @@ namespace CommonObjects
 		{
 			theSpriteBatch.Draw(mTexture.Texture, target, new Rectangle((int)mPosition.X, (int)mPosition.Y, width, height), Color.White);
 		}
-
 		protected void DrawBottom(Vector2 target, int NoAccross, int Height, SpriteBatch theSpriteBatch)
 		{
 								//loop through the bottom tiles
@@ -165,11 +164,8 @@ namespace CommonObjects
 				sourceRectangle.Height = Height;
 
 				theSpriteBatch.Draw(mTexture.Texture, position, sourceRectangle, Color.White);
-			}
-
-
+			}	   
 		}
-
 		protected void DrawRightSide(Vector2 target, int NoDown, int width, SpriteBatch theSpriteBatch)
 		{
 			Vector2 position = new Vector2();

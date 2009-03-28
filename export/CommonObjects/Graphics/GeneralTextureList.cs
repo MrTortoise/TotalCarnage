@@ -20,7 +20,7 @@ namespace CommonObjects
         IEnumerable<GeneralTexture>, IEnumerator<GeneralTexture>, IAgroGarbageCollection 
     {       
 
-        protected List<GeneralTexture> mTextures;
+        protected Dictionary<int,GeneralTexture> mTextures = new Dictionary<int,GeneralTexture>();
         protected int mTextureEnumerator = -1;
 
         private object TextureLock = new object();
@@ -33,7 +33,7 @@ namespace CommonObjects
         #region Constructors
         public GeneralTextureList()
         {
-            mTextures = new List<GeneralTexture>();
+            
         }
 
         #endregion
@@ -41,14 +41,6 @@ namespace CommonObjects
 
         public int Count
             { get { return mTextures.Count; } }
-
-
-        /// <summary>
-        /// reutrns the list of general textures
-        /// </summary>
-        /// <returns></returns>
-        public List<GeneralTexture> AllTextures
-        { get { return mTextures; } }
 
         /// <summary>
         /// When wiritng can only overwrite existing memebers
@@ -105,14 +97,7 @@ namespace CommonObjects
 		/// <para>if none found then returns null</para></returns>
 		public GeneralTexture GetByID(int ID)
 		{
-			foreach (GeneralTexture gt in mTextures)
-			{
-				if (gt.ID == ID)
-				{
-					return gt;
-				}
-			}
-				return null;
+			return mTextures[ID];
 		}
 
         /// <summary>
@@ -125,67 +110,19 @@ namespace CommonObjects
 			if ((object)Texture == null)
 			{ throw new ArgumentNullException("Tried to add a null texture to texture list"); }
 
-			if (this.Contains(Texture))
-			{ throw new ArgumentAlreadyExistsException("Tried to add General TExture to GeneralTexture List that was already in it"); }
-
-			foreach (GeneralTexture t in mTextures)
+			
+			if (!mTextures.ContainsKey(Texture.ID))
 			{
-				if (t.ID == Texture.ID)
-				{ throw new ArgumentAlreadyExistsException("Tried to add texture with existing ID"); }
+				if (mTextures.ContainsValue(Texture))
+				{ throw new ArgumentAlreadyExistsException("Tried to add General TExture to GeneralTexture List that was already in it"); }
+
+				Texture.AddReference();
+				mTextures.Add(Texture.ID, Texture);
 			}
 
-			Texture.AddReference();
-			mTextures.Add(Texture);
+			
 		}
 
-        /// <summary>
-        /// gets the index of the texture with the specified ID
-        /// returns -1 if none exist
-        /// </summary>
-        /// <param name="theID"></param>
-        /// <returns></returns>
-        public int GetIndexFromID(int theID)
-        {
-            //ToDo: come up with better search algorithms? - list not necesarily in id order          
-            for (int x = 0; x < mTextures.Count; x++)
-            {
-                if (mTextures[x].ID == theID)
-                { return x; }
-            }
-           return -1;            
-        }
-
-        /// <summary>
-        /// Tests to see if there is a texture with the specified ID
-        /// </summary>
-        /// <param name="theID"></param>
-        /// <returns></returns>
-        public bool Contains(int theID)
-        {  
-            foreach (GeneralTexture t in mTextures)
-            {
-                if (t.ID == theID)
-                { return true; }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Tests to see if the given texture exists in the list by value
-        /// </summary>
-        /// <param name="theTexture"></param>
-        /// <returns></returns>
-        public bool Contains(GeneralTexture theTexture)
-        {
-                foreach (GeneralTexture t in mTextures)
-                {
-                    if (t.Equals(theTexture))
-                    { return  true; }
-                }
-
-            return false;
-        }
 
         /// <summary>
         /// loads the textures int he list into the given graphics evbice
@@ -194,7 +131,7 @@ namespace CommonObjects
         /// <param name="theGraphicsDevice"></param>
         public void Load(GraphicsDevice theGraphicsDevice)
         {
-			foreach (GeneralTexture gt in mTextures)
+			foreach (GeneralTexture gt in mTextures.Values)
 			{
 				gt.Load(theGraphicsDevice);
 			}
@@ -209,7 +146,7 @@ namespace CommonObjects
         {
             StringBuilder s = new StringBuilder();
             s.Append("GeneralTextureList Contains " + mTextures.Count.ToString() + " elements ");
-            foreach (GeneralTexture g in mTextures)
+            foreach (GeneralTexture g in mTextures.Values)
             {
                 s.AppendLine();
                 s.Append(" --> " + g.ToString());
@@ -440,7 +377,7 @@ namespace CommonObjects
 		{
 			if (mIsDisposed == false)
 			{
-				foreach (GeneralTexture gt in mTextures)
+				foreach (GeneralTexture gt in mTextures.Values)
 				{
 					gt.RemoveReference();
 					if (val == true)
