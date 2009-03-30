@@ -9,5 +9,6 @@ namespace CommonObjects
     public interface IGameLoadable
     {
         void Load(GraphicsDevice theGraphicsDevice);
+		event EventHandler OnLoad; 
     }
 }

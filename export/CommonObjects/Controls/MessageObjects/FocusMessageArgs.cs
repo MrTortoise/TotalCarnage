@@ -8,15 +8,14 @@ namespace CommonObjects.Controls
 {
 	public class FocusMessageArgs  :EventArgs 
 	{
-		
-		public Vector2 mousePosition;
-		public Camera Camera;
+		/// <summary>
+		/// This is the mouse position after adjustment to scale to 1000 : aspect ratio * 1000
+		/// </summary>
+		public Vector2 mousePosition;		
 
-		public FocusMessageArgs(Vector2 theMousePosition, Camera theCamera)
-		{
-		
-			mousePosition = theMousePosition;
-			this.Camera = theCamera;
+		public FocusMessageArgs(Vector2 theMousePosition)
+		{									 		
+			mousePosition = theMousePosition;			
 		}
 	}
 }

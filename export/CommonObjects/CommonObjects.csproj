@@ -70,6 +70,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -86,6 +87,9 @@
     <Compile Include="ContentLoader\ContentLoader.cs" />
     <Compile Include="Controls\Enums\eControlTexture.cs" />
     <Compile Include="Controls\Events\ControlAddedEventArgs.cs" />
+    <Compile Include="Controls\test.cs">
+    </Compile>
+    <Compile Include="Graphics\GraphicDeviceSingleton.cs" />
     <Compile Include="MessageObjects\ETextureMode.cs" />
     <Compile Include="EventArgs\TextureModeEventArgs.cs" />
     <Compile Include="EventArgs\BoolEventArgs.cs" />
@@ -145,6 +149,16 @@
     <Compile Include="MessageObjects\UpdateArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\GeneralTextureCellList.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="vectorDrawing\VectorDraw.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +215,20 @@
     <Content Include="images\pixel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Controls\controls.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EventManager\" />

@@ -637,7 +637,7 @@ namespace CommonObjects.Controls
 		{
 			bool retVal	= false;
 			//ToDo:	write in enabled / disabled	states
-			if (IsVisible(theArgs.CameratheArgs.screenDimensions))
+			if (IsVisible(theArgs.Camera,theArgs.screenDimensions))
 				retVal = IsAbsolutePositionInsideControl(theArgs.mousePosition);
 			return retVal;
 		}
@@ -932,7 +932,7 @@ namespace CommonObjects.Controls
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			Dispose(true);
 		}
 
 		#endregion

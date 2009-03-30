@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CommonObjects.Controls;
+using CommonObjects.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 //using Microsoft.Xna.Framework.Input;
@@ -31,8 +32,7 @@ namespace CommonObjects.Controls
 		protected List<GameControl> mAllControls = new List<GameControl>();
 		protected List<GameControl> mChildControls = new List<GameControl>();
 		protected GeneralTextureCellList mTextureCells = new GeneralTextureCellList();
-		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList(); 
-
+		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList(); 	
 		
 		
 		#endregion
@@ -42,6 +42,14 @@ namespace CommonObjects.Controls
 		{
 			EventManager em = EventManager.GetInstance(); 
 			em.AttemptedFocusEvent += OnAttemptedGetFocusEvent;
+
+			em.KeyPressed += OnEMKeyPressed;
+			em.KeyReleased += OnEMKeyReleased;
+			em.MouseButtonPressed += OnEMMouseButtonPressed;
+			em.MouseButtonReleased += OnEMMouseButtonReleased;
+			em.MousePositionChanged += OnEMMousePositionChanged;
+			em.MouseWheelScrolled += OnEMMouseWheelScrolled;
+
 		}
 		#endregion
 
@@ -55,20 +63,18 @@ namespace CommonObjects.Controls
 
 			ProcessTextureCellID(theControl);
 
-			theControl.ChildControlAdded += OnChildControlAddedEventHandler;
-			theControl.TextureCellIDChanged += OnControltextureCellIDChanged;
+			theControl.ChildControlAdded +=	OnChildControlAddedEventHandler;
+			theControl.TextureCellIDChanged	+= OnControltextureCellIDChanged;
 			theControl.ChildControlRemoved += OnChildControlRemovedEventHandler;
 
 			if (theControl.ChildControls.Count > 0)
 			{
-				foreach (GameControl gc in theControl.ChildControls)
+				foreach	(GameControl gc	in theControl.ChildControls)
 				{
 					ProcessNewControl(gc);
 				}						  
 			}
-		}
-
-
+		}  
 
 		#region	Protected
 		protected void MoveControlToFront(int index)
@@ -141,6 +147,29 @@ namespace CommonObjects.Controls
 
 		#endregion			   
 		#endregion
+		#region Events
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
+		public EventHandler<InputEventArgs> MouseButtonPressed;
+		public EventHandler<FocusMessageArgs> AttemptedFocusEvent;
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
+		public EventHandler<InputEventArgs> MouseButtonReleased;
+
+		public EventHandler<InputEventArgs> MouseWheelScrolled;
+		public EventHandler<InputEventArgs> MousePositionChanged;
+
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
+		public EventHandler<InputEventArgs> KeyPressed;
+		/// <summary>
+		/// It is up to the reciever of this event to manage held buttons
+		/// </summary>
+		public EventHandler<InputEventArgs> KeyReleased;
+		#endregion
 		#region	event Handlers
 		protected void OnChildControlAddedEventHandler(object source, GameControlEventArgs theArgs)
 		{
@@ -148,20 +177,17 @@ namespace CommonObjects.Controls
 			ProcessNewControl(theControl);
 
 		}
-
 		protected void OnChildControlRemovedEventHandler(object source, GameControlEventArgs theArgs)
 		{
 			GameControl theControl = theArgs.Control;
 			throw new NotImplementedException() ;
 
 		}
-
 		protected void OnControltextureCellIDChanged(object source, IntEventArgs theArgs)
 		{
-			GameControl theControl = source as GameControl;
+			GameControl	theControl = source	as GameControl;
 			ProcessTextureCellID(theControl);
-		}
-
+		} 
 		protected void OnAttemptedGetFocusEvent(object e, FocusMessageArgs args)
 		{
 			bool gotFocus = false;
@@ -210,15 +236,59 @@ namespace CommonObjects.Controls
 			
 		}
 
+		protected void OnEMMouseButtonPressed(object s, InputEventArgs theArgs)
+		{
+			RaiseEvent(MouseButtonPressed, theArgs);
+		}
+		protected void OnEMAttemptedFocusEvent(object s, FocusMessageArgs theArgs) {
+			RaiseEvent(AttemptedFocusEvent, theArgs);
+		}
+		protected void OnEMMouseButtonReleased(object s, InputEventArgs theArgs) {
+			RaiseEvent(MouseButtonReleased , theArgs);
+		}
+		protected void OnEMMouseWheelScrolled(object s, InputEventArgs theArgs) {
+			RaiseEvent(MouseWheelScrolled , theArgs);
+		}
+		protected void OnEMMousePositionChanged(object s, InputEventArgs theArgs) {
+			RaiseEvent(MousePositionChanged , theArgs);
+		}
+		protected void OnEMKeyPressed(object s, InputEventArgs theArgs) {
+			RaiseEvent(KeyPressed , theArgs);
+		}
+		protected void OnEMKeyReleased(object s, InputEventArgs theArgs) {
+			RaiseEvent(KeyReleased , theArgs);
+		}
+
+		protected void RaiseEvent(EventHandler<IntEventArgs> theEvent, IntEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<IntEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<InputEventArgs> theEvent, InputEventArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<InputEventArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
+		protected void RaiseEvent(EventHandler<FocusMessageArgs> theEvent, FocusMessageArgs theEventArgs)
+		{
+			//Copy to be threadsafe
+			EventHandler<FocusMessageArgs> temp = theEvent;
+			if (temp != null)
+				temp(this, theEventArgs);
+		}
 		#endregion	
 
 		#region IGameDrawable Members
 
 		public void Draw(DrawingArgs theDrawingArgs)
 		{
-			//ToDo: draw in control manager could use same spritebatch as game?
+			//ToDo: This assumes that the game will never get drawn as a control
 
-			SpriteBatch batch = new SpriteBatch(theDrawingArgs.GraphicsDevice);
+			SpriteBatch batch = new SpriteBatch(GraphicDeviceSingleton.GetInstance().graphicsDevice);
 			batch.Begin(SpriteBlendMode.AlphaBlend);
 
 			int counter = mChildControls.Count - 1;

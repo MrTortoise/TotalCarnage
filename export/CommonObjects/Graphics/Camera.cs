@@ -15,7 +15,7 @@ namespace CommonObjects
 	/// </summary>
     public class Camera
     {	
-		//ToDo: implement zoom functionalty properly
+		
 		
         #region Fields
         private  float mZoom = 1;
@@ -31,6 +31,12 @@ namespace CommonObjects
 
         #region Constructor
 
+		public Camera(GraphicsDevice theGraphicsDevice)
+		{
+			mGraphicsDevice = theGraphicsDevice;
+			mGraphicsDevice.DeviceReset += new EventHandler(theGraphicsDevice_DeviceReset);			
+		}
+
         public Camera(Vector2 thePosition,GraphicsDevice theGraphicsDevice)
         {				
 			mGraphicsDevice = theGraphicsDevice;
@@ -40,6 +46,9 @@ namespace CommonObjects
 
 		void theGraphicsDevice_DeviceReset(object sender, EventArgs e)
 		{
+			GraphicsDevice gd = (GraphicsDevice)sender;
+			mGraphicsDevice = gd; 
+			
 			SetCenter(mCenter);
 		}
 
@@ -47,8 +56,11 @@ namespace CommonObjects
 
         #region Properties
 
+
 		public Vector2 topLeft
-		{get{return m
+		{ get { return mEffectiveViewportPosition; } }
+
+
 
 		/// <summary>
 		/// Gets a float repreenting the left most coordinate

@@ -4,9 +4,16 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using CommonObjects.Graphics;
 
 namespace CommonObjects.Controls
 {
+	//ToDo: rejig control and event managers. The event manager needs to be used for more than just controls
+	/*Because controls have their own coord space the control manager needs to intercept event handler events
+	 * The Control Manager is then going to process them into control space and raise the events
+	 * that the controls are signing and unsigning to and from
+	 * 
+	 */
 	public enum MouseButtonState
 	{
 		Depressed,
@@ -42,6 +49,8 @@ namespace CommonObjects.Controls
 		private Vector2 mOldMousePosition;
 
 		private Camera mCamera = null;
+
+		//private GraphicDeviceSingleton mGraphicsDevice = GraphicDeviceSingleton.GetInstance();
 		
 		#endregion
 
@@ -188,7 +197,7 @@ namespace CommonObjects.Controls
 			}
 
 			mOldMousePosition = mCurrentMousePosition;
-			mCurrentMousePosition = new Vector2(mCurrentMouseState.X, mCurrentMouseState.Y);  		
+			mCurrentMousePosition = new Vector2(mCurrentMouseState.X  , mCurrentMouseState.Y);  		
 
 			mOldMouseScrollWheel = mCurrentMouseScrollWheel;
 			mCurrentMouseScrollWheel = mCurrentMouseState.ScrollWheelValue;
@@ -312,8 +321,10 @@ namespace CommonObjects.Controls
 			EventHandler<FocusMessageArgs> temp = theEvent;
 			if (temp != null)
 			{
-				FocusMessageArgs args = new FocusMessageArgs(mCurrentMousePosition,);
-				temp(this, args);
+				FocusMessageArgs args = new FocusMessageArgs(
+					new Vector2(mCurrentMousePosition.X,
+								mCurrentMousePosition.Y));
+				temp(this, args);												   
 			}
 		}
 

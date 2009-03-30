@@ -150,7 +150,7 @@ namespace CommonObjects
 						mTexture = Texture2D.FromFile(theGraphicsDevice, mPath);
 						mIsLoaded = true;
 						mColumnWidth = mTexture.Width / mColumns;
-						mRowHeight = mTexture.Height / mRows;
+						mRowHeight = mTexture.Height / mRows;  						
 					}
 				}
 				catch (Exception e)
@@ -162,9 +162,28 @@ namespace CommonObjects
 					Monitor.Pulse(textureLock);
 					Monitor.Enter(textureLock);
 				}
+				RaiseLoad(new EventArgs());
             }
                 
         }
+
+		// Wrap event invocations inside a protected virtual method
+		// to allow derived classes to override the event invocation behavior
+		protected virtual void RaiseLoad(EventArgs e)
+		{
+			// Make a temporary copy of the event to avoid possibility of
+			// a race condition if the last subscriber unsubscribes
+			// immediately after the null check and before the event is raised.
+			EventHandler<EventArgs> handler = OnLoad;
+
+			// Event will be null if there are no subscribers
+			if (handler != null)
+			{		
+
+				// Use the () operator to raise the event.
+				handler(this, e);
+			}
+		}
 
         /// <summary>
         /// returns the contents of the General Texture
@@ -327,6 +346,13 @@ namespace CommonObjects
 		{
 			get { return mNoReferences; }
 		}
+
+		#endregion
+
+		#region IGameLoadable Members
+
+
+		public event EventHandler<EventArgs> OnLoad;
 
 		#endregion
 	}
