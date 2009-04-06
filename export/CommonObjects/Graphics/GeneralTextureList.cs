@@ -9,7 +9,7 @@ using System.Threading;
 using Custom.Interfaces;
 using Custom.Exceptions;
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
     /// <summary>
     /// Holds the global texturelist for the tilesets

@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Content;
 using System.Threading;
 using Custom.Interfaces;
 using Custom.Exceptions;
+//using CommonObjects.Graphics;
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
     //ToDo: add an initial time offset to the animation to allow ripple effects
 	/// <summary>
@@ -19,10 +20,10 @@ namespace CommonObjects
 	/// that enable its animation to be independant. 
 	/// This will be necessary as part of the ripple implementation</para>
 	/// </summary>
-    public class TextureAnimationInstance : 
+    public class TextureAnimationInstance :
+ 		IGraphicsUpdateable, 
         IEquatable<TextureAnimationInstance>, 
-        IAgroGarbageCollection, 
-        IGameUpdateable ,
+        IAgroGarbageCollection,         
         ICloneable 
     {
 
@@ -326,59 +327,9 @@ namespace CommonObjects
 
 		#endregion
 
-		#region IGameUpdateable Members
-
-		public void Update(UpdateArgs theUpdateArgs)
-		{
-			// if only 1 frame then no point in updating
-			if (mNoFrames != 1)
-			{
-				if (mActive == true)
-				{
-					//apply the timewarp                
-					TimeSpan timepassed = TimeSpan.FromTicks((long)(theUpdateArgs.GameTime.ElapsedGameTime.Ticks * theUpdateArgs.TimeScale));
-					try
-					{
-						Monitor.Enter(animLock);
-						mTimeTillUpdate = mTimeTillUpdate - timepassed;
-						// if due for an update
-						if (mTimeTillUpdate.Milliseconds <= 0)
-						{
 
 
-							mTimeTillUpdate = mUpdatePeriod;
-							mCurrentFrame++;
-							if (mCurrentFrame >= mNoFrames)
-							{
-								// if the animation is an infinite loop we want i to report as finished as the tile
-								// decides wether to start this animation over again.
-								if ((mNoLoops > 0) && (mLoopCount < mNoLoops))
-								{
-									mCurrentFrame = mDefaultFrame;
-									mLoopCount++;
-								}
-								else
-								{
-									if (OnAnimationfinished != null)
-									{
-										OnAnimationfinished(this);
-									}
-									Reset();
-								}
-							}
 
-						}
-					}
-					catch (Exception e)
-					{ throw e; }
-					finally
-					{
-						Monitor.Pulse(animLock);
-						Monitor.Exit(animLock);
-					}
-				}
-			}
-		}
 
 		public void Reset()
 		{
@@ -399,7 +350,6 @@ namespace CommonObjects
 
 		}
 
-		#endregion
 		#region IEquatable<textureAnimationInstance> Members
 
 		public bool Equals(TextureAnimationInstance other)
@@ -516,6 +466,73 @@ namespace CommonObjects
 		#endregion	  
 
         
+	
+		#region IGraphicsUpdateable Members
+		protected bool mIsGraphicsActive = true ;
+
+		public void UpdateGraphics(GraphicsUpdateArgs theUpdateArgs)
+		{
+			// if only 1 frame then no point in updating
+			if (mNoFrames != 1)
+			{
+				if (mActive == true)
+				{
+					//apply the timewarp                
+					TimeSpan timepassed = TimeSpan.FromTicks((long)(theUpdateArgs.time.ElapsedGameTime.Ticks * theUpdateArgs.timeScale));
+					try
+					{
+						Monitor.Enter(animLock);
+						mTimeTillUpdate = mTimeTillUpdate - timepassed;
+						// if due for an update
+						if (mTimeTillUpdate.Milliseconds <= 0)
+						{
+
+
+							mTimeTillUpdate = mUpdatePeriod;
+							mCurrentFrame++;
+							if (mCurrentFrame >= mNoFrames)
+							{
+								// if the animation is an infinite loop we want i to report as finished as the tile
+								// decides wether to start this animation over again.
+								if ((mNoLoops > 0) && (mLoopCount < mNoLoops))
+								{
+									mCurrentFrame = mDefaultFrame;
+									mLoopCount++;
+								}
+								else
+								{
+									if (OnAnimationfinished != null)
+									{
+										OnAnimationfinished(this);
+									}
+									Reset();
+								}
+							}
+
+						}
+					}
+					catch (Exception e)
+					{ throw e; }
+					finally
+					{
+						Monitor.Pulse(animLock);
+						Monitor.Exit(animLock);
+					}
+				}
+			}
+		}
+		public bool IsGraphicsActive
+		{
+			get { return mIsGraphicsActive; }
+		}
+
+		public void SetGraphicsActive(bool value)
+		{
+			mIsGraphicsActive = value;
+		}
+
+		#endregion	
+
 	}
 }
 

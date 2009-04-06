@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Threading;
 using Custom.Interfaces;
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
     /// <summary>
 	/// This class essentially describes a sequence of coordinates that point to a cell in a GeneralTexture

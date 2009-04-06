@@ -6,7 +6,7 @@ using Custom.Interfaces;
 using Custom.Exceptions;
 using System.Threading;
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
 	/// <summary>
 	/// This is a container for TextureAnimations. 

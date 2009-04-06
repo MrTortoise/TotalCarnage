@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CommonObjects.Tile" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.Tile" Collapsed="true">
     <Position X="3" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ogABEEAABjAAhpAEiAKABBwAAAACGuSJMAoAAwAQAJA=</HashCode>
@@ -11,10 +11,10 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CommonObjects.TextureAnimationInstance" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.TextureAnimationInstance" Collapsed="true">
     <Position X="5.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>NwSAEUIQACAABQEEgAIABHgAAAAAKqAqCIAAAkAAADA=</HashCode>
+      <HashCode>NwCAEUKQACAAJQEEgAIIBHgAAAAAKqAqCIAAQkAAADA=</HashCode>
       <FileName>Graphics\TextureAnimationInstance.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -22,7 +22,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CommonObjects.TextureAnimation" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.TextureAnimation" Collapsed="true">
     <Position X="7.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IhAAEEIQACAAgBEkiAAAABwAAAAAAKACAIgIQkAAACA=</HashCode>
@@ -33,7 +33,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CommonObjects.GeneralTexture" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.GeneralTexture" Collapsed="true">
     <Position X="10.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAgkEAAACQAgAJEgEAoKBwGAAAAEKBAAIoAAEAAAAA=</HashCode>
@@ -41,7 +41,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CommonObjects.GeneralTextureCell" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.GeneralTextureCell" Collapsed="true">
     <Position X="10.25" Y="2.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAEAAAAAEAkAhgAAAAAAAAgAAAAQAAAAAwAAAAAgA=</HashCode>
@@ -51,7 +51,7 @@
       <Field Name="mTexture" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CommonObjects.GeneralTextureCellList">
+  <Class Name="CommonObjects.Graphics.GeneralTextureCellList" Collapsed="true">
     <Position X="6.75" Y="2.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIBAAAAAAAEAAAACAAABAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
@@ -61,7 +61,7 @@
       <Field Name="mTextureCells" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CommonObjects.TileLayer" Collapsed="true">
+  <Class Name="CommonObjects.Graphics.TileLayer" Collapsed="true">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gCAAEAAAACAAFlAAQACAAAAAAAEAAAAAYAAAAAgAAAA=</HashCode>

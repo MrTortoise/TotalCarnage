@@ -9,8 +9,11 @@ using System.Threading;
 using Custom.Interfaces;
 using Custom.Exceptions;
 using Custom.Maths;
+using CommonObjects.Graphics;
 
-namespace CommonObjects
+
+
+namespace CommonObjects.Graphics
 {
     /// <summary>	/// 
     /// This object draws and updates an individual tile

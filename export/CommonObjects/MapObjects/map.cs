@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 
+using CommonObjects.Graphics;
+
 namespace CommonObjects
 {
     /// <summary>
@@ -12,7 +14,7 @@ namespace CommonObjects
     /// All ties will be rendered between 0 and 0.1
     /// The height of the tiles will be determined by their index int he tileLayerList
     /// </summary>
-    public class Map : IGameDrawable, IGameUpdateable  
+    public class Map : IGameDrawable, IGraphicsUpdateable   
     {
 		//ToDo Implement IAgroGarbageCollection
 		//ToDo: rewrite from scratch .... the lists need keys if i am basically adding elements to them arbitrarily via lazy loading
@@ -23,6 +25,7 @@ namespace CommonObjects
         protected List<TextureAnimationInstance> mAnimationInstances;
         protected MapTileList mTiles;
         protected MapTileLayerList mTileLayers;
+		
 
         #endregion
         #region constructor
@@ -38,43 +41,42 @@ namespace CommonObjects
         }
         #endregion
 
-        #region properties
-        /// <summary>
-        /// Gets the GeneralTextureList for the map        /// 
-        /// </summary>
-        public GeneralTextureList Textures
-        {
-            get { return mTextures; }
-        }
-        /// <summary>
-        /// gets the textureanimationlist for the map
-        /// Change manually at peril
-        /// </summary>
-        public TextureAnimationList TextureAnimations
-        {
-            get { return mAnimations; }
+        #region	properties
+		///	<summary>
+		///	Gets the GeneralTextureList	for	the	map		   /// 
+		///	</summary>
+		public GeneralTextureList Textures
+		{
+			get	{ return mTextures;	}
+		}
+		///	<summary>
+		///	gets the textureanimationlist for the map
+		///	Change manually	at peril
+		///	</summary>
+		public TextureAnimationList	TextureAnimations
+		{
+			get	{ return mAnimations; }
  
-        }
+		}
 
-        /// <summary>
-        /// gets the MapTileList for the map
-        /// change at own peril
-        /// </summary>
-        public MapTileList MapTiles
-        {
-            get { return mTiles; }
-        }
+		///	<summary>
+		///	gets the MapTileList for the map
+		///	change at own peril
+		///	</summary>
+		public MapTileList MapTiles
+		{
+			get	{ return mTiles; }
+		}
 
-        /// <summary>
-        /// gets the MapTileLayers for the map
-        /// change at own peril
-        /// </summary>
-        public MapTileLayerList MapTileLayers
-        { get { return mTileLayers; } }
+		///	<summary>
+		///	gets the MapTileLayers for the map
+		///	change at own peril
+		///	</summary>
+		public MapTileLayerList	MapTileLayers
+		{ get {	return mTileLayers;	} }
 
-        #endregion
-
-        #region Public Methods
+		#endregion	  
+       
         #region Population Methods
         public void AddGeneralTexture(GeneralTexture theTexture)
         {
@@ -132,35 +134,47 @@ namespace CommonObjects
             }
         }
 #endregion
-        #region IGameDrawable Members
-        public void Draw(DrawingArgs theDrawingArgs)
-        {
-            mTileLayers.Draw(theDrawingArgs);
-        }
-        #endregion
-        #region IGameUpdateable Members
-
-        public void Update(UpdateArgs theUpdateArgs)
-        {
-            foreach (TextureAnimationInstance ti in mAnimationInstances)
-            {
-                ti.Update(theUpdateArgs);
-            }
-        }
-
-        #endregion
-		#endregion
 
 		#region IGameDrawable Members
+		protected bool mIsVisible = true;
+
+		public void Draw(DrawingArgs theDrawingArgs)
+		{
+			mTileLayers.Draw(theDrawingArgs);
+		}
 
 		public bool IsVisible
 		{
-			get { throw new NotImplementedException(); }
+			get { return mIsVisible; }
 		}
 
 		public void SetVisibility(bool theVisibility)
 		{
-			throw new NotImplementedException();
+			mIsVisible = theVisibility;
+		}
+
+		#endregion
+
+		#region IGraphicsUpdateable Members
+
+		protected bool mIsGraphicsActive = true;
+
+		public void UpdateGraphics(GraphicsUpdateArgs theArgs)
+		{	  		
+            foreach (TextureAnimationInstance ti in mAnimationInstances)
+            {
+				ti.UpdateGraphics(theArgs);
+            }		        
+		}
+
+		public bool IsGraphicsActive
+		{
+			get { return mIsGraphicsActive; }
+		}
+
+		public void SetGraphicsActive(bool value)
+		{
+			mIsGraphicsActive = value;
 		}
 
 		#endregion

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Custom.Interfaces;
+using CommonObjects.Graphics;
 
 namespace CommonObjects
 {

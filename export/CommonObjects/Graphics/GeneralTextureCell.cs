@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
 	/// <summary>
 	/// represents a view into a texture that has various drawing options.

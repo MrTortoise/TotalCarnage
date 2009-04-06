@@ -7,7 +7,7 @@ using System.Threading;
 using Custom.Interfaces;
 
 
-namespace CommonObjects
+namespace CommonObjects.Graphics
 {
     /// <summary>
 	/// This is a map over a texture that defines a grid which is then referenced by a textureAnimation

@@ -40,7 +40,8 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
-    <DocumentationFile>bin\x86\Debug\CommonObjects.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -89,7 +90,10 @@
     <Compile Include="Controls\Events\ControlAddedEventArgs.cs" />
     <Compile Include="Controls\test.cs">
     </Compile>
+    <Compile Include="Graphics\eGeneralTextureList.cs" />
     <Compile Include="Graphics\GraphicDeviceSingleton.cs" />
+    <Compile Include="MessageObjects\GraphicsUpdateArgs.cs" />
+    <Compile Include="Interfaces\IGraphicsUpdateable.cs" />
     <Compile Include="MessageObjects\ETextureMode.cs" />
     <Compile Include="EventArgs\TextureModeEventArgs.cs" />
     <Compile Include="EventArgs\BoolEventArgs.cs" />
@@ -106,7 +110,7 @@
     <Compile Include="Controls\GameControl.cs" />
     <Compile Include="Controls\GameLabel.cs" />
     <Compile Include="EventArgs\Vector2EventArgs.cs" />
-    <Compile Include="Enums\AnimationType.cs" />
+    <Compile Include="Graphics\AnimationType.cs" />
     <Compile Include="Enums\ControlImageMode.cs" />
     <Compile Include="Enums\Description.cs" />
     <Compile Include="Enums\eDirection.cs" />
@@ -219,6 +223,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Controls\controls.cd" />
+    <None Include="Controls\ControlsClassDiagram.cd" />
+    <None Include="Graphics\GraphicsClassDiagram.cd" />
+    <None Include="MapObjects\MapClassDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

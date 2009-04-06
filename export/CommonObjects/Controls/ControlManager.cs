@@ -32,7 +32,9 @@ namespace CommonObjects.Controls
 		protected List<GameControl> mAllControls = new List<GameControl>();
 		protected List<GameControl> mChildControls = new List<GameControl>();
 		protected GeneralTextureCellList mTextureCells = new GeneralTextureCellList();
-		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList(); 	
+		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList();
+		protected bool mIsVisible = true;
+		protected bool mIsActive = true;
 		
 		//ToDo: should this control manager not use texture cells? - GD singleton manages the texture objects now
 		
@@ -377,7 +379,7 @@ namespace CommonObjects.Controls
 		{
 			get
 			{
-				throw new NotImplementedException();
+				return mIsVisible ;
 			}
 		}
 
@@ -388,11 +390,26 @@ namespace CommonObjects.Controls
 		//ToDo: rendering of control sis likley to be done in a seperate sequence thread - its all in the order of the end calls ...
 		public void SetVisibility(bool theVisibility)
 		{
-			throw new NotImplementedException();
+			mIsVisible = theVisibility;
 		}
 
 		#endregion
 
 
+
+		#region IGameUpdateable Members
+
+
+		public bool IsActive
+		{
+			get { return mIsActive; }
+		}
+
+		public void SetActive(bool value)
+		{
+			mIsActive = value;
+		}
+
+		#endregion
 	}
 }
