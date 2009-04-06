@@ -15,6 +15,7 @@ namespace CommonObjects.Graphics
 	/// </summary>
 	class GraphicDeviceSingleton
 	{
+		//ToDo: implement I disposable to manage no references to general texture.
 		protected static  GraphicDeviceSingleton mInstance;
 		protected static  GraphicsDevice mGraphicsDevice;
 		protected  object mLock;
@@ -24,11 +25,14 @@ namespace CommonObjects.Graphics
 		protected int mNoHorizontalUnits;
 		protected  int mViewportWidth;
 		protected  int mViewportHeight;
+
+		protected Dictionary<int, GeneralTextureList > mTextureLists = new Dictionary<int, GeneralTextureList >();
+
 		#region Constructor Related
 
 		protected void GraphicsDeviceSingleton()
 		{
-
+			Initialise();
 		}
 
 		public static GraphicDeviceSingleton GetInstance()
@@ -44,9 +48,7 @@ namespace CommonObjects.Graphics
 			{ throw new Exception("Singleton already created, use other constructor."); }
 
 			mInstance=new GraphicDeviceSingleton( );
-			mGraphicsDevice  = theDevice;
-			//sign up to events			
-			mInstance.Initialise();
+			mGraphicsDevice  = theDevice;						
 			return mInstance; 		
 		}
 
@@ -54,7 +56,7 @@ namespace CommonObjects.Graphics
 		{
 			if (mIsLoaded)
 			{ throw new Exception("Tried to initialise after already loaded"); }
-
+			//sign up to events	
 			mGraphicsDevice.DeviceReset+=new EventHandler(mGraphicsDevice_DeviceReset);
 			SetNoHorizontalUnits();				
 		}
@@ -73,7 +75,8 @@ namespace CommonObjects.Graphics
 			{ throw ex; }
 			finally
 			{ Monitor.Exit(this); }
-			SetNoHorizontalUnits();				
+			SetNoHorizontalUnits();
+			Load();
 		}
 
 		public  GraphicsDevice graphicsDevice
@@ -96,6 +99,40 @@ namespace CommonObjects.Graphics
 		public float hUnit
 		{ get { return mHUnit; } }
 
+		public float aspectRatio
+		{ get { return mGraphicsDevice.Viewport.AspectRatio; } }
+
+
+		public void AddTextureList(eGeneralTextureList  theList, GeneralTextureList theTextureList)
+		{
+			if (mTextureLists.ContainsKey((int)theList) || mTextureLists.ContainsValue(theTextureList))
+			{ throw new ArgumentException("Either ID or List is already in the dictionary of lists"); }
+
+			mTextureLists.Add((int)theList, theTextureList);	  
+		}
+
+		public GeneralTextureList GetGeneralTextureList(eGeneralTextureList theList)
+		{
+			return mTextureLists[(int)theList];
+		}
+
+		public GeneralTexture GetGeneralTexture(eGeneralTextureList theList, int theID)
+		{
+			return mTextureLists[(int)theList][theID]; 
+		}
+
+		/// <summary>
+		/// Should only be run externally when all texture lists have been added.
+		/// </summary>
+		public  void Load()
+		{
+			foreach (GeneralTextureList gtl in mTextureLists.Values)
+			{
+				gtl.Load(mGraphicsDevice);
+			}
+
+		}
+			
 		protected void SetNoHorizontalUnits()
 		{
 			try

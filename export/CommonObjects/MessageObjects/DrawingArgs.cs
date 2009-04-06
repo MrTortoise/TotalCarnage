@@ -12,8 +12,7 @@ namespace CommonObjects
 	/// It should require all the information necessary to start one and draw the objects.
 	/// </summary>
     public class DrawingArgs
-    {
-        private GraphicsDevice mGraphicsDevice;
+    {         
         private Camera mCamera;
         private SpriteBatch mSpriteBatch;
         //  public GameTime mGameTime;
@@ -21,15 +20,12 @@ namespace CommonObjects
         #region constructors
 
 
-        public DrawingArgs(GraphicsDevice theGraphicsDevice, Camera theCamera)
-        {
-            if ((object)theGraphicsDevice == null)
-            { throw new NullReferenceException("Tried to use a null GraphicsDevice in a drawing args"); }
-
+        public DrawingArgs( Camera theCamera)
+        { 
             if ((object)theCamera == null)
             { throw new NullReferenceException("Tried to use a null Camera in a drawing args"); }
 
-            mGraphicsDevice = theGraphicsDevice;
+ 
             mCamera = theCamera;
        //     mGameTime = theGameTime;
         }
@@ -51,15 +47,6 @@ namespace CommonObjects
 
         #region properies
 
-        public GraphicsDevice GraphicsDevice
-        {
-            get { return mGraphicsDevice; }
-            set
-            {
-                if ((object)value == null)
-                { throw new NullReferenceException("Tried to set GraphicsDevice to null in drawing args"); }
-            }
-        }
 
         public Camera Camera
         {

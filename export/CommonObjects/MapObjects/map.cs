@@ -12,9 +12,10 @@ namespace CommonObjects
     /// All ties will be rendered between 0 and 0.1
     /// The height of the tiles will be determined by their index int he tileLayerList
     /// </summary>
-    public class Map : IGameDrawable, IGameUpdateable, IGameLoadable  
+    public class Map : IGameDrawable, IGameUpdateable  
     {
 		//ToDo Implement IAgroGarbageCollection
+		//ToDo: rewrite from scratch .... the lists need keys if i am basically adding elements to them arbitrarily via lazy loading
 
         #region Fields
         protected GeneralTextureList mTextures;
@@ -148,20 +149,20 @@ namespace CommonObjects
         }
 
         #endregion
-        #region IGameLoadable Members
+		#endregion
 
-        void IGameLoadable.Load(GraphicsDevice theGraphicsDevice)
-        {
-            foreach (GeneralTexture t in mTextures)
-            {
-                t.Load(theGraphicsDevice);
-            }
-        }
+		#region IGameDrawable Members
 
-        #endregion
+		public bool IsVisible
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        #endregion
+		public void SetVisibility(bool theVisibility)
+		{
+			throw new NotImplementedException();
+		}
 
-
-    }
+		#endregion
+	}
 }

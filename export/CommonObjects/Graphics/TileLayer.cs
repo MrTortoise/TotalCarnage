@@ -91,5 +91,19 @@ namespace CommonObjects
 		}
 
 		#endregion
+
+		#region IGameDrawable Members
+
+		public bool IsVisible
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public void SetVisibility(bool theVisibility)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
 	}
 }

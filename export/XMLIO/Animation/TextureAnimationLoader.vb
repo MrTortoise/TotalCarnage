@@ -77,7 +77,7 @@ Public Class TextureAnimationLoader
 			For Each an In mAnimation
 				coords.Add(New Vector2(an.x, an.y))
 			Next
-			If (mGeneralTextures.Contains(GenTexID) = False) Then
+			If (mGeneralTextures.Contains((GenTexID) = False) Then
 				Throw New Exception("tried to add texture animations that have no corresponding generalTexture")
 			End If
 			theTextureAnimation = New TextureAnimation(name, id, mGeneralTextures.GetByID(GenTexID), noLoops, New TimeSpan(0, 0, 0, 0, updatePeriod), coords)

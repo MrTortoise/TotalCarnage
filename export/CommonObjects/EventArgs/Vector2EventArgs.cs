@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace CommonObjects
 {
-	class Vector2EventArgs	: EventArgs 
+	public class Vector2EventArgs	: EventArgs 
 	{
 		protected Vector2 mOldValue;
 		protected Vector2 mNewValue;

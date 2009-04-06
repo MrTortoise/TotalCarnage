@@ -34,14 +34,16 @@ namespace CommonObjects.Controls
 		protected GeneralTextureCellList mTextureCells = new GeneralTextureCellList();
 		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList(); 	
 		
+		//ToDo: should this control manager not use texture cells? - GD singleton manages the texture objects now
 		
 		#endregion
 
 		#region Constructors
 		public ControlManager( GeneralTextureList theTextureList)
 		{
+			
 			EventManager em = EventManager.GetInstance(); 
-			em.AttemptedFocusEvent += OnAttemptedGetFocusEvent;
+			//em.AttemptedFocusEvent += OnAttemptedGetFocusEvent;
 
 			em.KeyPressed += OnEMKeyPressed;
 			em.KeyReleased += OnEMKeyReleased;
@@ -49,6 +51,8 @@ namespace CommonObjects.Controls
 			em.MouseButtonReleased += OnEMMouseButtonReleased;
 			em.MousePositionChanged += OnEMMousePositionChanged;
 			em.MouseWheelScrolled += OnEMMouseWheelScrolled;
+
+			mGeneralTextureList = theTextureList;
 
 		}
 		#endregion
@@ -239,10 +243,21 @@ namespace CommonObjects.Controls
 		protected void OnEMMouseButtonPressed(object s, InputEventArgs theArgs)
 		{
 			RaiseEvent(MouseButtonPressed, theArgs);
+			GraphicDeviceSingleton gds = GraphicDeviceSingleton.GetInstance();
+			Vector2 adjustedPosition = new Vector2();
+			adjustedPosition.X=theArgs.CurrentMousePosition.X * gds.hUnit;
+			adjustedPosition.Y = theArgs.CurrentMousePosition.Y * gds.vUnit;
+			RaiseEvent(AttemptedFocusEvent,new FocusMessageArgs(adjustedPosition ,
+																this,
+																Vector2.Zero,
+																new Vector2(gds.NoHorizontalUnits,
+																	gds.NoHorizontalUnits*gds.aspectRatio )));	
+
+
 		}
-		protected void OnEMAttemptedFocusEvent(object s, FocusMessageArgs theArgs) {
+		/*protected void OnEMAttemptedFocusEvent(object s, FocusMessageArgs theArgs) {
 			RaiseEvent(AttemptedFocusEvent, theArgs);
-		}
+		}*/	 
 		protected void OnEMMouseButtonReleased(object s, InputEventArgs theArgs) {
 			RaiseEvent(MouseButtonReleased , theArgs);
 		}
@@ -286,7 +301,7 @@ namespace CommonObjects.Controls
 
 		public void Draw(DrawingArgs theDrawingArgs)
 		{
-			//ToDo: This assumes that the game will never get drawn as a control
+			// This assumes that the 'game' will never get drawn as a control - however perhaps a subset of 'game' can be?
 
 			SpriteBatch batch = new SpriteBatch(GraphicDeviceSingleton.GetInstance().graphicsDevice);
 			batch.Begin(SpriteBlendMode.AlphaBlend);
@@ -312,18 +327,17 @@ namespace CommonObjects.Controls
 
 		#endregion
 
-		#region IEquatable<ControlManager> Members
+		#region	IEquatable<ControlManager> Members
 
-		public bool Equals(ControlManager other)
+		public bool	Equals(ControlManager other)
 		{
-			//ToDo: Implement interface		+ overridden member
+			//ToDo:	Implement interface		+ overridden member
 			throw new NotImplementedException();
 		}
 
-		#endregion
+		#endregion	 
 
-
-
+		
 		#region IDisposable Members
 
 		protected bool misDisposed = false;
@@ -336,10 +350,10 @@ namespace CommonObjects.Controls
 				if (disposing)
 				{
 					EventManager em = EventManager.GetInstance();
-					em.AttemptedFocusEvent -= OnAttemptedGetFocusEvent;
+					//ToDo; Unregister from Event Manager events
 					foreach (GameControl g in mChildControls)
 					{
-						g.Dispose();					
+						g.Dispose();				
 
 					}
 				}
@@ -356,5 +370,29 @@ namespace CommonObjects.Controls
 		}
 
 		#endregion
+
+		#region IGameDrawable Members
+
+		public bool IsVisible
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		#endregion
+
+		#region IGameDrawable Members
+
+		//ToDo: rendering of control sis likley to be done in a seperate sequence thread - its all in the order of the end calls ...
+		public void SetVisibility(bool theVisibility)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+
 	}
 }

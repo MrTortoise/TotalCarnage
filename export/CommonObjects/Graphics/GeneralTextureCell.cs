@@ -6,8 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CommonObjects
 {
-	class GeneralTextureCell 
+	/// <summary>
+	/// represents a view into a texture that has various drawing options.
+	/// Currently Normal and Tiled. Contains a reference to a general Texture
+	/// </summary>
+	public class GeneralTextureCell 
 	{
+		//ToDo: Implement IDisposable to manage the references to Generaltexture
 
 		protected int mID;
 		protected GeneralTexture mTexture;

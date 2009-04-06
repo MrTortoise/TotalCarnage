@@ -3,7 +3,7 @@
 
 namespace CommonObjects
 {
-	class IntEventArgs   : EventArgs 
+	public class IntEventArgs   : EventArgs 
 	{
 		protected int mOldValue;
 		protected int mNewValue;

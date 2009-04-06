@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 namespace CommonObjects
 {
-	class GeneralTextureCellList	
+	public class GeneralTextureCellList	
 	{
 
 		protected Dictionary<int, GeneralTextureCell> mTextureCells = new Dictionary<int, GeneralTextureCell>();

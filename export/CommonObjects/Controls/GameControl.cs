@@ -637,7 +637,7 @@ namespace CommonObjects.Controls
 		{
 			bool retVal	= false;
 			//ToDo:	write in enabled / disabled	states
-			if (IsVisible(theArgs.Camera,theArgs.screenDimensions))
+			if (IsVisible(theArgs.viewPosition,theArgs.viewArea ))
 				retVal = IsAbsolutePositionInsideControl(theArgs.mousePosition);
 			return retVal;
 		}
@@ -778,7 +778,7 @@ namespace CommonObjects.Controls
 			//when a child control has the focus this control still needs to recieve input
 			//some commands may trigger responsdes ... eg altf4 is managed by the container control
 			mChildHasFocus = true;
-			SubscribeToEventManager();
+			SubscribeToControlManager(theArgs );
 		}  
 		///	<summary>
 		///	This only fires	when the control directly gains	the	focus
@@ -788,7 +788,7 @@ namespace CommonObjects.Controls
 		{
 			mBackColor = Color.Pink;
 			mGotFocus =	true;
-			SubscribeToEventManager();
+			SubscribeToControlManager(theArgs );
 
 			RaiseEvent(GotFocus, new GameControlEventArgs(this));
 
@@ -801,31 +801,31 @@ namespace CommonObjects.Controls
 		{
 			mGotFocus =	false;
 			mBackColor = Color.SeaGreen;
-			UnsubscribeFromEventManager();
+			UnsubscribeFromControlManager(theArgs );
 			RaiseEvent(LostFocus, new GameControlEventArgs(this));
 
 		}
 
-		protected virtual void SubscribeToEventManager()
+		protected virtual void SubscribeToControlManager(FocusMessageArgs theArgs)
 		{
-			EventManager em	= EventManager.GetInstance();
-			em.KeyPressed += HandleKeyPressed;
-			em.KeyReleased += HandleKeyRelseased;
-			em.MouseButtonPressed += HandleMouseButtonPressed;
-			em.MouseButtonReleased += HandleMouseButtonReleased;
-			em.MousePositionChanged	+= HandleMousePositionChanged;
-			em.MouseWheelScrolled += HandleMouseWheelScrolled;
+			ControlManager cm = theArgs.controlManager;
+			cm.KeyPressed  += HandleKeyPressed;
+			cm.KeyReleased += HandleKeyRelseased;
+			cm.MouseButtonPressed += HandleMouseButtonPressed;
+			cm.MouseButtonReleased += HandleMouseButtonReleased;
+			cm.MousePositionChanged	+= HandleMousePositionChanged;
+			cm.MouseWheelScrolled += HandleMouseWheelScrolled;
 
-		}  
-		protected virtual void UnsubscribeFromEventManager()
+		}
+		protected virtual void UnsubscribeFromControlManager(FocusMessageArgs theArgs)
 		{
-			EventManager em = EventManager.GetInstance();
-			em.KeyPressed -= HandleKeyPressed;
-			em.KeyReleased -= HandleKeyRelseased;
-			em.MouseButtonPressed -= HandleMouseButtonPressed;
-			em.MouseButtonReleased -= HandleMouseButtonReleased;
-			em.MousePositionChanged -= HandleMousePositionChanged;
-			em.MouseWheelScrolled -= HandleMouseWheelScrolled;
+			ControlManager  cm =theArgs.controlManager ;
+			cm.KeyPressed -= HandleKeyPressed;
+			cm.KeyReleased -= HandleKeyRelseased;
+			cm.MouseButtonPressed -= HandleMouseButtonPressed;
+			cm.MouseButtonReleased -= HandleMouseButtonReleased;
+			cm.MousePositionChanged -= HandleMousePositionChanged;
+			cm.MouseWheelScrolled -= HandleMouseWheelScrolled;
 
 		}
 				#endregion	 
@@ -908,31 +908,39 @@ namespace CommonObjects.Controls
 			{
 				if (disposing)
 				{
-					//dispose all child controls
-
-					foreach (GameControl gc in mChildren)
-					{
-						UnsubscribeFromChildEvents(gc);
-						gc.Dispose();
-					}
-					//unregister from any events
-
 					mChildren = null;
 					mTextureCell = null;
-					mParent = null;
-
-					if (mGotFocus || mChildHasFocus)
-					{
-						UnsubscribeFromEventManager();
-					}
+					mParent = null;	 					
 				}								  
-			}
+			} 
+		}
+
+		public void Dispose(ControlManager theManager)
+		{
+			if (!mIsDisposed)
+			{
+				foreach (GameControl gc in mChildren)
+				{
+					UnsubscribeFromChildEvents(gc);
+					gc.Dispose(theManager);
+				}
+
+				if (mGotFocus || mChildHasFocus)
+				{
+					//ToDO: fix unsubscribe from Control manager - uses focus message args, is this necessary?
+					UnsubscribeFromControlManager(new FocusMessageArgs(Vector2.Zero,theManager,Vector2.Zero,Vector2.Zero ));						
+				}
+				
+				Dispose(true);
+				GC.SuppressFinalize(this);
+			}	
 
 		}
 
 		public void Dispose()
 		{
 			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 
 		#endregion

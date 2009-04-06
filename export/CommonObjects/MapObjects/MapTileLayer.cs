@@ -8,9 +8,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using CommonObjects.Graphics;
+
 namespace CommonObjects
 {
-    public class MapTileLayer : IGameDrawable, IEnumerable<MapTile>, IEnumerator<MapTile>
+    public class MapTileLayer :  IEnumerable<MapTile>, IEnumerator<MapTile>//, IGameDrawable
     {
 		//ToDo Implement IAgroGarbageCollection
         #region Fields
@@ -143,8 +145,9 @@ namespace CommonObjects
         public void Draw(DrawingArgs theDrawingArgs)
         {			
             Vector2 position;
+			
 
-            SpriteBatch theBatch = new SpriteBatch(theDrawingArgs.GraphicsDevice);
+            SpriteBatch theBatch = new SpriteBatch(GraphicDeviceSingleton.GetInstance().graphicsDevice);
             theBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Texture, SaveStateMode.None, theDrawingArgs.Camera.Transform);		
 
 			Vector2 boundary = mTileDims;

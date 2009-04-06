@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommonObjects.Tile" Collapsed="true">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ogABEEAABjAAhpAEiAKABBwAAAACGuSJMAoAAwAQAJA=</HashCode>
+      <FileName>Graphics\Tile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="mTextureAnimations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.TextureAnimationInstance" Collapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>NwSAEUIQACAABQEEgAIABHgAAAAAKqAqCIAAAkAAADA=</HashCode>
+      <FileName>Graphics\TextureAnimationInstance.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mAnimation" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.TextureAnimation" Collapsed="true">
+    <Position X="7.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IhAAEEIQACAAgBEkiAAAABwAAAAAAKACAIgIQkAAACA=</HashCode>
+      <FileName>Graphics\TextureAnimation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mGenTex" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.GeneralTexture" Collapsed="true">
+    <Position X="10.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAgkEAAACQAgAJEgEAoKBwGAAAAEKBAAIoAAEAAAAA=</HashCode>
+      <FileName>Graphics\GeneralTexture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.GeneralTextureCell" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAAAAEAkAhgAAAAAAAAgAAAAQAAAAAwAAAAAgA=</HashCode>
+      <FileName>Graphics\GeneralTextureCell.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mTexture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CommonObjects.GeneralTextureCellList">
+    <Position X="6.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIBAAAAAAAEAAAACAAABAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Graphics\GeneralTextureCellList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="mTextureCells" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CommonObjects.TileLayer" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAEAAAACAAFlAAQACAAAAAAAEAAAAAYAAAAAgAAAA=</HashCode>
+      <FileName>Graphics\TileLayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="mTiles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

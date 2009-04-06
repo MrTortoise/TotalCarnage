@@ -56,7 +56,7 @@ namespace CommonObjects.Controls
 
 		#region Constructor
 
-		protected void EventManager()
+		protected  EventManager()
 		{
 
 
@@ -104,7 +104,7 @@ namespace CommonObjects.Controls
 				(mLeftMouseButton == MouseButtonState.Pressed) ||
 				(mRightNouseButton == MouseButtonState.Pressed))
 			{
-				RaiseEvent(AttemptedFocusEvent);
+				//RaiseEvent(AttemptedFocusEvent);
 				RaiseEvent(MouseButtonPressed);
 			}
 		
@@ -281,7 +281,7 @@ namespace CommonObjects.Controls
 		/// It is up to the reciever of this event to manage held buttons
 		/// </summary>
 		public EventHandler<InputEventArgs> MouseButtonPressed;
-		public EventHandler<FocusMessageArgs> AttemptedFocusEvent;
+		//public EventHandler<FocusMessageArgs> AttemptedFocusEvent;
 		/// <summary>
 		/// It is up to the reciever of this event to manage held buttons
 		/// </summary>
@@ -315,7 +315,7 @@ namespace CommonObjects.Controls
 				temp(this, CreateInputEventArgs());
 		}
 
-		protected void RaiseEvent(EventHandler<FocusMessageArgs> theEvent)
+		/*protected void RaiseEvent(EventHandler<FocusMessageArgs> theEvent)
 		{
 			//Copy to be threadsafe
 			EventHandler<FocusMessageArgs> temp = theEvent;
@@ -326,7 +326,7 @@ namespace CommonObjects.Controls
 								mCurrentMousePosition.Y));
 				temp(this, args);												   
 			}
-		}
+		}	*/
 
 		protected virtual InputEventArgs CreateInputEventArgs()
 		{

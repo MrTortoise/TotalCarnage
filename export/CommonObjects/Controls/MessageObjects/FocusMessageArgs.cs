@@ -11,11 +11,17 @@ namespace CommonObjects.Controls
 		/// <summary>
 		/// This is the mouse position after adjustment to scale to 1000 : aspect ratio * 1000
 		/// </summary>
-		public Vector2 mousePosition;		
+		public Vector2 mousePosition;
+		public ControlManager controlManager;
+		public Vector2 viewPosition;
+		public Vector2 viewArea;
 
-		public FocusMessageArgs(Vector2 theMousePosition)
+		public FocusMessageArgs(Vector2 theMousePosition, ControlManager theManager,Vector2 theViewPosition,Vector2 theViewArea)
 		{									 		
-			mousePosition = theMousePosition;			
+			mousePosition = theMousePosition;
+			controlManager = theManager;
+			viewPosition = theViewPosition;
+			viewArea = theViewArea;
 		}
 	}
 }

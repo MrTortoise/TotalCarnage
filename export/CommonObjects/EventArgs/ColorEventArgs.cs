@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CommonObjects
 {
-	class ColorEventArgs : EventArgs  
+	public class ColorEventArgs : EventArgs  
 	{
 
 		protected Color mOldValue;
@@ -16,6 +16,9 @@ namespace CommonObjects
 			mNewValue = theNewValue;
 		}
 
+		/// <summary>
+		/// Returns the Old Value of the colour
+		/// </summary>
 		public Color OldValue
 		{
 			get { return mOldValue; }

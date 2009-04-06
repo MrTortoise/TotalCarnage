@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CommonObjects.Map">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAAAACAghAAgAAAAAIAAFAAEIAtAAAAAAAAAA=</HashCode>
+      <FileName>MapObjects\map.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="mTileLayers" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.MapTileLayer">
+    <Position X="3" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEwEAACAAhlAAQACAAAAAAIICAAAMoAAAAAgQAgA=</HashCode>
+      <FileName>MapObjects\MapTileLayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="mMapTiles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommonObjects.MapTile">
+    <Position X="5.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABIAIACAAAAAAEgAAAAAAAAAgAAIBAAAABAAAAAAA=</HashCode>
+      <FileName>MapObjects\MapTile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

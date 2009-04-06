@@ -2,7 +2,7 @@
 
 namespace CommonObjects
 {
-	class BoolEventArgs : EventArgs 
+	public class BoolEventArgs : EventArgs 
 		
 	{
 
