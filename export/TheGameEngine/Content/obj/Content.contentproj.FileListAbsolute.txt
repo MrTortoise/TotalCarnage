@@ -1,3 +1,4 @@
 D:\TheGameWorkingFolder\topDownShooter\TotalCarnage\TheGameEngine\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TheGameEngine\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\ProgrammingProjects\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TheGameEngine\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+O:\ProgrammingProjects\TheGameWorkingFolder\topDownShooter\snvWorkingFolder\TheGameEngine\Content\obj\x86\Debug\ResolveAssemblyReference.cache

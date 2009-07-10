@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using Custom.Interfaces;
 using Custom.Exceptions;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace CommonObjects.Graphics
 {
@@ -16,8 +18,7 @@ namespace CommonObjects.Graphics
     /// all tiles/textures refer to this list
     /// It also is used to load the content on startup / device reinitialisation
     /// </summary>
-    public class GeneralTextureList : IEquatable<GeneralTextureList>, 
-        IEnumerable<GeneralTexture>, IEnumerator<GeneralTexture>, IAgroGarbageCollection 
+    public class GeneralTextureList : IEquatable<GeneralTextureList>,  ILoadXML,  IEnumerable<GeneralTexture>, IEnumerator<GeneralTexture>, IAgroGarbageCollection 
     {       
 
         protected Dictionary<int,GeneralTexture> mTextures = new Dictionary<int,GeneralTexture>();
@@ -38,6 +39,15 @@ namespace CommonObjects.Graphics
 
         #endregion
         #region Properties
+
+        public Dictionary<int, GeneralTexture> Textures
+        {
+            get
+            {
+                return mTextures;
+            }
+
+        }
 
         public int Count
             { get { return mTextures.Count; } }
@@ -82,9 +92,12 @@ namespace CommonObjects.Graphics
             }
         }
 
+        
         #endregion
 
         #region public methods
+
+
 
        
 
@@ -113,14 +126,17 @@ namespace CommonObjects.Graphics
 			
 			if (!mTextures.ContainsKey(Texture.ID))
 			{
-				if (mTextures.ContainsValue(Texture))
-				{ throw new ArgumentAlreadyExistsException("Tried to add General TExture to GeneralTexture List that was already in it"); }
+                if (mTextures.ContainsValue(Texture))
+                {
+                    ArgumentAlreadyExistsException a = new ArgumentAlreadyExistsException("Tried to add General TExture to GeneralTexture List that was already in it");
+                    a.Data.Add("textureID", Texture.ID.ToString());
+                    a.Data.Add("textureName", Texture.Name.ToString());
+                    throw a;
+                }
 
 				Texture.AddReference();
 				mTextures.Add(Texture.ID, Texture);
-			}
-
-			
+			}    			
 		}
 
 
@@ -129,19 +145,20 @@ namespace CommonObjects.Graphics
 		/// <para>threadsafe</para>
         /// </summary>
         /// <param name="theGraphicsDevice"></param>
-        public void Load(GraphicsDevice theGraphicsDevice)
+        public void Load()
         {
 			foreach (GeneralTexture gt in mTextures.Values)
 			{
-				gt.Load(theGraphicsDevice);
+				gt.Load();
 			}
         }
+
+
 
         public override int GetHashCode()
         {
             return mTextures.GetHashCode();
-        }
-
+        }   
         public override string ToString()
         {
             StringBuilder s = new StringBuilder();
@@ -300,7 +317,7 @@ namespace CommonObjects.Graphics
 
         #endregion
 
-	 		#region IAgroGarbageCollection Members
+	 	#region IAgroGarbageCollection Members
 
 		/// <summary>
 		/// whenever an object adds a reference to this object this method should be called
@@ -413,5 +430,39 @@ namespace CommonObjects.Graphics
 		}
 
 		#endregion
-	}
+
+        #region ILoadXML Members
+
+        protected bool mIsXMLLoaded;
+        public bool IsXMLLoaded
+        {
+            get { return mIsXMLLoaded; }
+        }
+
+        public void LoadFromXML(XDocument  theXML)
+        {
+            var generalTextures = from i in theXML.Descendants("texture")
+                                  select new GeneralTexture(Convert.ToInt32(i.Element("id").Value),
+                                      (string)i.Element("name").Value.ToString(),
+                                      (string)i.Element("path").Value.ToString(),
+                                      Convert.ToInt32(i.Element("noColumns").Value),
+                                      Convert.ToInt32(i.Element("noRows").Value));
+
+            foreach (GeneralTexture gt in generalTextures)
+            {
+                this.Add(gt);
+            }
+
+            mIsXMLLoaded = true;
+        }
+
+        public void LoadFromXMLFile(string thePath)
+        {
+            XDocument  data = XDocument.Load(thePath);
+
+            this.LoadFromXML(data);
+        }
+
+        #endregion
+    }
 }

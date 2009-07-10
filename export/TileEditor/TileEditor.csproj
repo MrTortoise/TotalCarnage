@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1205A0B2-8708-49C1-9ABC-B9EE40B71B19}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -142,30 +142,39 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ContentGrabber.resx">
       <DependentUpon>ContentGrabber.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImageGrid.resx">
       <DependentUpon>ImageGrid.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TextureCell.resx">
       <DependentUpon>TextureCell.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TexturesPanel.resx">
       <DependentUpon>TexturesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="generalTextureListViewer.resx">
       <DependentUpon>generalTextureListViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupFileManager\CreateNewGrpFile.resx">
       <DependentUpon>CreateNewGrpFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupFileManager\GroupFileManager.resx">
       <DependentUpon>GroupFileManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainEditorScreen.resx">
       <DependentUpon>MainEditorScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -174,12 +183,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TextureContainer.resx">
       <DependentUpon>TextureContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="texturePanelTest.resx">
       <DependentUpon>texturePanelTest.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureViewer.resx">
       <DependentUpon>TextureViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

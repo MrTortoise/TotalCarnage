@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using CommonObjects.Graphics; 
 
 namespace CommonObjects.VectorDrawing
 {
@@ -14,33 +15,13 @@ namespace CommonObjects.VectorDrawing
 	/// </summary>
 	public static  class VectorDraw
 	{
-		public static Texture2D Pixel;
-		public static GraphicsDevice GraphicsDevice;
+		public static Texture2D Pixel;		
 
-		/*public VectorDraw(GraphicsDevice theGraphicsDevice)
+
+		public static void Load(string pixelImagePath)
 		{
-			GraphicsDevice = theGraphicsDevice;
-			Pixel = Texture2D.FromFile(theGraphicsDevice, "images\\pixel.png"); 
-			 		  
-
-		}  */
-
-		public static void SetGraphicsDevice(GraphicsDevice thegraphicsDevice)
-		{
-			GraphicsDevice = thegraphicsDevice;
+			Pixel = Texture2D.FromFile(GraphicDeviceSingleton.GetInstance().graphicsDevice , pixelImagePath); 
 		}
-
-		public static void Load()
-		{
-			Pixel = Texture2D.FromFile(GraphicsDevice, "images\\pixel.png"); 
-		}
-
-		/*public Texture2D Texture
-		{
-			get { return Pixel; }
-			set { Pixel = value; }
-		}  */
-
 
 		#region Methods
 		public static void DrawRectangleEdge(Vector2 thePosition, Vector2 theDimensions, Color theColor, uint theThickness, SpriteBatch  theSpriteBatch, float LayerDepth)

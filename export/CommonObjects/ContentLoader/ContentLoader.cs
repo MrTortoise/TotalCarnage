@@ -11,6 +11,11 @@ namespace CommonObjects.ContentLoader
 	/// </summary>
 	class ContentLoader
 	{
-		//ToDo: write me
+
+        protected bool mHasErrors;
+        protected StringBuilder mErrorLog;
+
+
+
 	}
 }

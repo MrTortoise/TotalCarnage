@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -39,7 +39,7 @@
     <NoStdLib>true</NoStdLib>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
-    <XnaCompressContent>false</XnaCompressContent>
+    <XnaCompressContent>True</XnaCompressContent>
     <DocumentationFile>
     </DocumentationFile>
   </PropertyGroup>
@@ -86,19 +86,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentLoader\ContentLoader.cs" />
+    <Compile Include="GameObjects\GameObject3D.cs" />
+    <Compile Include="Interfaces\ILoadXML.cs" />
     <Compile Include="Controls\Enums\eControlTexture.cs" />
     <Compile Include="Controls\Events\ControlAddedEventArgs.cs" />
+    <Compile Include="Controls\IGameControl.cs" />
     <Compile Include="Controls\test.cs">
     </Compile>
+    <Compile Include="GameObjectIDGenerator.cs" />
     <Compile Include="Graphics\eGeneralTextureList.cs" />
     <Compile Include="Graphics\GraphicDeviceSingleton.cs" />
+    <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="MessageObjects\GraphicsUpdateArgs.cs" />
     <Compile Include="Interfaces\IGraphicsUpdateable.cs" />
     <Compile Include="MessageObjects\ETextureMode.cs" />
     <Compile Include="EventArgs\TextureModeEventArgs.cs" />
     <Compile Include="EventArgs\BoolEventArgs.cs" />
     <Compile Include="Controls\Events\GameControlEventArgs.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Components\ConsoleMenu.cs" />
     <Compile Include="Components\ConsoleVisibilityEventArgs.cs" />
     <Compile Include="Components\FPS.cs" />
@@ -123,7 +127,7 @@
     <Compile Include="EventArgs\MovementEventArgs.cs" />
     <Compile Include="EventArgs\UpdataOrderEventArgs.cs" />
     <Compile Include="Controls\Events\VisibilityEventArgs.cs" />
-    <Compile Include="Controls\EventManager.cs" />
+    <Compile Include="EventManager\EventManager.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\GeneralTexture.cs" />
     <Compile Include="Graphics\GeneralTextureCell.cs" />
@@ -132,14 +136,12 @@
     <Compile Include="Graphics\TextureAnimationInstance.cs" />
     <Compile Include="Graphics\TextureAnimationList.cs" />
     <Compile Include="Graphics\Tile.cs" />
-    <Compile Include="Graphics\TileLayer.cs" />
-    <Compile Include="Controls\Events\InputEventArgs.cs" />
+    <Compile Include="EventManager\InputEventArgs.cs" />
     <Compile Include="Interfaces\IGameDrawable.cs" />
     <Compile Include="Interfaces\IGameLoadable.cs" />
     <Compile Include="Interfaces\IGameUpdateable.cs" />
     <Compile Include="Interfaces\ISpriteBatchDrawable.cs" />
     <Compile Include="EventArgs\IntEventArgs.cs" />
-    <Compile Include="IUserInput.cs" />
     <Compile Include="MapObjects\map.cs" />
     <Compile Include="MapObjects\MapTile.cs" />
     <Compile Include="MapObjects\MapTileLayer.cs" />
@@ -235,10 +237,8 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EventManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

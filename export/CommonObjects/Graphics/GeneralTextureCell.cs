@@ -4,27 +4,46 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace CommonObjects.Graphics
 {
 	/// <summary>
 	/// represents a view into a texture that has various drawing options.
-	/// Currently Normal and Tiled. Contains a reference to a general Texture
+	/// Currently Normal and Tiled. Contains a reference to a general Texture.
+    /// Allows a region to be specified in a texture as input. It outputs that region at a specifed scale and rotation.
 	/// </summary>
 	public class GeneralTextureCell 
 	{
 		//ToDo: Implement IDisposable to manage the references to Generaltexture
+		//ToDo: this object does not require a GeneralTexture, use Texture2D and IGameLoadable, IAgroGarbageCollection
 
 		protected int mID;
 		protected GeneralTexture mTexture;
 		protected Vector2 mPosition;
 		protected Vector2 mTextureSize;
+		protected Vector2 mTextureCellSize;
+		protected float mRotation;
+		//protected float mScale;
 
-		public void GeneraltextureCell(int ID, GeneralTexture theTexture, Vector2 thePosition, Vector2 theTextureSize)
+        /// <summary>
+        /// Constructs a General TextureCell
+        /// </summary>
+        /// <param name="ID">The unique Id of the GeneralTextureCell</param>
+        /// <param name="theTexture">The generalTexture the TextureCell will Reference</param>
+        /// <param name="thePosition">The x,y coords of the origin in the texture</param>
+        /// <param name="theTextureCellSize">The output size of the TextureCell (ie its width and height)</param>
+        /// <param name="theTextureSize">The suze of the region to use in the unput texture</param>
+        /// <param name="Rotation">The rotation to apply to the OUTPUT.</param>
+		public  GeneralTextureCell(int ID, GeneralTexture theTexture, Vector2 thePosition,Vector2 theTextureCellSize, Vector2 theTextureSize, float Rotation)//, float scale)
 		{
+            //ToDo remove Scale
 			mID = ID;
 			mTexture = theTexture;
 			mPosition = thePosition;
 			mTextureSize = theTextureSize;
+			mRotation = Rotation;
+		//	mScale = scale;
+			mTextureCellSize=theTextureCellSize;
 		}
 
 		public int ID
@@ -32,9 +51,15 @@ namespace CommonObjects.Graphics
 			get { return mID; }		
 		}
 
+        /// <summary>
+        /// The position of the origion to use in the input GeneralTexture
+        /// </summary>
 		public Vector2 Position
 		{ get { return mPosition; } }
 
+        /// <summary>
+        /// The size of the area to use in the General Texture
+        /// </summary>
 		public Vector2 TextureSize
 		{ get { return mTextureSize; } }
 
@@ -45,14 +70,34 @@ namespace CommonObjects.Graphics
 		{
 			get
 			{
-				return new Rectangle((int)mPosition.X, (int)mPosition.Y, (int)mTextureSize.X, (int)mTextureSize.Y);
+				return new Rectangle((int)mPosition.X, (int)mPosition.Y, (int)mTextureSize.X+(int)mPosition.X , (int)mPosition.Y+(int)mTextureSize.Y );
 			}
 		}
 
+        /// <summary>
+        /// Draws a single TextureCell.
+        /// </summary>
+        /// <param name="theSpriteBatch">The spritebatch to draw the TextueCell With.</param>
+        /// <param name="thePosition">The position in drawing space to draw the TextureCell.</param>
+        /// <param name="theLayerDepth">The Depth at which to position the texturecell in the z buffer</param>
 		public void DrawAsIs(SpriteBatch theSpriteBatch, Vector2 thePosition, float theLayerDepth)
 		{
-			theSpriteBatch.Draw(mTexture.Texture, thePosition, TextureRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, theLayerDepth);
+			Rectangle r = new Rectangle((int)thePosition.X, (int)thePosition.Y, (int)mTextureCellSize.X, (int)mTextureCellSize.Y);
+			theSpriteBatch.Draw(mTexture.Texture, r, TextureRectangle, Color.White, 0, Vector2.Zero,  SpriteEffects.None, theLayerDepth);
 		}
+
+        public void DrawStretched(SpriteBatch theSpriteBatch, Rectangle target, float theLayerDepth)
+        {   
+            
+            theSpriteBatch.Draw(mTexture.Texture, target, TextureRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.None, theLayerDepth);
+        }
+
+        /// <summary>
+        /// This method takes the TextureCell as specified but then tiles it to the output area.
+        /// </summary>
+        /// <param name="theSpriteBatch">The spritebatch to draw the TextueCell With.</param>
+        /// <param name="target">The target rectangle that the texture cell will be tiled into</param>
+        /// <param name="theLayerDepth">The Depth at which to position the texturecell in the z buffer</param>
 		public void DrawTiled(SpriteBatch theSpriteBatch, Rectangle target,float theLayerDepth)
 		{
 			int NoAccross = (int)(target.Width/mTextureSize.X);
@@ -62,8 +107,7 @@ namespace CommonObjects.Graphics
 			Vector2 position = new Vector2();
 			
 			int remX = (int)((NoAccross - (int)NoAccross)*mTextureSize.X);
-			int remY = (int)((NoDown - (int)NoDown)*mTextureSize.Y );
-			Rectangle sourceRectangle = new Rectangle();
+			int remY = (int)((NoDown - (int)NoDown)*mTextureSize.Y );    			
 
 			if (NoAccross>0)
 			{
@@ -72,7 +116,7 @@ namespace CommonObjects.Graphics
 					//loop the whole tiles
 					for (int i = 0;i<NoAccross ;i++)
 					{
-						for (int j=0;j<NoDown;i++)
+						for (int j=0;j<NoDown;j++)
 						{
 							position.X=target.X+(i*mTextureSize.X);
 							position.Y=target.Y+(j*mTextureSize.Y);

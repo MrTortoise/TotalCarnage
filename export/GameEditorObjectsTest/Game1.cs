@@ -13,9 +13,15 @@ using Microsoft.Xna.Framework.Storage;
 using CommonObjects.VectorDrawing;
 using CommonObjects;
 using CommonObjects.Controls;
+using CommonObjects.EventManagement;
+using CommonObjects.Graphics;
 
 namespace GameEditorObjectsTest
 {
+    public enum ControlState
+    {
+
+    }
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
@@ -26,6 +32,9 @@ namespace GameEditorObjectsTest
 		EventManager mEventManager;
 		ControlManager mControlManager;
 
+        GeneralTextureList  mTextures;
+        GeneralTextureCellList mtextureCells;
+
 
 		GameControl mControl;
 		
@@ -34,6 +43,9 @@ namespace GameEditorObjectsTest
 		{
 			mGraphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+            mGraphics.PreferredBackBufferHeight = 1024;
+            mGraphics.PreferredBackBufferWidth=1280;
 		}
 
 		/// <summary>
@@ -58,35 +70,52 @@ namespace GameEditorObjectsTest
 		/// </summary>
 		protected override void LoadContent()
 		{
-			mEventManager = new EventManager();
-			mControlManager = new ControlManager();
+
+            GraphicDeviceSingleton.GetInstance(GraphicsDevice);            
+            mEventManager = EventManager.GetInstance();
+
+
+            mTextures = new GeneralTextureList();
+            mTextures.LoadFromXMLFile("Controls/ControlTextures.xml");
+            mTextures.Load();
+
+            mtextureCells = new GeneralTextureCellList(mTextures.Textures);
+            mtextureCells.LoadFromXMLFile("Controls/textureCells.xml");            
+
+            mControlManager = new ControlManager(mtextureCells);
 
 			// Create a new SpriteBatch, which can be used to draw textures.
 			mSpriteBatch = new SpriteBatch(GraphicsDevice);
-			VectorDraw.GraphicsDevice = GraphicsDevice;
-			VectorDraw.Load();
 
-			mControl = new GameControl(0, "test");
+
+
+            VectorDraw.Load("Controls/pixel.png");
+
+			mControl = new GameControl(0, "test",1001);
 
 			mControl.BackColor = Color.Wheat;
 			mControl.BorderColor = Color.Black;
 			mControl.Position = new Vector2(450, 100);
 			mControl.Size = new Vector2(300, 200);
+            mControl.TextureMode = ETextureMode.Tile  ;
+            
 
-			GameControl g3 = new GameControl(2, "inner");
+			GameControl g3 = new GameControl(2, "inner",1000);
 			g3.BackColor = Color.AliceBlue;
 			g3.Position = new Vector2(500, 150);
 			g3.Size=new Vector2(50,50);
+            g3.TextureMode = ETextureMode.Stretch;
 			mControl.AddChildControl(g3);
 
 			mControlManager.AddControl(mControl);
 
-			GameControl gc2 = new GameControl(1, "test2");
+			GameControl gc2 = new GameControl(1, "test2",1000);
 
 			gc2.BackColor = Color.Red;
 			gc2.BorderColor = Color.Black;
 			gc2.Position = new Vector2(10, 100);
 			gc2.Size = new Vector2(300, 300);
+            gc2.TextureMode = ETextureMode.Stretch;
 
 			mControlManager.AddControl(gc2);
 
@@ -129,7 +158,7 @@ namespace GameEditorObjectsTest
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			mControlManager.Draw(new DrawingArgs(mGraphics.GraphicsDevice , new Camera(new Vector2(0, 0), mGraphics.GraphicsDevice )));
+			mControlManager.Draw(new DrawingArgs( new Camera(new Vector2(0, 0), mGraphics.GraphicsDevice )));
 
 			/*spriteBatchArgs sba = new spriteBatchArgs(mSpriteBatch);
 

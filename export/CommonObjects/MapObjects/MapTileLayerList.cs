@@ -117,5 +117,28 @@ namespace CommonObjects
 		}
 
 		#endregion
+
+		#region IGameObject Members
+
+		public int ID
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string Name
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		#endregion
+
+		#region IDisposable Members
+
+		public void Dispose()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
 	}
 }

@@ -13,7 +13,7 @@ namespace CommonObjects.Graphics
 	/// multithreaded class that exposes the graphics device as a static.
 	/// Manages objects dependant on Graphics device (lifecycle) ... eg lists of textureLists that other managers hold references to
 	/// </summary>
-	class GraphicDeviceSingleton
+	public class GraphicDeviceSingleton
 	{
 		//ToDo: implement I disposable to manage no references to general texture.
 		protected static  GraphicDeviceSingleton mInstance;
@@ -128,8 +128,9 @@ namespace CommonObjects.Graphics
 		{
 			foreach (GeneralTextureList gtl in mTextureLists.Values)
 			{
-				gtl.Load(mGraphicsDevice);
+				gtl.Load();
 			}
+            mIsLoaded = true;
 
 		}
 			

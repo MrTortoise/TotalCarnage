@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using CommonObjects.VectorDrawing;
 using CommonObjects.Graphics;
-using Custom.Exceptions;
-
-
+using CommonObjects.EventManagement;
+using Custom.Exceptions;	  
 
 namespace CommonObjects.Controls
 {
@@ -15,7 +14,7 @@ namespace CommonObjects.Controls
 	/// this class will form the backbone of all other controls that will exist on screen.
 	/// The individual controls will end up being rendered by a control manager class which will interface with the .. haha i fell asleep drunk whilst writing that, I remmeber it beign a good idea tho 
 	/// </summary>
-	public class GameControl :  IEquatable<GameControl>, IDisposable 
+	public class GameControl :  IEquatable<GameControl>, IGameControl  
 	{
 		// inherit and override memebers to enable textured controls
 		// ToDo implement overriden public members
@@ -29,16 +28,16 @@ namespace CommonObjects.Controls
 		protected Color	mBackColor = Color.AliceBlue;
 		protected Color	mBorderColor = Color.Black;
 
-		protected bool mCanGetFocus	= true;	//ToDo:	Implement this
+        protected bool mCanGetFocus = true;	//ToDo:	Implement mCanGetFocus
 		protected bool mGotFocus = false;
 		protected bool mChildHasFocus =	false;
 		protected bool mIsVisible =	true;
 
-		protected bool mIsTextured = false;
+        protected bool mIsTextured = false;
 		protected GeneralTextureCell mTextureCell;
 		protected ETextureMode mTextureMode = ETextureMode.AsIs;
 
-		protected int mTextureID;
+		protected int mTextureCellID;
 
 		//protected	ControlManager mControlManager;
 		protected GameControl mParent;
@@ -148,11 +147,13 @@ namespace CommonObjects.Controls
 			//mControlManager	= thecontrolManager;			
 		}
 
-		public GameControl(int theID, string theName/*, ControlManager thecontrolManager*/,int textureID)
+		public GameControl(int theID, string theName/*, ControlManager thecontrolManager*/,int theTextureCellID)
 		{
 			mID = theID;
 			mName = theName;
 			//mControlManager	= thecontrolManager;			
+            mTextureCellID = theTextureCellID;
+            mIsTextured = true;
 		}
 
 		///	<summary>
@@ -161,12 +162,16 @@ namespace CommonObjects.Controls
 		///	<param name="theID"></param>
 		///	<param name="theName"></param>
 		///	<param name="theParent"></param>
-		public GameControl(int theID, string theName, GameControl theParent)
+		public GameControl(int theID, string theName, GameControl theParent, int theTextureCellID)
 		{				
 			mID	= theID;
 			mName =	theName;
-			mParent	= theParent;  			
+			mParent	= theParent;
+            mTextureCellID = theTextureCellID;
+            mIsTextured = true;
 		}
+
+        //ToDo: add constructor for parent and no texturecell
 		
 
 
@@ -381,17 +386,17 @@ namespace CommonObjects.Controls
 		/// <summary>
 		/// Gets / sets the TextureId of the control
 		/// </summary>
-		public int TextureID
+		public int TextureCellID
 		{
-			get { return mTextureID; }
+			get { return mTextureCellID; }
 			set
 			{
-				if (mTextureID > -1)
+				if (mTextureCellID > -1)
 				{
-					if (mTextureID != value)
+					if (mTextureCellID != value)
 					{
-						RaiseEvent(TextureCellIDChanged, new IntEventArgs(mTextureID, value));
-						mTextureID = value;
+						RaiseEvent(TextureCellIDChanged, new IntEventArgs(mTextureCellID, value));
+						mTextureCellID = value;
 					}
 				}
 			}
@@ -416,7 +421,7 @@ namespace CommonObjects.Controls
 			{
 				if (mIsTextured)
 				{
-					InnderDrawTextured(theArgs);
+                    InnderDrawTextured(theArgs);
 				}
 				else
 				{
@@ -425,10 +430,10 @@ namespace CommonObjects.Controls
 
 				if (mChildren.Count>0)
 				{
-					for (int i = mChildren.Count - 1; i > 0; i--)
-					{
-						mChildren[i].Draw(theArgs);	
-					}								
+                    foreach (GameControl gc in mChildren)
+                    {
+                        gc.Draw(theArgs);
+                    }								
 				}									
 			}
 
@@ -716,8 +721,12 @@ namespace CommonObjects.Controls
 		}
 		protected float	CalculateLayerDepth(int	NoDrawn)
 		{
-			float inverse =	1 /	(float)NoDrawn;
-			float retVal = (float)0.1 +	(float)(inverse	/ 10); //ensures that layerdepth always	between	0.2	and	0.1	- ie at	the	front
+			float inverse;
+            NoDrawn++;
+            
+                inverse = 1f / (float)NoDrawn;
+            
+			float retVal = 0.2f +	(inverse	/ 10f); //ensures that layerdepth always	between	0.2	and	0.1	- ie at	the	front
 			return retVal;
 
 		}
@@ -755,8 +764,8 @@ namespace CommonObjects.Controls
 					theArgs.NocontrolsDrawn++;
 					break;
 				case ETextureMode.Stretch:
-					
-
+                    mTextureCell.DrawStretched(sb, GetAbsoluteRectangle, CalculateLayerDepth(theArgs.NocontrolsDrawn));
+                    theArgs.NocontrolsDrawn++;
 					break;
 				case ETextureMode.Tile:
 					mTextureCell.DrawTiled(sb, GetAbsoluteRectangle, CalculateLayerDepth(theArgs.NocontrolsDrawn));
@@ -941,6 +950,35 @@ namespace CommonObjects.Controls
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
+		}
+
+		#endregion
+
+		#region IGameDrawable Members
+
+		bool IGameDrawable.IsVisible
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public void SetVisibility(bool theVisibility)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Draw(DrawingArgs theDrawingArgs)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region IGameObject Members
+
+
+		public string name
+		{
+			get { throw new NotImplementedException(); }
 		}
 
 		#endregion

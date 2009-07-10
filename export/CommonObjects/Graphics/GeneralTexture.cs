@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -80,6 +81,8 @@ namespace CommonObjects.Graphics
 		public string Name
 		{ get { return mName; } }
 
+
+
 		/// <summary>
 		/// returns the file path of the texture
 		/// </summary>
@@ -139,8 +142,7 @@ namespace CommonObjects.Graphics
 		/// loads the texture given a graphics device to load into
 		/// <para>threadsafe</para>
 		/// </summary>
-		/// <param name="theGraphicsDevice"></param>
-		public void Load(GraphicsDevice theGraphicsDevice)
+		public void Load()
 		{
 			if (mIsLoaded == false)
 			{
@@ -149,10 +151,10 @@ namespace CommonObjects.Graphics
 					Monitor.Enter(textureLock);
 					if (mIsLoaded == false)		  // could get loaded whilst getting lock
 					{
-						mTexture = Texture2D.FromFile(theGraphicsDevice, mPath);
+						mTexture = Texture2D.FromFile(GraphicDeviceSingleton.GetInstance().graphicsDevice ,Directory.GetCurrentDirectory() + mPath);
 						mIsLoaded = true;
 						mColumnWidth = mTexture.Width / mColumns;
-						mRowHeight = mTexture.Height / mRows;
+						mRowHeight = mTexture.Height / mRows;                        
 					}
 				}
 				catch (Exception e)
@@ -350,15 +352,16 @@ namespace CommonObjects.Graphics
 		}
 
 		#endregion
+
+		#region IGameObject Members
+
+
+
+
+		#endregion
 	}
 
 
 
 
-#region IGameLoadable Members
-
-
-
-
-#endregion
 }

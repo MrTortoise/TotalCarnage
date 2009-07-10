@@ -2,7 +2,7 @@
 
 namespace CommonObjects
 {
-	public interface IGraphicsUpdateable
+	public interface IGraphicsUpdateable  : IGameObject 
 	{
 		void UpdateGraphics(GraphicsUpdateArgs  theArgs);
 		bool IsGraphicsActive

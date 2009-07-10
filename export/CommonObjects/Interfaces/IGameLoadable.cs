@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CommonObjects
 {
-    public interface IGameLoadable
+    public interface IGameLoadable : IGameObject 
     {
-        void Load(GraphicsDevice theGraphicsDevice);
+        void Load( );
 		event EventHandler<EventArgs> OnLoad; 
     }
 }

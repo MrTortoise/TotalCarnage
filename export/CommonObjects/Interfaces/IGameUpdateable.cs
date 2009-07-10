@@ -2,7 +2,7 @@
 
 namespace CommonObjects
 {
-    public interface IGameUpdateable
+    public interface IGameUpdateable : IGameObject 
     {
         void Update(UpdateArgs theUpdateArgs);
 

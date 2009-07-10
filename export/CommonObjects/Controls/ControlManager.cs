@@ -5,6 +5,7 @@ using CommonObjects.Controls;
 using CommonObjects.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using CommonObjects.EventManagement;
 //using Microsoft.Xna.Framework.Input;
 
 namespace CommonObjects.Controls
@@ -31,8 +32,8 @@ namespace CommonObjects.Controls
 		//protected EventManager mEventManager;
 		protected List<GameControl> mAllControls = new List<GameControl>();
 		protected List<GameControl> mChildControls = new List<GameControl>();
-		protected GeneralTextureCellList mTextureCells = new GeneralTextureCellList();
-		protected GeneralTextureList mGeneralTextureList = new GeneralTextureList();
+		protected GeneralTextureCellList mTextureCells;
+		//protected GeneralTextureList mGeneralTextureList = new GeneralTextureList();
 		protected bool mIsVisible = true;
 		protected bool mIsActive = true;
 		
@@ -41,7 +42,7 @@ namespace CommonObjects.Controls
 		#endregion
 
 		#region Constructors
-		public ControlManager( GeneralTextureList theTextureList)
+		public ControlManager( GeneralTextureCellList theTextureCellList)
 		{
 			
 			EventManager em = EventManager.GetInstance(); 
@@ -54,7 +55,7 @@ namespace CommonObjects.Controls
 			em.MousePositionChanged += OnEMMousePositionChanged;
 			em.MouseWheelScrolled += OnEMMouseWheelScrolled;
 
-			mGeneralTextureList = theTextureList;
+			mTextureCells = theTextureCellList;
 
 		}
 		#endregion
@@ -63,7 +64,8 @@ namespace CommonObjects.Controls
 		#region Methods	
 	
 		public void AddControl(GameControl theControl)
-		{			
+		{		
+	        //ToDo: test if control is not of the textured kind
 			mChildControls.Add(theControl);
 			mAllControls.Add(theControl);
 
@@ -99,14 +101,14 @@ namespace CommonObjects.Controls
 		protected void ProcessTextureCellID(GameControl theControl)
 		{
 			//set the controls textureCell
-			if (theControl.TextureID != -1)
+			if (theControl.TextureCellID != -1)
 			{
-				if (mTextureCells.ContainsKey(theControl.TextureID))
+				if (mTextureCells.ContainsKey(theControl.TextureCellID))
 				{
-					theControl.TextureCell = mTextureCells[theControl.TextureID];
+					theControl.TextureCell = mTextureCells[theControl.TextureCellID];
 				}
 				else
-				{ throw new Exception("OnControltextureCellIDChanged raised by object that cannto cast to game control."); }
+				{ throw new Exception("TextureCellID specified in the control cannot be found."); }
 			}
 		}
 
@@ -307,13 +309,20 @@ namespace CommonObjects.Controls
 
 			SpriteBatch batch = new SpriteBatch(GraphicDeviceSingleton.GetInstance().graphicsDevice);
 			batch.Begin(SpriteBlendMode.AlphaBlend);
+            ControlSpriteBatchArgs sb = new ControlSpriteBatchArgs(batch);
 
+            foreach (GameControl gc in mChildControls)
+            {
+                gc.Draw(sb);
+            }
+
+            /*
 			int counter = mChildControls.Count - 1;
 			while (counter > -1)
 			{
 				mChildControls[counter].Draw(new ControlSpriteBatchArgs(batch));
 				counter--;
-			}
+			}    */
 
 				batch.End();
 		}
@@ -408,6 +417,20 @@ namespace CommonObjects.Controls
 		public void SetActive(bool value)
 		{
 			mIsActive = value;
+		}
+
+		#endregion
+
+		#region IGameObject Members
+
+		public int ID
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string Name
+		{
+			get { throw new NotImplementedException(); }
 		}
 
 		#endregion

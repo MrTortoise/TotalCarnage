@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CommonObjects
 {
-    public interface ISpriteBatchDrawable
+    public interface ISpriteBatchDrawable   : IGameObject 
     {
        
             void Draw(spriteBatchArgs theSpriteBatchArgs);

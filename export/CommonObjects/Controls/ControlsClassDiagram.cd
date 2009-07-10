@@ -1,16 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CommonObjects.Controls.EventManager">
-    <Position X="0.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAAIAAAwggICIAwAAFADAAAkBAAgBhAAAQAIEFBEFAA=</HashCode>
-      <FileName>Controls\EventManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CommonObjects.Controls.ControlManager">
     <Position X="3.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQBAAIAQCAAEgAAhgSAAAAAIAAEBgQAIQGIEFBAAIA=</HashCode>
+      <HashCode>CAwBIAIAQCAAkgAAlgSAAAQAIAAEBgQAYQGIENBAAIA=</HashCode>
       <FileName>Controls\ControlManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -18,22 +11,22 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CommonObjects.Controls.GameControl" Collapsed="true">
+  <Class Name="CommonObjects.Controls.GameControl">
     <Position X="7.25" Y="0.75" Width="1.5" />
     <AssociationLine Name="mChildren" Type="CommonObjects.Controls.GameControl" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.75" Y="1.062" />
-        <Point X="9.125" Y="1.062" />
-        <Point X="9.125" Y="1.687" />
-        <Point X="8.244" Y="1.687" />
-        <Point X="8.244" Y="1.312" />
+        <Point X="8.75" Y="10.836" />
+        <Point X="9.125" Y="10.836" />
+        <Point X="9.125" Y="19.285" />
+        <Point X="8.244" Y="19.285" />
+        <Point X="8.244" Y="18.919" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-1.048" Y="0.493" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AvgEUFxEAmANkiGhgNExUCwKFghhgCQIAA2BAE4BAiE=</HashCode>
+      <HashCode>AvgEUFxEAmANkiGhgNExUCwKFghlgCQIQA2BAE4BAiE=</HashCode>
       <FileName>Controls\GameControl.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -42,17 +35,24 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="CommonObjects.Controls.GameLabel" Collapsed="true">
-    <Position X="7.25" Y="2.5" Width="1.5" />
+    <Position X="10.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controls\GameLabel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="CommonObjects.Controls.MouseButtonState" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="CommonObjects.EventManagement.EventManager" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
-      <FileName>Controls\EventManager.cs</FileName>
+      <HashCode>EAQAAAAQgAICIAwAAFADAAAkBAAgBhAAAQAIEFBEFAA=</HashCode>
+      <FileName>EventManager\EventManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CommonObjects.EventManagement.MouseButtonState" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAI=</HashCode>
+      <FileName>EventManager\EventManager.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

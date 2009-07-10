@@ -573,6 +573,16 @@ namespace CommonObjects.Graphics
 		}
 
 
+
+		#region IGameObject Members
+
+
+		public string name
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		#endregion
 	}
 }
 

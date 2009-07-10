@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace CommonObjects
 {
-   public interface IGameDrawable
+   public interface IGameDrawable : IGameObject 
     {
 	   bool IsVisible
 	   { get;}
@@ -16,6 +16,8 @@ namespace CommonObjects
 	   
 
        void Draw(DrawingArgs theDrawingArgs);
+
+
 
      
 
