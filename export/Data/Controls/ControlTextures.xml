@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<textures>	
+  <texture>
+    <id>1000</id>
+    <name>Pixel</name>
+    <path>\Controls\pixel.png</path>
+    <noColumns>1</noColumns>
+    <noRows>1</noRows>
+  </texture>
+  <texture>
+    <id>1001</id>
+    <name>Grey</name>
+    <path>\Controls\grey.png</path>
+    <noColumns>1</noColumns>
+    <noRows>1</noRows>
+  </texture>
+</textures>

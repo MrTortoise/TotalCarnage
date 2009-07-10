@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<textureCells>	
+  <textureCell>
+    <id>1000</id>
+    <textureID>1000</textureID>
+    <posX>0</posX>
+    <posY>0</posY>
+    <cellSizeX>1</cellSizeX>
+    <cellSizeY>1</cellSizeY>
+    <sizeX>1</sizeX>
+    <sizeY>1</sizeY>
+    <rotation>0</rotation>
+  </textureCell>
+  <textureCell>
+    <id>1001</id>
+    <textureID>1001</textureID>
+    <posX>0</posX>
+    <posY>0</posY>
+    <cellSizeX>32</cellSizeX>
+    <cellSizeY>32</cellSizeY>
+    <sizeX>32</sizeX>
+    <sizeY>32</sizeY>
+    <rotation>0</rotation>
+  </textureCell>
+</textureCells>
